@@ -4,18 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "Hand.generated.h"
-
+#include "New_Hand.generated.h"
 
 UCLASS()
-class VR_T_API AHand : public APawn
+class VR_T_API ANew_Hand : public APawn
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this pawn's properties
-	AHand();
-
+	ANew_Hand();
 
 protected:
 	// Called when the game starts or when spawned
@@ -28,18 +26,6 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UPROPERTY(EditAnywhere)
-		USceneComponent* OurVisibleComponent;
-
-	UParticleSystemComponent *OurParticleSystem;
-
-	class UHandMovementComponent* OurMovementComponent;
-
-	virtual UPawnMovementComponent* GetMovementComponent() const override;
-
-	void MoveForward(float AxisValue);
-	void MoveRight(float AxisValue);
-	void Turn(float AxisValue);
-	void ParticleToggle();
+	
 	
 };

@@ -9,10 +9,10 @@
 // Sets default values
 ACard::ACard(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
-		ProxSphere = ObjectInitializer.CreateDefaultSubobject<USphereComponent>(this,
+	ProxSphere = ObjectInitializer.CreateDefaultSubobject<USphereComponent>(this,
 			TEXT("Proximity Sphere"));
 	ProxSphere->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepWorldTransform);
-	ProxSphere->SetSphereRadius(32.0f);
+	ProxSphere->SetSphereRadius(64.0f);
 	// Code to make ANPC::Prox() run when this proximity sphere 
 	// overlaps another actor. 
 	ProxSphere->OnComponentBeginOverlap.AddDynamic(this, &ACard::Prox);
