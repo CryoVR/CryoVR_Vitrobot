@@ -6,23 +6,7 @@ UE4 VR Template Convert Full C++ Project.
 
 ---------------------
 
-## About
-
-Based on the VR Template in Unreal Engine 4, converted all the blueprints to C++.
-
-The basic configuration is the same as the BP VR Template.
-
-Thank you!
-
-안녕하세요, 솜이불입니다.
-
-이 프로젝트는 언리얼 엔진 4의 기본 VR Template을 기반으로 모든 블루프린트를 C++로 포팅한 프로젝트입니다.
-
-기본적인 구성과 사용 방식은 블루프린트 버전 VR Template과 동일하게 사용 가능합니다. 
-
-마지막으로 이 프로젝트는 MIT 라이센스를 기반으로 오픈 소스 공유를 허용합니다.
-
-감사합니다.
+I have tested in local machine, the code works well in UE 4.22. Let's stick to this template first...
 
 ---------------------
 
