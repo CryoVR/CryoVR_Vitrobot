@@ -1,33 +1,44 @@
-# Unreal VR Template C++ Sample
+﻿# SomTemplate_VR
+UE4 VR Template Convert Full C++ Project.
 
-### Setup to use as a sample project
-- Clone 'master' branch, or download latest sample project release: 
-   - https://github.com/sclark39/UE-VR-Code-Sample/releases/tag/ue-4.16.2
-- Open uproject file
+- Support Unreal Engine 4 Version : 4.18, 4.19, 4.20, 4.21, 4.22
+- Blueprints VR Template -> Full C++ VR Template
 
-### Setup to use as a Template
-- Switch to 'templatizing' branch, or download latest template package release: 
-   - https://github.com/sclark39/UE-VR-Code-Sample/releases/tag/ue-4.16.2-template
-- Open up explorer to C:\Program Files\Epic Games\UE_4.16\Templates
-- Delete TP_VirtualRealityBP folder
-- Copy TP_VirtualReality, TP_VirtualRealityBP, and TemplateResources folders from this project in
-- Launch Unreal, create a project using the template, and enjoy.
+---------------------
 
 ## About
 
-I was disappointed that there was no C++ version of Unreal 4.14's VR template, so I decided to make one.
+Based on the VR Template in Unreal Engine 4, converted all the blueprints to C++.
 
-I have an Oculus Rift, so for the Rift I made the teleport work more like Robo Rally since the original control scheme was pretty awkward. This can be changed in the Pawn's settings.
+The basic configuration is the same as the BP VR Template.
 
-If you see things that are not to Unreal Engine's coding standard, or know an easier way to accomplish anything please let me know or do a pull request!
+Thank you!
 
-I want this to be a learning resource that anyone can use, so I am publishing it under the MIT License but if this license causes an issue for you please let me know!
+안녕하세요, 솜이불입니다.
 
-### Changed
-- Teleport changed to be activated/deactivated by stick input like Robo Recall, rather than a seperate button for Rift (optional)
-- Fixed an issue in the HMDLocomotionPawn Blueprint which was passing in an incorrect launch velocity
+이 프로젝트는 언리얼 엔진 4의 기본 VR Template을 기반으로 모든 블루프린트를 C++로 포팅한 프로젝트입니다.
 
-### Missing
-- SteamVRChaperone / RoomScaleMesh not implemented
+기본적인 구성과 사용 방식은 블루프린트 버전 VR Template과 동일하게 사용 가능합니다. 
 
-See Issues tab for info on the progress of these missing features. I do not have a Vive or PSVR, so they are untested. I am happy to accept pull requests for any issues found.
+마지막으로 이 프로젝트는 MIT 라이센스를 기반으로 오픈 소스 공유를 허용합니다.
+
+감사합니다.
+
+---------------------
+
+# License
+
+<MIT License>
+
+The MIT License (MIT)
+
+Copyright (c) 2014-2019 Sombusta, All Rights Reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
