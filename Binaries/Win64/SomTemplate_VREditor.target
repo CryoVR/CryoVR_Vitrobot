@@ -9,9 +9,9 @@
 	{
 		"MajorVersion": 4,
 		"MinorVersion": 22,
-		"PatchVersion": 0,
-		"Changelist": 5660361,
-		"CompatibleChangelist": 0,
+		"PatchVersion": 1,
+		"Changelist": 6063286,
+		"CompatibleChangelist": 5660361,
 		"IsLicenseeVersion": 0,
 		"IsPromotedBuild": 1,
 		"BranchName": "++UE4+Release-4.22",
@@ -4679,6 +4679,10 @@
 		},
 		{
 			"Path": "$(EngineDir)/Binaries/ThirdParty/ARM/Win32/astcenc.exe",
+			"Type": "NonUFS"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/ThirdParty/libsndfile/Win64/libsndfile-1.dll",
 			"Type": "NonUFS"
 		},
 		{
