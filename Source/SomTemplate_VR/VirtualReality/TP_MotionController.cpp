@@ -53,7 +53,7 @@ ATP_MotionController::ATP_MotionController()
 	static ConstructorHelpers::FObjectFinder<UMaterial> M_ArcEndPoint(TEXT("Material'/Game/VirtualReality/Materials/M_ArcEndpoint.M_ArcEndpoint'"));
 	static ConstructorHelpers::FObjectFinder<UMaterialInstanceConstant> MI_TeleportCylinderPreview(TEXT("MaterialInstanceConstant'/Game/VirtualReality/Materials/MI_TeleportCylinderPreview.MI_TeleportCylinderPreview'"));
 	static ConstructorHelpers::FObjectFinder<UMaterialInstanceConstant> MI_ChaperoneOutline(TEXT("MaterialInstanceConstant'/Game/VirtualReality/Materials/MI_ChaperoneOutline.MI_ChaperoneOutline'"));
-	static ConstructorHelpers::FObjectFinder<UHapticFeedbackEffect_Base> HapticEffect(TEXT("HapticFeedbackEffect_Curve'/Game/VirtualRealityBP/Blueprints/MotionControllerHaptics.MotionControllerHaptics'"));
+	static ConstructorHelpers::FObjectFinder<UHapticFeedbackEffect_Base> HapticEffect(TEXT("HapticFeedbackEffect_Curve'/Game/VirtualRealityCPP/Blueprints/MotionControllerHaptics.MotionControllerHaptics'"));
 
 	// SomWorks :D // Create Components Initialize
 	RootScene = CreateDefaultSubobject<USceneComponent>(TEXT("RootScene"));
