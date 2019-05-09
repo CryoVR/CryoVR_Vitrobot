@@ -30,12 +30,5 @@ public:
 		
 	virtual void Drop_Implementation();
 
-private:
-
-
-protected:
-	
-
-public:	
 		
 };
