@@ -10,9 +10,12 @@ AVB_StaticActor::AVB_StaticActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
+
+	m_isOn = false;
+
 	meshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("meshComp"));
 	meshComp->SetGenerateOverlapEvents(false);
-	meshComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	meshComp->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
 	meshComp->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Block);
 	RootComponent = meshComp;
 
@@ -28,6 +31,16 @@ void AVB_StaticActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+bool AVB_StaticActor::getState()
+{
+	return m_isOn;
+}
+
+void AVB_StaticActor::setState(bool newState)
+{
+	m_isOn = newState;
 }
 
 // Called every frame
