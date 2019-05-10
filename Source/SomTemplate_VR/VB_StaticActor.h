@@ -27,7 +27,6 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UShapeComponent* shapeComp;
 
-
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 public:	
