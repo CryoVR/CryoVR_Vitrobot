@@ -20,7 +20,6 @@ public:
 
 
 protected:
-	//Member Variables
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UStaticMeshComponent* meshComp;
 
