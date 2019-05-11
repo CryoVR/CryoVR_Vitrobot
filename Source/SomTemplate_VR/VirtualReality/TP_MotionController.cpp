@@ -81,7 +81,7 @@ ATP_MotionController::ATP_MotionController()
 	HandMesh->SetupAttachment(MotionController);
 	HandMesh->SetRelativeLocation(FVector(-12.8f, -0.03f, -1.8f));
 	HandMesh->SetRelativeRotation(FRotator(0.0f, 0.0f, 90.0f));
-	HandMesh->SetRelativeScale3D(m_HandScale * FVector(0.8f, 0.8f, 0.8f));
+	HandMesh->SetRelativeScale3D(m_HandScale * FVector(1.0f, 1.0f, 1.0f));
 	HandMesh->SetCollisionProfileName(TEXT("NoCollision"));
 	HandMesh->CastShadow = false;
 	if (SK_Hand.Succeeded())
