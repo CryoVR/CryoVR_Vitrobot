@@ -4,6 +4,7 @@
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "VB_DynamicActor.h"
+#include "TimerManager.h"
 
 AVB_FloorActor::AVB_FloorActor() {
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_FloorMesh(TEXT("StaticMesh'/Game/Models/FloorMesh.FloorMesh'"));
@@ -24,6 +25,8 @@ void AVB_FloorActor::OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComp
 	if (OtherActor != nullptr) {
 		AVB_DynamicActor* overlappedDynamicActor = Cast<AVB_DynamicActor>(OtherActor);
 		if (overlappedDynamicActor != nullptr) {
+			//GetWorldTimerManager().ClearTimer(timeHandler);
+			//GetWorldTimerManager().SetTimer();
 			overlappedDynamicActor->ResetActorTransformation();
 		}
 	}
