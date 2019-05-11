@@ -41,7 +41,7 @@ ATP_MotionController::ATP_MotionController()
 	
 	// SomWorks :D // Animation Blueprint // cast "UClass" and Asset path is Different Why? -> Because UAnimBlueprint Class will crash a packaged game. so use postfix "_C", animation blueprint cast to UClass.
 	static ConstructorHelpers::FObjectFinder<UClass> AnimBP_HandAnimation(TEXT("Class'/Game/VirtualReality/Mannequin/Animations/AnimBP_SomRightHand.AnimBP_SomRightHand_C'"));
-
+	
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SK_Hand(TEXT("SkeletalMesh'/Game/VirtualReality/Mannequin/Character/Mesh/MannequinHand_Right.MannequinHand_Right'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Sphere(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Cylinder(TEXT("StaticMesh'/Engine/BasicShapes/Cylinder.Cylinder'"));
@@ -77,9 +77,11 @@ ATP_MotionController::ATP_MotionController()
 	MotionController->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
 	MotionController->SetCollisionProfileName(TEXT("BlockAll"));
 
+	m_HandScale = 0.8f;
 	HandMesh->SetupAttachment(MotionController);
 	HandMesh->SetRelativeLocation(FVector(-12.8f, -0.03f, -1.8f));
 	HandMesh->SetRelativeRotation(FRotator(0.0f, 0.0f, 90.0f));
+	HandMesh->SetRelativeScale3D(m_HandScale * FVector(0.8f, 0.8f, 0.8f));
 	HandMesh->SetCollisionProfileName(TEXT("NoCollision"));
 	HandMesh->CastShadow = false;
 	if (SK_Hand.Succeeded())
@@ -235,7 +237,7 @@ void ATP_MotionController::BeginPlay()
 	// SomWorks :D // if Controller state is Left then Reflect Hand
 	if (Hand == EControllerHand::Left)
 	{
-		HandMesh->SetWorldScale3D(FVector(1.0f, 1.0f, -1.0f));
+		HandMesh->SetWorldScale3D(m_HandScale * FVector(1.0f, 1.0f, -1.0f));
 	}
 }
 

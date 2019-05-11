@@ -154,6 +154,9 @@ private: // SomWorks :D // Variables Initialization //
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "VRTemplate|Variables", meta = (AllowPrivateAccess = "true"))
 	class UMaterial* BeamMaterial;
+	
+	//Define hand scale factor, default is 0.8f
+	float m_HandScale;
 
 protected:	
 
