@@ -17,9 +17,16 @@ public:
 	//Set default
 	AVB_DynamicActor();
 
-protected:
 	//Define whether this object can be picked up
+	UPROPERTY(EditDefaultsOnly, Category = "Actor Behavior")
 	bool m_isPickable;
+
+	virtual void Pickup_Implementation(class USceneComponent* AttachTo);
+
+
+protected:
+	
+
 
 
 };

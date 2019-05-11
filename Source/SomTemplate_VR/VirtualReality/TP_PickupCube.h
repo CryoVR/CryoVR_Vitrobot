@@ -13,6 +13,7 @@ class SOMTEMPLATE_VR_API ATP_PickupCube : public AActor, public ITP_InteractionI
 {
 	GENERATED_BODY()
 	
+protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VRTemplate|Pickup", meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* PickupMesh;
 	
