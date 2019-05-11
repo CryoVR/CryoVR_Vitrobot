@@ -20,6 +20,7 @@ AVB_StaticActor::AVB_StaticActor()
 	RootComponent = meshComp;
 
 	shapeComp = CreateDefaultSubobject<UBoxComponent>(TEXT("CollisionShape"));
+	shapeComp->SetGenerateOverlapEvents(true);
 	shapeComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	shapeComp->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	shapeComp->SetupAttachment(meshComp);

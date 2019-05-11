@@ -6,12 +6,18 @@
 #include "VB_StaticActor.h"
 #include "VB_FloorActor.generated.h"
 
+class AVB_DynamicActor;
 /**
- * 
+ * This class represents floor. This class will be responsible for teleporting dynamic actors back to their original location when dynamic actors collide with the floor.
  */
 UCLASS()
 class SOMTEMPLATE_VR_API AVB_FloorActor : public AVB_StaticActor
 {
 	GENERATED_BODY()
-	
+public:
+	AVB_FloorActor();
+
+	UFUNCTION()
+	void OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
 };

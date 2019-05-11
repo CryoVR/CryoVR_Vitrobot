@@ -16,6 +16,12 @@ void AVB_DynamicActor::Pickup_Implementation(USceneComponent * AttachTo)
 	}
 }
 
+void AVB_DynamicActor::BeginPlay()
+{
+	Super::BeginPlay();
+	m_OriginalTransform = GetActorTransform();
+}
+
 void AVB_DynamicActor::setPickable(bool newPickable)
 {
 	m_isPickable = newPickable;
@@ -24,4 +30,9 @@ void AVB_DynamicActor::setPickable(bool newPickable)
 bool AVB_DynamicActor::getPickable()
 {
 	return m_isPickable;
+}
+
+void AVB_DynamicActor::ResetActorTransformation()
+{
+	SetActorTransform(m_OriginalTransform);
 }
