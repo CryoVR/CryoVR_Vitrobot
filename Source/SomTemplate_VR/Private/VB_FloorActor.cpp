@@ -4,19 +4,18 @@
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "VB_DynamicActor.h"
-
+#include "TimerManager.h"
 
 AVB_FloorActor::AVB_FloorActor() {
-	teleportDynamicActorTimer = 3.0f;
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_FloorMesh(TEXT("StaticMesh'/Game/Models/FloorMesh.FloorMesh'"));
 	if (SM_FloorMesh.Succeeded()) {
 		meshComp->SetStaticMesh(SM_FloorMesh.Object);
 	}
-
 	UBoxComponent* floorCollisionBox = Cast<UBoxComponent>(shapeComp);
 	if (floorCollisionBox != nullptr) {
 		floorCollisionBox->SetBoxExtent(FVector(512.0f, 512.0f, 32.0f));
 	}
+	
 	floorCollisionBox->OnComponentBeginOverlap.AddDynamic(this, &AVB_FloorActor::OnComponentBeginOverlap);
 
 }
@@ -26,8 +25,9 @@ void AVB_FloorActor::OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComp
 	if (OtherActor != nullptr) {
 		AVB_DynamicActor* overlappedDynamicActor = Cast<AVB_DynamicActor>(OtherActor);
 		if (overlappedDynamicActor != nullptr) {
-
-			overlappedDynamicActor->OnHitGround(teleportDynamicActorTimer);
+			//GetWorldTimerManager().ClearTimer(timeHandler);
+			//GetWorldTimerManager().SetTimer();
+			overlappedDynamicActor->ResetActorTransformation();
 		}
 	}
 }
