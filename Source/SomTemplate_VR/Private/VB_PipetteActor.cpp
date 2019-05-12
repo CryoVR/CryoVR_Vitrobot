@@ -7,7 +7,7 @@
 #include "Public/Engine.h"
 #include "VB_SampleTubeActor.h"
 
-class UPrimitiveComponent
+class UPrimitiveComponent;
 
 AVB_PipetteActor::AVB_PipetteActor()
 {
