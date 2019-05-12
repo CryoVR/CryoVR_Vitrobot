@@ -14,13 +14,11 @@ AVB_PipetteActor::AVB_PipetteActor()
 	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_PipetteActor::OnOverlapBegin);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 154402c... Pipet_Change
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Models/Pipet.Pipet'"));
 	UStaticMesh* Asset = SM_Pickup.Object;
-=======
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Models/Tweezer.Tweezer'"));
-	UStaticMesh* Asset = SM_Pickup.Object;
-
->>>>>>> 8e9b7b433f6da1825b768d591449f82a11b2f927
 	PickupMesh->SetStaticMesh(Asset);
 =======
 >>>>>>> parent of a832acb... Pippet_test
@@ -37,12 +35,15 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 		UE_LOG(LogTemp, Log, TEXT("Activated"));
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Models/Pipet.Pipet'"));
 		UStaticMesh* Asset = SM_Pickup.Object;
 
 		PickupMesh->SetStaticMesh(Asset);
 >>>>>>> 8e9b7b433f6da1825b768d591449f82a11b2f927
+=======
+>>>>>>> parent of 154402c... Pipet_Change
 
 =======
 >>>>>>> parent of a832acb... Pippet_test
