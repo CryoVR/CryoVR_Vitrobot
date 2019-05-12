@@ -13,6 +13,7 @@ AVB_PipetteActor::AVB_PipetteActor()
 	SphereComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_PipetteActor::OnOverlapBegin);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Models/Pipet.Pipet'"));
 	UStaticMesh* Asset = SM_Pickup.Object;
 =======
@@ -21,6 +22,8 @@ AVB_PipetteActor::AVB_PipetteActor()
 
 >>>>>>> 8e9b7b433f6da1825b768d591449f82a11b2f927
 	PickupMesh->SetStaticMesh(Asset);
+=======
+>>>>>>> parent of a832acb... Pippet_test
 
 	
 
@@ -30,11 +33,9 @@ AVB_PipetteActor::AVB_PipetteActor()
 void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {	
 	if (Cast<AVB_SampleTubeActor>(OtherActor) != nullptr)
-	{	
-		static ConstructorHelpers::FObjectFinder<UMaterialInstanceConstant> MI_SmallCubes(TEXT("MaterialInstanceConstant'/Game/VirtualReality/Materials/MI_SmallCubes.MI_SmallCubes'"));
-		UMaterialInstanceConstant* Material = MI_SmallCubes.Object; 
-		PickupMesh->SetMaterial(5, Material);
+	{
 		UE_LOG(LogTemp, Log, TEXT("Activated"));
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 		static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Models/Pipet.Pipet'"));
@@ -43,8 +44,9 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 		PickupMesh->SetStaticMesh(Asset);
 >>>>>>> 8e9b7b433f6da1825b768d591449f82a11b2f927
 
+=======
+>>>>>>> parent of a832acb... Pippet_test
 	}
-	
 
 }
 

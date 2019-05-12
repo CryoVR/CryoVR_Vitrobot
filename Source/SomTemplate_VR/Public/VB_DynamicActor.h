@@ -25,7 +25,10 @@ public:
 	void setPickable(bool newPickable);
 	bool getPickable();
 
-	void ResetActorTransformation();
+	void OnHitGround(float resetTransformTimer);
+	//Reset Actor to original position and state
+	UFUNCTION()
+	void ResetActorState();
 
 protected:
 	//Define whether this object can be picked up
@@ -33,4 +36,6 @@ protected:
 	bool m_isPickable;
 	//Set actor original position, rotation and scale
 	FTransform m_OriginalTransform;
+	//Time Handler
+	FTimerHandle timeHandler;
 };
