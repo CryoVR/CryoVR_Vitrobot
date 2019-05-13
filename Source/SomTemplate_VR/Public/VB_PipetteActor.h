@@ -22,9 +22,7 @@ public:
 	//Declare overlap begin function
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-	//This is the function that may be used in the future
-	//UFUNCTION()
-	//void OnOverlap(AActor* OverlappedActor, AActor* OtherActor);
+
 protected:
 
 		UPROPERTY(VisibleAnywhere, Category = "Components")
@@ -32,7 +30,6 @@ protected:
 		UPROPERTY(VisibleAnywhere, Category = "Components")
 		UStaticMeshComponent* OverlappedComp;
 		AActor* OverlappedActor;
-		UMaterialInstance* TempMaterial;
 
 
 };

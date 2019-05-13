@@ -14,6 +14,7 @@ AVB_PipetteActor::AVB_PipetteActor()
 	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
 	SphereComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_PipetteActor::OnOverlapBegin);
+
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Models/Pipet.Pipet'"));
 	if (SM_Pickup.Succeeded()) 
 	{
@@ -25,7 +26,8 @@ AVB_PipetteActor::AVB_PipetteActor()
 
 
 void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
+{	
+	//When overlaps with the sample tube
 	if (Cast<AVB_SampleTubeActor>(OtherActor) != nullptr)
 	{
 		//This one is for the constructor function.Temporary can not be used.
@@ -35,10 +37,8 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 		DynamicMaterial->SetVectorParameterValue("BodyColor", FLinearColor::Blue);
 		
 
-		//TempMaterial = PickupMesh->GetMaterial(0);
 		if (DynamicMaterial != nullptr) 
-		{
-			//UMaterial* Material = TempMaterial.Object;
+		{	
 			PickupMesh->SetMaterial(4, DynamicMaterial);
 			UE_LOG(LogTemp, Log, TEXT("Activated"));
 		}
@@ -47,10 +47,4 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 
 
 
-//This is an potential function that may be used in the future
-/*
-void AVB_PipetteActor::OnOverlap(AActor* OverlappedActor, AActor* OtherActor)
-{
-	UE_LOG(LogTemp, Log, TEXT("Activated"));
-}
-*/
+
