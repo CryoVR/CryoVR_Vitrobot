@@ -7,6 +7,8 @@
 #include "Public/Engine.h"
 #include "VB_SampleTubeActor.h"
 
+class UPrimitiveComponent
+
 AVB_PipetteActor::AVB_PipetteActor()
 {
 	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
@@ -15,7 +17,7 @@ AVB_PipetteActor::AVB_PipetteActor()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Models/Pipet.Pipet'"));
 	UStaticMesh* Asset = SM_Pickup.Object;
 	PickupMesh->SetStaticMesh(Asset);
-
+	SphereComp->SetupAttachment(PickupMesh);
 
 
 }
@@ -25,9 +27,9 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 {
 	if (Cast<AVB_SampleTubeActor>(OtherActor) != nullptr)
 	{
-		static ConstructorHelpers::FObjectFinder<UMaterialInstanceConstant> MI_SmallCubes(TEXT("MaterialInstanceConstant'/Game/VirtualReality/Materials/MI_SmallCubes.MI_SmallCubes'"));
+		static ConstructorHelpers::FObjectFinder<UMaterialInstanceConstant> MI_SmallCubes(TEXT("MaterialInstanceConstant'/Game/Models/Pipet_body01Mat.Pipet_body01Mat'"));
 		UMaterialInstanceConstant* Material = MI_SmallCubes.Object;
-		PickupMesh->SetMaterial(5, Material);
+		PickupMesh->SetMaterial(4, Material);
 		UE_LOG(LogTemp, Log, TEXT("Activated"));
 
 	}
