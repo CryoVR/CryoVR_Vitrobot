@@ -9,10 +9,16 @@
 /**
  * 
  */
+
+class UStaticMeshComponent;
+
 UCLASS()
 class SOMTEMPLATE_VR_API AVB_AirTankActor : public AVB_StaticActor
 {
 	GENERATED_BODY()
+protected:
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UStaticMeshComponent* firstKnob;
 
 public:
 	AVB_AirTankActor();
