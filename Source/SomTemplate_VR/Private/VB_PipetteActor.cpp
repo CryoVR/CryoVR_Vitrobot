@@ -28,10 +28,10 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 {
 	if (Cast<AVB_SampleTubeActor>(OtherActor) != nullptr)
 	{
-		static ConstructorHelpers::FObjectFinder<UMaterialInstanceConstant> MI_SmallCubes(TEXT("MaterialInstanceConstant'/Game/Models/Pipet_body01Mat.Pipet_body01Mat'"));
+		static ConstructorHelpers::FObjectFinder<UMaterial> MI_SmallCubes(TEXT("MaterialInstanceConstant'/Game/Models/Pipet_body01Mat.Pipet_body01Mat'"));
 		if (MI_SmallCubes.Succeeded()) 
 		{
-			UMaterialInstanceConstant* Material = MI_SmallCubes.Object;
+			UMaterial* Material = MI_SmallCubes.Object;
 			PickupMesh->SetMaterial(4, Material);
 			UE_LOG(LogTemp, Log, TEXT("Activated"));
 		}
