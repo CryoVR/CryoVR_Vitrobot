@@ -12,6 +12,10 @@ AVB_PipetteActor::AVB_PipetteActor()
 	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
 	SphereComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_PipetteActor::OnOverlapBegin);
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Models/Tweezer.Tweezer'"));
+	UStaticMesh* Asset = SM_Pickup.Object;
+
+	PickupMesh->SetStaticMesh(Asset);
 
 	
 
@@ -23,7 +27,13 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 	if (Cast<AVB_SampleTubeActor>(OtherActor) != nullptr)
 	{
 		UE_LOG(LogTemp, Log, TEXT("Activated"));
+		static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Models/Pipet.Pipet'"));
+		UStaticMesh* Asset = SM_Pickup.Object;
+
+		PickupMesh->SetStaticMesh(Asset);
+
 	}
+	
 
 }
 
