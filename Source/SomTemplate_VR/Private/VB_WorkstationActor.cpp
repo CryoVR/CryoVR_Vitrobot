@@ -5,6 +5,7 @@
 #include "Public/Engine.h"
 #include "Components/Boxcomponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "VB_DewarActor.h"
 
 AVB_WorkstationActor::AVB_WorkstationActor() 
 {
@@ -19,15 +20,30 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 		PickupMesh->SetStaticMesh(Asset);
 		BoxComp->SetupAttachment(PickupMesh);
 	}
+
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> P_Effect(TEXT("ParticleSystem'/Game/Test_Geometry/Test_Particle/P_Steam_Lit.P_Steam_Lit'"));
+	if (P_Effect.Succeeded())
+	{
+		FrozenFX = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("FrozenEffect"));
+		FrozenFX->SetTemplate(P_Effect.Object);
+		FrozenFX->SetVisibility(false);
+		FrozenFX->SetupAttachment(PickupMesh);
+	}
 }
 
+/*
 void AVB_WorkstationActor::PlayEffects()
 {
 	UGameplayStatics::SpawnEmitterAtLocation(this, FrozenFX, GetActorLocation());
 }
+*/
 
 void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	PlayEffects();
+	
+	if (Cast<AVB_DewarActor>(OtherActor) != nullptr)
+	{
+		FrozenFX->SetVisibility(true);
+	}
 }
 
