@@ -2,12 +2,9 @@
 
 #include "VB_DynamicActor.h"
 #include "Components/StaticMeshComponent.h"
-#include "TimerManager.h"
-
 
 AVB_DynamicActor::AVB_DynamicActor() {
 	m_isPickable = true;
-	PickupMesh->SetSimulatePhysics(false);
 }
 
 void AVB_DynamicActor::Pickup_Implementation(USceneComponent * AttachTo)
@@ -35,14 +32,7 @@ bool AVB_DynamicActor::getPickable()
 	return m_isPickable;
 }
 
-void AVB_DynamicActor::OnHitGround(float resetTransformTimer)
-{
-	GetWorldTimerManager().ClearTimer(timeHandler);
-	GetWorldTimerManager().SetTimer(timeHandler, this, &AVB_DynamicActor::ResetActorState, resetTransformTimer);
-}
-
-void AVB_DynamicActor::ResetActorState()
+void AVB_DynamicActor::ResetActorTransformation()
 {
 	SetActorTransform(m_OriginalTransform);
-	PickupMesh->SetSimulatePhysics(false);
 }
