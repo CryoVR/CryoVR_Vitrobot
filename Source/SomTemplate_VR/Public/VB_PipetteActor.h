@@ -32,6 +32,7 @@ protected:
 		UPROPERTY(VisibleAnywhere, Category = "Components")
 		UStaticMeshComponent* OverlappedComp;
 		AActor* OverlappedActor;
+		UMaterialInstance* TempMaterial;
 
 
 };
