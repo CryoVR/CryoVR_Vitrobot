@@ -26,7 +26,6 @@ void AVB_FloorActor::OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComp
 	if (OtherActor != nullptr) {
 		AVB_DynamicActor* overlappedDynamicActor = Cast<AVB_DynamicActor>(OtherActor);
 		if (overlappedDynamicActor != nullptr) {
-
 			overlappedDynamicActor->OnHitGround(teleportDynamicActorTimer);
 		}
 	}
