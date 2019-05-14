@@ -5,6 +5,8 @@
 #include "Components/CapsuleComponent.h"
 
 AVB_AirTankActor::AVB_AirTankActor() {
+	PrimaryActorTick.bCanEverTick = true;
+
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_AirtankMesh(TEXT("StaticMesh'/Game/Models/EthaneTank.EthaneTank'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_FirstKnobMesh(TEXT("StaticMesh'/Game/Models/EthaneKnob.EthaneKnob'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_SecondKnobMesh(TEXT("StaticMesh'/Game/Models/EthaneKnob_02.EthaneKnob_02'"));
@@ -32,5 +34,13 @@ AVB_AirTankActor::AVB_AirTankActor() {
 	Cast<UCapsuleComponent>(shapeComp)->SetCapsuleSize(3.5f, 3.5f);
 	shapeComp->SetupAttachment(firstKnob);
 	shapeComp->SetRelativeLocation(FVector(0.0f, 0.0f, 2.0f));
+
+
+}
+
+void AVB_AirTankActor::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
 }
  

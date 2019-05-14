@@ -20,7 +20,11 @@ protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	UStaticMeshComponent* firstKnob;
 
+	
+
 public:
 	AVB_AirTankActor();
+
+	virtual void Tick(float DeltaTime) override;
 	
 };
