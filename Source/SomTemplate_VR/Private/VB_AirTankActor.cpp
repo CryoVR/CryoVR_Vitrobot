@@ -10,7 +10,7 @@ AVB_AirTankActor::AVB_AirTankActor() {
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_AirtankMesh(TEXT("StaticMesh'/Game/Models/EthaneTank.EthaneTank'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_FirstKnobMesh(TEXT("StaticMesh'/Game/Models/EthaneKnob.EthaneKnob'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_SecondKnobMesh(TEXT("StaticMesh'/Game/Models/EthaneKnob_02.EthaneKnob_02'"));
-	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pointer(TEXT("StaticMesh'/Game/Models/EthanePointer.EthanePointer'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pointer(TEXT("StaticMesh'/Game/Models/EthanePointer.EthanePointer'"));
 
 	if (SM_AirtankMesh.Succeeded()) {
 		meshComp->SetStaticMesh(SM_AirtankMesh.Object);
@@ -40,6 +40,20 @@ AVB_AirTankActor::AVB_AirTankActor() {
 	firstPointer->SetGenerateOverlapEvents(false);
 	firstPointer->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	firstPointer->SetupAttachment(meshComp);
+	//FQuat newPointerQuat = FQuat(FRotator(-127.524f, 55.0f, -133.1f));
+	//FQuat newPointerQuat = FQuat(FRotator(232.476f, 55.0f, 226.9f));
+	FQuat newPointerQuat = FQuat(FRotator(55.0f, -133.1f, -127.52f));
+	firstPointer->AddLocalRotation(newPointerQuat);
+	FRotator test = firstPointer->GetComponentRotation();
+	FString AAA = test.ToString();
+	const TCHAR* BBB = *AAA;
+	//UE_LOG(LogTemp, Log, TEXT("Test =================================================== %s"), BBB);
+	//firstPointer->SetRelativeRotation(newPointerQuat);
+	//firstPointer->AddLocalRotation(FRotator(232.476f, 55.0f, 226.9f));
+	firstPointer->SetRelativeLocation(FVector(-12.653f, -4.8575f, 54.3f));
+	if (SM_Pointer.Succeeded()) {
+		firstPointer->SetStaticMesh(SM_Pointer.Object);
+	}
 
 
 }

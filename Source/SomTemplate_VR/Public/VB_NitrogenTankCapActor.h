@@ -27,6 +27,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UBoxComponent* BoxComp;
 
-
+	
 
 };
+

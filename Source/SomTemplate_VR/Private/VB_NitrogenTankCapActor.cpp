@@ -4,8 +4,11 @@
 #include "VB_NitrogenTankCapActor.h"
 #include "Public/Engine.h"
 #include "Components/Boxcomponent.h"
+#include "Components/Scenecomponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "VB_DewarActor.h"
+#include "TimerManager.h"
+
 AVB_NitrogenTankCapActor::AVB_NitrogenTankCapActor()
 {
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComp"));
@@ -22,11 +25,19 @@ AVB_NitrogenTankCapActor::AVB_NitrogenTankCapActor()
 	}
 }
 
+void AVB_NitrogenTankCapActor::setSimuPhy()
+{
+	PickupMesh->SetSimulatePhysics(false);
+}
+
 void AVB_NitrogenTankCapActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (Cast<AVB_DewarActor>(OtherActor) != nullptr)
 	{
-		FName DewarSocket = TEXT("CaPSocket");
-		PickupMesh->AttachTo(PickupMesh, DewarSocket, EAttachLocation::SnapToTarget, true);
+		FName DewarSocket = "CapSocket";
+		FAttachmentTransformRules AttachmentTransformRules(EAttachmentRule::SnapToTarget, false);
+		PickupMesh->AttachToComponent(OtherActor->GetRootComponent(), AttachmentTransformRules, DewarSocket);
 	}
 }
+
+
