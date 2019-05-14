@@ -4,32 +4,29 @@
 
 #include "CoreMinimal.h"
 #include "VB_DynamicActor.h"
-#include "VB_PipetteActor.generated.h"
+#include "VB_NitrogenTankCapActor.generated.h"
 
-class USphereComponent;
+class UBoxComponent;
+
 /**
  * 
  */
 UCLASS()
-class SOMTEMPLATE_VR_API AVB_PipetteActor : public AVB_DynamicActor
+class SOMTEMPLATE_VR_API AVB_NitrogenTankCapActor : public AVB_DynamicActor
 {
 	GENERATED_BODY()
-
+	
 public:
+	AVB_NitrogenTankCapActor();
 
-	//Set default
-	AVB_PipetteActor();
-	//Declare overlap begin function
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-	USphereComponent* SphereComp;
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UStaticMeshComponent* OverlappedComp;
-	AActor* OverlappedActor;
+	UBoxComponent* BoxComp;
+
 
 
 };

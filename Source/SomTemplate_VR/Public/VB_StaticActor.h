@@ -21,10 +21,10 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
-		UStaticMeshComponent* meshComp;
+	UStaticMeshComponent* meshComp;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-		UShapeComponent* shapeComp;
+	UShapeComponent* shapeComp;
 
 	//Indicate whether the device is on or off, by default it's off
 	bool m_isOn;
