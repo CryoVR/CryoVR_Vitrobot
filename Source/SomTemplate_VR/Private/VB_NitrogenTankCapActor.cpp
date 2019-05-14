@@ -12,7 +12,7 @@ AVB_NitrogenTankCapActor::AVB_NitrogenTankCapActor()
 	BoxComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_NitrogenTankCapActor::OnOverlapBegin);
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_DewarCap(TEXT("StaticMesh'/Game/Models/NitrogenTankCapMesh. NitrogenTankCapMesh'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_DewarCap(TEXT("StaticMesh'/Game/Models/NitrogenTankCapMesh.NitrogenTankCapMesh'"));
 	if (SM_DewarCap.Succeeded())
 	{
 		UStaticMesh* Asset = SM_DewarCap.Object;
