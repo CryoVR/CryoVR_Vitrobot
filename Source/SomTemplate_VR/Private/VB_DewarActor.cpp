@@ -22,12 +22,16 @@ AVB_DewarActor::AVB_DewarActor()
 		BoxCompCap->SetupAttachment(PickupMesh);
 
 	}
-}
 
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> P_Effect(TEXT("ParticleSystem'/Game/Test_Geometry/Test_Particle/P_Steam_Lit.P_Steam_Lit'"));
+	if (P_Effect.Succeeded())
+	{
+		FrozenFX = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("FrozenEffect"));
+		FrozenFX->SetTemplate(P_Effect.Object);
+		FrozenFX->SetVisibility(false);
+		FrozenFX->SetupAttachment(PickupMesh);
+	}
 
-void AVB_DewarActor::PlayEffects()
-{
-	UGameplayStatics::SpawnEmitterAtLocation(this, FrozenFX, GetActorLocation());
 }
 
 
