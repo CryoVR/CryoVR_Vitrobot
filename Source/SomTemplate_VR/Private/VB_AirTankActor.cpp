@@ -10,6 +10,7 @@ AVB_AirTankActor::AVB_AirTankActor() {
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_AirtankMesh(TEXT("StaticMesh'/Game/Models/EthaneTank.EthaneTank'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_FirstKnobMesh(TEXT("StaticMesh'/Game/Models/EthaneKnob.EthaneKnob'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_SecondKnobMesh(TEXT("StaticMesh'/Game/Models/EthaneKnob_02.EthaneKnob_02'"));
+	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pointer(TEXT("StaticMesh'/Game/Models/EthanePointer.EthanePointer'"));
 
 	if (SM_AirtankMesh.Succeeded()) {
 		meshComp->SetStaticMesh(SM_AirtankMesh.Object);
@@ -34,6 +35,11 @@ AVB_AirTankActor::AVB_AirTankActor() {
 	Cast<UCapsuleComponent>(shapeComp)->SetCapsuleSize(3.5f, 3.5f);
 	shapeComp->SetupAttachment(firstKnob);
 	shapeComp->SetRelativeLocation(FVector(0.0f, 0.0f, 2.0f));
+
+	firstPointer = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Pointer"));
+	firstPointer->SetGenerateOverlapEvents(false);
+	firstPointer->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	firstPointer->SetupAttachment(meshComp);
 
 
 }

@@ -20,6 +20,8 @@ protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	UStaticMeshComponent* firstKnob;
 
+	UStaticMeshComponent* firstPointer;
+	UStaticMeshComponent* secondPointer;
 	
 
 public:
