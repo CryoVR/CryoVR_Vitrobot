@@ -11,14 +11,14 @@
  */
 
 class UStaticMeshComponent;
-class USphereComponent;
+class UCapsuleComponent;
 
 UCLASS()
 class SOMTEMPLATE_VR_API AVB_AirTankActor : public AVB_StaticActor
 {
 	GENERATED_BODY()
 private:
-	bool isFirstKnobOn;
+	bool m_isFirstKnobOn;
 protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UStaticMeshComponent* firstKnob;
@@ -32,7 +32,8 @@ protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UStaticMeshComponent* secondPointer;
 
-	UCapsuleComponent* secondKnobCollision;
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+		UCapsuleComponent* secondKnobCollisionComp;
 
 public:
 	AVB_AirTankActor();

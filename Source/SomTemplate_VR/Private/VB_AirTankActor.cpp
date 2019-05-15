@@ -13,7 +13,7 @@
 AVB_AirTankActor::AVB_AirTankActor() {
 	PrimaryActorTick.bCanEverTick = true;
 
-	isFirstKnobOn = false;
+	m_isFirstKnobOn = false;
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_AirtankMesh(TEXT("StaticMesh'/Game/Models/EthaneTank.EthaneTank'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_FirstKnobMesh(TEXT("StaticMesh'/Game/Models/EthaneKnob.EthaneKnob'"));
@@ -39,14 +39,27 @@ AVB_AirTankActor::AVB_AirTankActor() {
 	shapeComp->SetGenerateOverlapEvents(true);
 	shapeComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	shapeComp->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
-	Cast<UCapsuleComponent>(shapeComp)->SetCapsuleSize(3.5f, 3.5f);
 	shapeComp->SetupAttachment(firstKnob);
 	shapeComp->SetRelativeLocation(FVector(0.0f, 0.0f, 2.0f));
+	Cast<UCapsuleComponent>(shapeComp)->SetCapsuleSize(3.5f, 3.5f);
 
 	//Second Knob
 	secondKnob = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SecondKnobMesh"));
 	secondKnob->SetGenerateOverlapEvents(false);
 	secondKnob->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	secondKnob->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+	secondKnob->SetupAttachment(meshComp);
+	secondKnob->SetRelativeLocationAndRotation(FVector(-25.21f, -1.248f, 41.682f), FRotator(0.0f, 0.0f, -120.0f));
+	if (SM_SecondKnobMesh.Succeeded()) {
+		secondKnob->SetStaticMesh(SM_SecondKnobMesh.Object);
+	}
+	secondKnobCollisionComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("SecondKnobCollisionComponent"));
+	secondKnobCollisionComp->SetGenerateOverlapEvents(true);
+	secondKnobCollisionComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	secondKnobCollisionComp->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+	secondKnobCollisionComp->SetupAttachment(secondKnob);
+	secondKnobCollisionComp->SetRelativeLocation(FVector(0.0f, -0.04f, 3.26f));
+	Cast<UCapsuleComponent>(secondKnobCollisionComp)->SetCapsuleSize(1.8f, 1.8f);
 
 	//First pointer mesh
 	firstPointer = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Pointer_01"));
