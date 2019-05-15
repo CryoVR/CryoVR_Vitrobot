@@ -25,14 +25,14 @@ public:
 	UFUNCTION()
 	void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+	//void Tick(float DeltaTime);
+
 protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UBoxComponent* BoxCompCap;
 	UPROPERTY(VisibleAnywhere, Category = "ParticleEffect")
 	UParticleSystemComponent* FrozenFX;
-
-	void PlayEffects();
 
 
 };
