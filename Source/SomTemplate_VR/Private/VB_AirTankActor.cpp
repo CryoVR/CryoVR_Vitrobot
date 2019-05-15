@@ -18,7 +18,7 @@ AVB_AirTankActor::AVB_AirTankActor() {
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_AirtankMesh(TEXT("StaticMesh'/Game/Models/EthaneTank.EthaneTank'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_FirstKnobMesh(TEXT("StaticMesh'/Game/Models/EthaneKnob.EthaneKnob'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_SecondKnobMesh(TEXT("StaticMesh'/Game/Models/EthaneKnob_02.EthaneKnob_02'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pointer(TEXT("StaticMesh'/Game/Models/EthanePointer.EthanePointer'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_PointerMesh(TEXT("StaticMesh'/Game/Models/EthanePointer.EthanePointer'"));
 	//Main Airtank Mesh
 	if (SM_AirtankMesh.Succeeded()) {
 		meshComp->SetStaticMesh(SM_AirtankMesh.Object);
@@ -74,9 +74,9 @@ AVB_AirTankActor::AVB_AirTankActor() {
 	secondPointer->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	secondPointer->SetupAttachment(meshComp);
 	secondPointer->SetRelativeLocationAndRotation(FVector(-26.30f, -3.678f, 51.83f), FRotator(12.839f, -172.94f, -150.13f));
-	if (SM_Pointer.Succeeded()) {
-		firstPointer->SetStaticMesh(SM_Pointer.Object);
-		secondPointer->SetStaticMesh(SM_Pointer.Object);
+	if (SM_PointerMesh.Succeeded()) {
+		firstPointer->SetStaticMesh(SM_PointerMesh.Object);
+		secondPointer->SetStaticMesh(SM_PointerMesh.Object);
 	}
 
 }

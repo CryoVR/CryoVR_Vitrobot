@@ -9,10 +9,24 @@
 /**
  * 
  */
+
+class UParticleSystem;
+class UCapsuleComponent;
+
 UCLASS()
 class SOMTEMPLATE_VR_API AVB_EthaneTipActor : public AVB_DynamicActor
 {
 	GENERATED_BODY()
 	
+public:
+	AVB_EthaneTipActor();
+
+protected:
+	UPROPERTY(VisibleAnyWhere, Category = "Particles")
+		UParticleSystem* ethaneParticle;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UCapsuleComponent* ethaneCollisionComp;
+
 
 };
