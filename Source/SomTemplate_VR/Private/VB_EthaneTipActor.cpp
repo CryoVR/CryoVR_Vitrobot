@@ -5,10 +5,16 @@
 #include "UObject/ConstructorHelpers.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Particles/ParticleSystem.h"
 
 AVB_EthaneTipActor::AVB_EthaneTipActor() {
 
-	//static ConstructorHelpers::FObjectFinder<UStaticMeshComponent> SM_EthaneTipMesh(TEXT(""));
-	//Pickup
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_EthaneTipMesh(TEXT("StaticMesh'/Game/Models/EthaneTip.EthaneTip'"));
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> PAR_EthaneParticle(TEXT("ParticleSystem'/Game/Particles/EthaneSplash_P.EthaneSplash_P'"));
+	//Set up base mesh
+	if (SM_EthaneTipMesh.Succeeded()) {
+		PickupMesh->SetStaticMesh(SM_EthaneTipMesh.Object);
+	}
+
 
 }
