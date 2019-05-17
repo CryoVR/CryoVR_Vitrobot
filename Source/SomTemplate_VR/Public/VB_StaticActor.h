@@ -1,5 +1,5 @@
 // Copyright (c) 2014-2019 Sombusta, All Rights Reserved.
-
+//Written by Jun Zhang, May 2019
 #pragma once
 
 #include "CoreMinimal.h"
@@ -21,10 +21,10 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
-		UStaticMeshComponent* meshComp;
+	UStaticMeshComponent* meshComp;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-		UShapeComponent* shapeComp;
+	UShapeComponent* shapeComp;
 
 	//Indicate whether the device is on or off, by default it's off
 	bool m_isOn;

@@ -1,5 +1,5 @@
 // Copyright (c) 2014-2019 Sombusta, All Rights Reserved.
-
+//Written by Jun Zhang, May 2019
 #include "VB_DynamicActor.h"
 #include "Components/StaticMeshComponent.h"
 #include "TimerManager.h"

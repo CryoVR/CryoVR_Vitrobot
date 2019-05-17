@@ -12,6 +12,8 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComp"));
 	BoxComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnOverlapBegin);
+	BoxComp->SetRelativeLocation(FVector(0.0f, 0.0f, 3.26f));
+	BoxComp->SetRelativeScale3D(FVector(0.22f, 0.22f, 0.11f));
 	
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Test_Geometry/Workstation_Vitrobot_1_3size.Workstation_Vitrobot_1_3size'"));
 	if (SM_Pickup.Succeeded())
@@ -31,19 +33,13 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	}
 }
 
-/*
-void AVB_WorkstationActor::PlayEffects()
-{
-	UGameplayStatics::SpawnEmitterAtLocation(this, FrozenFX, GetActorLocation());
-}
-*/
-
 void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	
 	if (Cast<AVB_DewarActor>(OtherActor) != nullptr)
 	{
 		FrozenFX->SetVisibility(true);
+		PickupMesh->SetSimulatePhysics(false);
 	}
 }
 
