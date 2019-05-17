@@ -35,7 +35,7 @@ bool AVB_DynamicActor::getPickable()
 	return m_isPickable;
 }
 
-USceneComponent * AVB_DynamicActor::getComponentByIndex(int compIndex)
+USceneComponent * AVB_DynamicActor::GetComponentByIndex(int compIndex)
 {
 	if(compIndex == 0)
 		return GetRootComponent();
