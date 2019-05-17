@@ -32,9 +32,9 @@ void AVB_EthaneTipActor::OnActorBeginOverlap(UPrimitiveComponent * OverlappedCom
 	if (ethaneTankRef != nullptr) {
 		UPrimitiveComponent* comp = Cast<UPrimitiveComponent>(ethaneTankRef->GetComponentByIndex(3));
 		if (comp != nullptr && comp == OtherComp) {
-			FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+			FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, false);
 			GetRootComponent()->AttachToComponent(OtherActor->GetRootComponent(), AttachRules, FName("TipSocket"));
-			//UE_LOG(LogTemp, Log, TEXT("======================Test+==================="));
+			UE_LOG(LogTemp, Log, TEXT("======================Test+==================="));
 		}
 	}
 }
