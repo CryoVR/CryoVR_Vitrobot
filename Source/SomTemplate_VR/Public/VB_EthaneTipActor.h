@@ -26,7 +26,9 @@ protected:
 		UParticleSystem* ethaneParticle;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-		UCapsuleComponent* ethaneCollisionComp;
+		UCapsuleComponent* ethaneTipCollisionComp;
 
+	UFUNCTION()
+	void OnActorBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 };
