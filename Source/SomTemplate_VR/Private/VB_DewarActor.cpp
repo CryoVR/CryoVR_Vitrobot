@@ -13,6 +13,8 @@ AVB_DewarActor::AVB_DewarActor()
 	BoxCompCap->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	BoxCompCap->OnComponentBeginOverlap.AddDynamic(this, &AVB_DewarActor::OnOverlapBegin);
 	BoxCompCap->OnComponentEndOverlap.AddDynamic(this, &AVB_DewarActor::OnOverlapEnd);
+	BoxCompCap->SetRelativeLocation(FVector(0.0f, 0.0f, 37.05f));
+	BoxCompCap->SetRelativeScale3D(FVector(0.1f, 0.1f, 0.04f));
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Dewar(TEXT("StaticMesh'/Game/Models/DewarMesh.DewarMesh'"));
 	if (SM_Dewar.Succeeded())
@@ -40,8 +42,6 @@ void AVB_DewarActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, c
 	if (Cast<AVB_NitrogenTankCapActor>(OtherActor) != nullptr)
 	{
 		FrozenFX->SetVisibility(false);
-		
-		
 	}
 }
 

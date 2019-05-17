@@ -21,6 +21,10 @@ AVB_PipetteActor::AVB_PipetteActor()
 		UStaticMesh* Asset = SM_Pickup.Object;
 		PickupMesh->SetStaticMesh(Asset);
 		SphereComp->SetupAttachment(PickupMesh);
+		SphereComp->SetRelativeLocation(FVector(0.0f, 0.0f, -15.02f));
+		SphereComp->SetRelativeScale3D(FVector(0.007f));
+		//This is another way of setting scale;
+		//Cast<USphereComponent>(SphereComp)->SetSphereRadius();
 	}
 }
 
@@ -31,7 +35,7 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 	if (Cast<AVB_SampleTubeActor>(OtherActor) != nullptr)
 	{
 		//This one is for the constructor function.Temporary can not be used.
-		//static ConstructorHelpers::FObjectFinder<UMaterial> MI_SmallCubes(TEXT("MaterialInstanceConstant'/Game/Models/////Pipet_body01Mat.Pipet_body01Mat'"));
+		//static ConstructorHelpers::FObjectFinder<UMaterial> MI_SmallCubes(TEXT("MaterialInstanceConstant'/Game/Models/Pipet_body01Mat.Pipet_body01Mat'"));
 
 		UMaterialInstanceDynamic* DynamicMaterial = UMaterialInstanceDynamic::Create(PickupMesh->GetMaterial(0), this);
 		DynamicMaterial->SetVectorParameterValue("BodyColor", FLinearColor::Blue);
