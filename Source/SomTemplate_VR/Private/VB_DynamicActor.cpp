@@ -35,10 +35,10 @@ bool AVB_DynamicActor::getPickable()
 	return m_isPickable;
 }
 
-UPrimitiveComponent * AVB_DynamicActor::getComponentByIndex(int compIndex)
+USceneComponent * AVB_DynamicActor::getComponentByIndex(int compIndex)
 {
 	if(compIndex == 0)
-		return PickupMesh;
+		return GetRootComponent();
 	
 	return nullptr;
 }

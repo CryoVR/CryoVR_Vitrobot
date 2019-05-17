@@ -36,7 +36,7 @@ protected:
 	//Set the device state.
 	virtual void setState(bool newState);
 	//Get the child component by index (level)
-	virtual UPrimitiveComponent* getComponentByIndex(int indexComp = 0);
+	virtual USceneComponent* getComponentByIndex(int indexComp = 0);
 
 
 public:

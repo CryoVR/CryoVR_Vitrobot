@@ -44,7 +44,7 @@ void AVB_StaticActor::setState(bool newState)
 	m_isOn = newState;
 }
 
-UPrimitiveComponent * AVB_StaticActor::getComponentByIndex(int indexComp)
+USceneComponent * AVB_StaticActor::getComponentByIndex(int indexComp)
 {
 	if (indexComp == 0)
 		return meshComp;
