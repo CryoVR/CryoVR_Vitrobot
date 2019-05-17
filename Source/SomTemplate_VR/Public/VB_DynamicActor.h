@@ -29,6 +29,7 @@ public:
 	virtual USceneComponent* GetComponentByIndex(int compIndex = 0);
 
 	void OnHitGround(float resetTransformTimer);
+
 	//Reset Actor to original position and state
 	UFUNCTION()
 	void ResetActorState();
