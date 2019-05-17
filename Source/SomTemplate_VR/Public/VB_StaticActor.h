@@ -35,6 +35,9 @@ protected:
 	virtual bool getState();
 	//Set the device state.
 	virtual void setState(bool newState);
+	//Get the child component by index (level)
+	virtual UPrimitiveComponent* getComponentByIndex(int indexComp = 0);
+
 
 public:
 	// Called every frame

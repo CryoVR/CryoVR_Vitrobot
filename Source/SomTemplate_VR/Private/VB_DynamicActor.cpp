@@ -35,6 +35,14 @@ bool AVB_DynamicActor::getPickable()
 	return m_isPickable;
 }
 
+UPrimitiveComponent * AVB_DynamicActor::getComponentByIndex(int compIndex)
+{
+	if(compIndex == 0)
+		return PickupMesh;
+	
+	return nullptr;
+}
+
 void AVB_DynamicActor::OnHitGround(float resetTransformTimer)
 {
 	GetWorldTimerManager().ClearTimer(timeHandler);

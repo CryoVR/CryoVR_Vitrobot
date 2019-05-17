@@ -25,10 +25,15 @@ public:
 	void setPickable(bool newPickable);
 	bool getPickable();
 
+	//Return child component by id (level), default is 0, means root component
+	virtual UPrimitiveComponent* getComponentByIndex(int compIndex = 0);
+
 	void OnHitGround(float resetTransformTimer);
 	//Reset Actor to original position and state
 	UFUNCTION()
 	void ResetActorState();
+	
+
 
 protected:
 	//Define whether this object can be picked up
