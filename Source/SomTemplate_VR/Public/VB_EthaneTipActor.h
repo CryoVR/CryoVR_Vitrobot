@@ -10,7 +10,7 @@
  * 
  */
 
-class UParticleSystem;
+class UParticleSystemComponent;
 class UCapsuleComponent;
 
 UCLASS()
@@ -23,9 +23,9 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Particles")
-		UParticleSystem* ethaneParticle;
+		UParticleSystemComponent* ethaneParticle;
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UCapsuleComponent* ethaneTipCollisionComp;
 
 	UFUNCTION()

@@ -5,7 +5,8 @@
 #include "UObject/ConstructorHelpers.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "Particles/ParticleSystem.h"
+#include "Particles/ParticleSystemComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "VB_EthaneTankActor.h"
 
 AVB_EthaneTipActor::AVB_EthaneTipActor() {
@@ -23,6 +24,13 @@ AVB_EthaneTipActor::AVB_EthaneTipActor() {
 	ethaneTipCollisionComp->SetupAttachment(PickupMesh);
 	ethaneTipCollisionComp->SetCapsuleSize(16.0f, 2.0f);
 	ethaneTipCollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTipActor::OnActorBeginOverlap);
+
+	ethaneParticle = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("EthaneParticle"));
+	ethaneParticle->SetupAttachment(PickupMesh);
+	ethaneParticle->SetRelativeLocation(FVector(0.0f, 0.0f, -40.0f));
+	if (PAR_EthaneParticle.Succeeded()) {
+		ethaneParticle->SetTemplate(PAR_EthaneParticle.Object);
+	}
 
 }
 
