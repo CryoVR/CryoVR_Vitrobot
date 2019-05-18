@@ -17,13 +17,11 @@ class SOMTEMPLATE_VR_API AVB_PetridishCoverActor : public AVB_DynamicActor
 public:
 	AVB_PetridishCoverActor();
 
-	UBoxComponent* Get_petridishCover();
-
 	UFUNCTION()
 		void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-		UBoxComponent * boxComp;
+		UBoxComponent * covercollisionComp;
 	
 };
