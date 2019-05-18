@@ -34,7 +34,6 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	WorkstationHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	WorkstationHolder->SetVisibility(true);
 	WorkstationHolder->SetRelativeLocation(FVector(0.0f, -3.17f, 6.6f));
-
 	if (SM_WorkstationHolder.Succeeded()) {
 		WorkstationHolder->SetStaticMesh(SM_WorkstationHolder.Object);
 	}
@@ -73,13 +72,13 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	}
 	BottomCover_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Bottom_Cover_Collider"));
 	BottomCover_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
-	//BottomCover_Collider->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
+	BottomCover_Collider->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	BottomCover_Collider->SetupAttachment(BottomCover);
 	BottomCover_Collider->SetRelativeLocation(FVector(-25.0f, -0.85f, 1.3f));
 	Cast<UBoxComponent>(BottomCover_Collider)->SetBoxExtent(FVector(1.3f, 1.3f, 12.7f));
 	BottomCover_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::OnOverlapBegin);
 
-	//#4 LEDCover
+	//#4 LEDCover and its collider
 	LEDCover = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LED_Cover"));
 	LEDCover->SetupAttachment(meshComp);
 	LEDCover->SetGenerateOverlapEvents(true);
@@ -100,29 +99,26 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	TestButton_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::OnOverlapBegin);
 }
 
-//Set if the InnerHolder is interactable.
-
-
-
-
+//Set if the cover is interactable by rotation vector
 void AVB_VitrobotActor::SetInteractableByRotation(UStaticMeshComponent* SM_Mesh)
 {
 	FRotator TempRotator = SM_Mesh->GetComponentRotation();
 	float TempYaw = TempRotator.Yaw;
 }
 
+//Move the workstation holder in specific speed
 void AVB_VitrobotActor::MoveWorkstationHolder(float F)
 {
 	float addz = 1.0f;
 	addz = addz * F;
-	InnerHolder->AddRelativeLocation(FVector(0.0f, 0.0f, addz));
+	WorkstationHolder->AddWorldOffset(FVector(0.0f, 0.0f, addz));
 }
 
+//Generate the overlap function for bottom cover and workstation holder
 void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (Cast<ATP_MotionController>(OtherActor) != nullptr)	
 	{	
-
 		if (OverlappedComp == BottomCover_Collider)
 		{	
 			if (BottomCover_Collider->GetComponentRotation().Yaw >= 60.0f)
@@ -134,7 +130,6 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 				InnerHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Ignore);
 			}
 		}
-
 		//Set the Button ON/OFF
 		if (OverlappedComp == TestButton_Collider)
 		{	
@@ -150,30 +145,32 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 	}
 }
 
-//void AVB_VitrobotActor::Tick(float DeltaTime)
-//{
-//	Super::Tick(DeltaTime);
-//	UE_LOG(LogTemp, Log, TEXT("==%s=="),(bIsButtonOn ? TEXT("True"): TEXT("False")));
-//	if (bIsButtonOn)
-//	{
-//		WorkstationHolder->AddWorldTransform
-//	}
-	//{	//6.6->27.6
-	//	if (WorkstationHolder->GetComponentLocation().Z < 7.0f)
-	//	{
-	//		bIsHolderGoingUp = true;
-	//	}
-	//	else if (WorkstationHolder->GetComponentLocation().Z > 26.0f)
-	//	{
-	//		bIsHolderGoingUp = false;
-	//	}
-	//}
-	//if (bIsHolderGoingUp)
-	//{
-	//	MoveWorkstationHolder(1.0f);
-	//}
-	//else if (!bIsHolderGoingUp)
-	//{
-	//	MoveWorkstationHolder(-1.0f);
-	//}
-//}
+void AVB_VitrobotActor::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	
+	if (bIsButtonOn)
+	{	
+		//Holder range(Component location) Z:(125.68->147.68)
+		if (WorkstationHolder->GetComponentLocation().Z < 125.6f)
+		{
+			bIsHolderGoingUp = true;
+			bIsButtonOn = false;
+		}
+		else if (WorkstationHolder->GetComponentLocation().Z > 147.0f)
+		{
+			bIsHolderGoingUp = false;
+			bIsButtonOn = false;
+		}
+
+		if (bIsHolderGoingUp)
+		{
+			MoveWorkstationHolder(0.1f);
+		}
+		else if (!bIsHolderGoingUp)
+		{
+			MoveWorkstationHolder(-0.1f);
+		}
+	}
+
+}
