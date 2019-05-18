@@ -171,8 +171,5 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 		{
 			MoveWorkstationHolder(-1.0f);
 		}
-
-
 	}
-
 }
