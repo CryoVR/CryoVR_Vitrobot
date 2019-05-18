@@ -27,6 +27,11 @@ public:
 	UFUNCTION()
 	void SetInteractableByRotation(UStaticMeshComponent* SM_Mesh);
 
+	UFUNCTION()
+	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	virtual void Tick(float DeltaTime) override;
+
 protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	UStaticMeshComponent* WorkstationHolder;
@@ -45,6 +50,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UBoxComponent* BottomCover_Collider;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UBoxComponent* TestButton_Collider;
 
 private:
 	bool bIsInteractable;
