@@ -44,6 +44,16 @@ void AVB_StaticActor::setState(bool newState)
 	m_isOn = newState;
 }
 
+USceneComponent * AVB_StaticActor::GetComponentByIndex(int indexComp)
+{
+	if (indexComp == 0)
+		return meshComp;
+	else if (indexComp == 1)
+		return shapeComp;
+
+	return nullptr;
+}
+
 // Called every frame
 void AVB_StaticActor::Tick(float DeltaTime)
 {

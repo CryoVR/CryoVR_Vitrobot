@@ -49,21 +49,11 @@ void AVB_TweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AAct
 	AVB_PetridishActor* petridishActor = Cast<AVB_PetridishActor>(OtherActor);
 	UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01==========================="));
 	if (petridishActor != nullptr) {
-		FString name = OtherComp->GetName();
+		FString name = OtherComp->GetAttachParent()->GetName();
 		UE_LOG(LogTemp, Log, TEXT("==Index = %s"), *name);
-		if (Cast<AVB_PetridishActor>(OtherActor)->GetGrid(0) == OtherComp) {
+		if (petridishActor->GetGrid() == OtherComp->GetAttachParent()) {
 			UE_LOG(LogTemp, Log, TEXT("=======================Code Executed03==========================="));
-			petridishActor->GetGrid(0)->SetVisibility(false);
-			tweezer_grid->SetVisibility(true);
-		}
-		else if (petridishActor->GetGrid(1) == OtherComp) {
-			UE_LOG(LogTemp, Log, TEXT("=======================Code Executed04==========================="));
-			petridishActor->GetGrid(1)->SetVisibility(false);
-			tweezer_grid->SetVisibility(true);
-		}
-		else if (petridishActor->GetGrid(2) == OtherComp) {
-			UE_LOG(LogTemp, Log, TEXT("=======================Code Executed05==========================="));
-			petridishActor->GetGrid(2)->SetVisibility(false);
+			petridishActor->GetGrid()->SetVisibility(false);
 			tweezer_grid->SetVisibility(true);
 		}
 	}
