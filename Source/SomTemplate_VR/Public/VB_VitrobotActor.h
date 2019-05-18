@@ -19,12 +19,6 @@ public:
 	AVB_VitrobotActor();
 
 	UFUNCTION()
-	void ActiveInnerHolder(bool bIs);
-
-	UFUNCTION()
-	void DeactiveInnerHolder(bool bIs);
-
-	UFUNCTION()
 	void SetInteractableByRotation(UStaticMeshComponent* SM_Mesh);
 
 	UFUNCTION()
@@ -33,7 +27,8 @@ public:
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	virtual void Tick(float DeltaTime) override;
+	//virtual void Tick(float DeltaTime) override;
+
 
 protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")

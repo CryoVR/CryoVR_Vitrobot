@@ -1,5 +1,8 @@
 // Copyright (c) 2014-2019 Sombusta, All Rights Reserved.
 
+//Output test
+//UE_LOG(LogTemp, Log, TEXT("==Step1=="));
+
 
 #include "VB_VitrobotActor.h"
 #include "Components/StaticMeshComponent.h"
@@ -9,6 +12,7 @@
 
 
 AVB_VitrobotActor::AVB_VitrobotActor() {
+	PrimaryActorTick.bCanEverTick = true;
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_MainMesh(TEXT("StaticMesh'/Game/Test_Geometry/Main_Machine_1_3size.Main_Machine_1_3size'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_WorkstationHolder(TEXT("StaticMesh'/Game/Test_Geometry/Workstation_Holder_1_3size.Workstation_Holder_1_3size'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_InnerHolder(TEXT("StaticMesh'/Game/Test_Geometry/Inner_Holder_1_3size.Inner_Holder_1_3size'"));
@@ -39,8 +43,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	WorkstationHolder_Collider->SetupAttachment(WorkstationHolder);
 	WorkstationHolder_Collider->SetRelativeLocation(FVector(0.0f, -15.95f, 0.8f));
 	Cast<UBoxComponent>(WorkstationHolder_Collider)->SetBoxExtent(FVector(8.0f, 8.0f, 1.3f));
-	//For future workstation binding
-	//rkstationHolder_Collider->SetCollisionResponseToChannel(ECollisionResponse::ECR_Ignore);
+
 
 	//#2 InnerHolder
 	InnerHolder = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inner_Holder"));
@@ -89,29 +92,16 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 		LEDCover->SetStaticMesh(SM_LEDCover.Object);
 	}
 	TestButton_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("TestButton_Collider"));
-	TestButton_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+	TestButton_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	TestButton_Collider->SetupAttachment(LEDCover);
 	TestButton_Collider->SetRelativeLocation(FVector(-13.5f, -1.6f, -0.6f));
 	Cast<UBoxComponent>(TestButton_Collider)->SetBoxExtent(FVector(3.0f, 1.0f, 3.0f));
 	TestButton_Collider->SetHiddenInGame(false);
+	TestButton_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::OnOverlapBegin);
 }
 
 //Set if the InnerHolder is interactable.
-void AVB_VitrobotActor::ActiveInnerHolder(bool bIs)
-{
-	if (bIsInteractable) 
-	{
-		InnerHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Ignore);
-	}
-}
 
-void AVB_VitrobotActor::DeactiveInnerHolder(bool bIs)
-{
-	if (!bIsInteractable)
-	{
-		InnerHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
-	}
-}
 
 
 
@@ -124,7 +114,7 @@ void AVB_VitrobotActor::SetInteractableByRotation(UStaticMeshComponent* SM_Mesh)
 void AVB_VitrobotActor::MoveWorkstationHolder(float F)
 {
 	float addz = 1.0f;
-	float addz = addz * F;
+	addz = addz * F;
 	InnerHolder->AddRelativeLocation(FVector(0.0f, 0.0f, addz));
 }
 
@@ -132,8 +122,9 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 {
 	if (Cast<ATP_MotionController>(OtherActor) != nullptr)	
 	{	
-		if (OverlappedComp = BottomCover_Collider)
-		{
+
+		if (OverlappedComp == BottomCover_Collider)
+		{	
 			if (BottomCover_Collider->GetComponentRotation().Yaw >= 60.0f)
 			{
 				InnerHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
@@ -144,13 +135,14 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 			}
 		}
 
-		if (OverlappedComp = TestButton_Collider)
-		{
+		//Set the Button ON/OFF
+		if (OverlappedComp == TestButton_Collider)
+		{	
 			if (bIsButtonOn)
 			{
 				bIsButtonOn = false;
 			}
-			else
+			else if (!bIsButtonOn)
 			{
 				bIsButtonOn = true;
 			}
@@ -158,18 +150,30 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 	}
 }
 
-void AVB_VitrobotActor::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-	if (bIsButtonOn)
-	{	//6.6->27.6
-		if (WorkstationHolder->GetComponentLocation().Z < 7.0f)
-		{
-			MoveWorkstationHolder(1.0f);
-		}
-		else if (WorkstationHolder->GetComponentLocation().Z > 26.0f)
-		{
-			MoveWorkstationHolder(-1.0f);
-		}
-	}
-}
+//void AVB_VitrobotActor::Tick(float DeltaTime)
+//{
+//	Super::Tick(DeltaTime);
+//	UE_LOG(LogTemp, Log, TEXT("==%s=="),(bIsButtonOn ? TEXT("True"): TEXT("False")));
+//	if (bIsButtonOn)
+//	{
+//		WorkstationHolder->AddWorldTransform
+//	}
+	//{	//6.6->27.6
+	//	if (WorkstationHolder->GetComponentLocation().Z < 7.0f)
+	//	{
+	//		bIsHolderGoingUp = true;
+	//	}
+	//	else if (WorkstationHolder->GetComponentLocation().Z > 26.0f)
+	//	{
+	//		bIsHolderGoingUp = false;
+	//	}
+	//}
+	//if (bIsHolderGoingUp)
+	//{
+	//	MoveWorkstationHolder(1.0f);
+	//}
+	//else if (!bIsHolderGoingUp)
+	//{
+	//	MoveWorkstationHolder(-1.0f);
+	//}
+//}

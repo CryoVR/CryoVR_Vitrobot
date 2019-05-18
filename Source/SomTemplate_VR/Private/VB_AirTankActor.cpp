@@ -84,6 +84,7 @@ AVB_AirTankActor::AVB_AirTankActor() {
 void AVB_AirTankActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	UE_LOG(LogTemp, Log, TEXT("Why not functional?"));
 
 }
  
