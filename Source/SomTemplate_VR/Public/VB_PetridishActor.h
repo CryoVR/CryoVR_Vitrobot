@@ -10,6 +10,7 @@
  * 
  */
 class UCapsuleComponent;
+class UBoxComponent;
 
 UCLASS()
 class SOMTEMPLATE_VR_API AVB_PetridishActor : public AVB_StaticActor
@@ -19,7 +20,9 @@ class SOMTEMPLATE_VR_API AVB_PetridishActor : public AVB_StaticActor
 public:
 	AVB_PetridishActor();
 
-	//return the grid by index 0,1,2
+	UBoxComponent* Get_petridish();
+
+	//return the grid
 	UStaticMeshComponent* GetGrid();
 
 protected:
@@ -27,5 +30,6 @@ protected:
 		UStaticMeshComponent* petridish_grid;
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
-		UStaticMeshComponent* petridish_cover;
+		UBoxComponent* boxComp;
+	
 };

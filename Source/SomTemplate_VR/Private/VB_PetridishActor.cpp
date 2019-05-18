@@ -5,17 +5,22 @@
 #include "Components/StaticMeshComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/BoxComponent.h"
+
 
 AVB_PetridishActor::AVB_PetridishActor() 
 {
+	boxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("boxComp"));
+	boxComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	boxComp->SetRelativeScale3D(FVector(0.15f, 0.15f, 0.1f));
+
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_GridHolderDMesh(TEXT("StaticMesh'/Game/Models/GridHolderDMesh.GridHolderDMesh'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Petridish_Grid(TEXT("StaticMesh'/Game/Models/Tweezer_Grid.Tweezer_Grid'"));
 	
 	if (SM_GridHolderDMesh.Succeeded()) {
 		meshComp->SetStaticMesh(SM_GridHolderDMesh.Object);
+		boxComp->SetupAttachment(meshComp);
 	}
-
-
 
 	petridish_grid = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Petridish_grid"));
 	petridish_grid->SetGenerateOverlapEvents(true);
@@ -26,11 +31,9 @@ AVB_PetridishActor::AVB_PetridishActor()
 	petridish_grid->SetRelativeRotation(FRotator(0.0f, 0.0f, 90.0f));
 	petridish_grid->SetupAttachment(meshComp);
 
-	
 	if (SM_Petridish_Grid.Succeeded()) {
 		petridish_grid->SetStaticMesh(SM_Petridish_Grid.Object);
 	}
-
 
 	shapeComp->DestroyComponent();
 	shapeComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Petridish"));
@@ -40,10 +43,14 @@ AVB_PetridishActor::AVB_PetridishActor()
 	Cast<UCapsuleComponent>(shapeComp)->SetCapsuleSize(1.0f, 1.0f);
 	shapeComp->SetupAttachment(petridish_grid);
 
-
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
+}
+
+UBoxComponent * AVB_PetridishActor::Get_petridish()
+{
+	return boxComp;
 }
 
 UStaticMeshComponent* AVB_PetridishActor::GetGrid()
