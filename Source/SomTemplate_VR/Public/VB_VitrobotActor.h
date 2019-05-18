@@ -18,6 +18,14 @@ class SOMTEMPLATE_VR_API AVB_VitrobotActor : public AVB_StaticActor
 public:
 	AVB_VitrobotActor();
 
+	UFUNCTION()
+	void ActiveInnerHolder(bool bIs);
+
+	UFUNCTION()
+	void DeactiveInnerHolder(bool bIs);
+
+	UFUNCTION()
+	void SetInteractableByRotation(UStaticMeshComponent* SM_Mesh);
 
 protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
@@ -37,4 +45,7 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UBoxComponent* BottomCover_Collider;
+
+private:
+	bool bIsInteractable;
 };

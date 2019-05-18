@@ -88,4 +88,28 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	}
 }
 
+//Set if the InnerHolder is interactable.
+void AVB_VitrobotActor::ActiveInnerHolder(bool bIs)
+{
+	if (bIsInteractable) 
+	{
+		InnerHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Ignore);
+	}
+}
+
+void AVB_VitrobotActor::DeactiveInnerHolder(bool bIs)
+{
+	if (!bIsInteractable)
+	{
+		InnerHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
+	}
+}
+
+
+
+void AVB_VitrobotActor::SetInteractableByRotation(UStaticMeshComponent* SM_Mesh)
+{
+	FRotator TempRotator = SM_Mesh->GetComponentRotation();
+	float TempYaw = TempRotator.Yaw;
+}
 
