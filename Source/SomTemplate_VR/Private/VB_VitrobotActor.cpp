@@ -5,6 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Components/BoxComponent.h"
+#include "VirtualReality/TP_MotionController.h"
 
 
 AVB_VitrobotActor::AVB_VitrobotActor() {
@@ -69,10 +70,11 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	}
 	BottomCover_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Bottom_Cover_Collider"));
 	BottomCover_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
-	BottomCover_Collider->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
+	//BottomCover_Collider->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	BottomCover_Collider->SetupAttachment(BottomCover);
 	BottomCover_Collider->SetRelativeLocation(FVector(-25.0f, -0.85f, 1.3f));
 	Cast<UBoxComponent>(BottomCover_Collider)->SetBoxExtent(FVector(1.3f, 1.3f, 12.7f));
+	BottomCover_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::OnOverlapBegin);
 
 	//#4 LEDCover
 	LEDCover = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LED_Cover"));
@@ -86,6 +88,12 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	if (SM_LEDCover.Succeeded()) {
 		LEDCover->SetStaticMesh(SM_LEDCover.Object);
 	}
+	TestButton_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("TestButton_Collider"));
+	TestButton_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+	TestButton_Collider->SetupAttachment(LEDCover);
+	TestButton_Collider->SetRelativeLocation(FVector(-13.5f, -1.6f, -0.6f));
+	Cast<UBoxComponent>(TestButton_Collider)->SetBoxExtent(FVector(3.0f, 1.0f, 3.0f));
+	TestButton_Collider->SetHiddenInGame(false);
 }
 
 //Set if the InnerHolder is interactable.
@@ -113,3 +121,58 @@ void AVB_VitrobotActor::SetInteractableByRotation(UStaticMeshComponent* SM_Mesh)
 	float TempYaw = TempRotator.Yaw;
 }
 
+void AVB_VitrobotActor::MoveWorkstationHolder(float F)
+{
+	float addz = 1.0f;
+	float addz = addz * F;
+	InnerHolder->AddRelativeLocation(FVector(0.0f, 0.0f, addz));
+}
+
+void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (Cast<ATP_MotionController>(OtherActor) != nullptr)	
+	{	
+		if (OverlappedComp = BottomCover_Collider)
+		{
+			if (BottomCover_Collider->GetComponentRotation().Yaw >= 60.0f)
+			{
+				InnerHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
+			}
+			else if (BottomCover_Collider->GetComponentRotation().Yaw >= 0.0f && BottomCover_Collider->GetComponentRotation().Yaw < 60.0f)
+			{
+				InnerHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Ignore);
+			}
+		}
+
+		if (OverlappedComp = TestButton_Collider)
+		{
+			if (bIsButtonOn)
+			{
+				bIsButtonOn = false;
+			}
+			else
+			{
+				bIsButtonOn = true;
+			}
+		}
+	}
+}
+
+void AVB_VitrobotActor::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if (bIsButtonOn)
+	{	//6.6->27.6
+		if (WorkstationHolder->GetComponentLocation().Z < 7.0f)
+		{
+			MoveWorkstationHolder(1.0f);
+		}
+		else if (WorkstationHolder->GetComponentLocation().Z > 26.0f)
+		{
+			MoveWorkstationHolder(-1.0f);
+		}
+
+
+	}
+
+}
