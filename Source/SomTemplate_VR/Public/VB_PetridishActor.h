@@ -20,8 +20,6 @@ class SOMTEMPLATE_VR_API AVB_PetridishActor : public AVB_StaticActor
 public:
 	AVB_PetridishActor();
 
-	UBoxComponent* Get_petridish();
-
 	//return the grid
 	UStaticMeshComponent* GetGrid();
 

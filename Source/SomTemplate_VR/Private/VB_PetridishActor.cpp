@@ -19,6 +19,7 @@ AVB_PetridishActor::AVB_PetridishActor()
 	
 	if (SM_GridHolderDMesh.Succeeded()) {
 		meshComp->SetStaticMesh(SM_GridHolderDMesh.Object);
+
 		boxComp->SetupAttachment(meshComp);
 	}
 
@@ -46,11 +47,6 @@ AVB_PetridishActor::AVB_PetridishActor()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-}
-
-UBoxComponent * AVB_PetridishActor::Get_petridish()
-{
-	return boxComp;
 }
 
 UStaticMeshComponent* AVB_PetridishActor::GetGrid()

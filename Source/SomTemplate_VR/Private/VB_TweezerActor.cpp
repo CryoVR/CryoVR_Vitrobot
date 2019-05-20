@@ -6,6 +6,8 @@
 #include "Components/CapsuleComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "VB_PetridishActor.h"
+#include "VB_PetridishCoverActor.h"
+#include "VB_StaticActor.h"
 
 
 // Sets default values
@@ -47,18 +49,15 @@ AVB_TweezerActor::AVB_TweezerActor()
 void AVB_TweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
 	AVB_PetridishActor* petridishActor = Cast<AVB_PetridishActor>(OtherActor);
-	UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01==========================="));
-	if (petridishActor != nullptr) {
-		FString name = OtherComp->GetAttachParent()->GetName();
-		UE_LOG(LogTemp, Log, TEXT("==Index = %s"), *name);
+	AVB_PetridishCoverActor* petridishCoverActor = Cast<AVB_PetridishCoverActor>(OtherActor);
+	//UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01==========================="));
+	if (petridishActor != nullptr && petridishActor->getState()) {
+		//FString name = OtherComp->GetAttachParent()->GetName();
+		//UE_LOG(LogTemp, Log, TEXT("==Index = %s"), *name);
 		if (petridishActor->GetGrid() == OtherComp->GetAttachParent()) {
-			UE_LOG(LogTemp, Log, TEXT("=======================Code Executed03==========================="));
+			//UE_LOG(LogTemp, Log, TEXT("=======================Code Executed03==========================="));
 			petridishActor->GetGrid()->SetVisibility(false);
 			tweezer_grid->SetVisibility(true);
 		}
 	}
-	else {
-		UE_LOG(LogTemp, Log, TEXT("=======================No Overlap Actor=========================="));
-	}
-	//tweezer_grid->SetVisibility(true);
 }

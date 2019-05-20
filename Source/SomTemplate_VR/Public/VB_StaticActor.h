@@ -31,15 +31,16 @@ protected:
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	//Return whether the device is on or off
-	virtual bool getState();
-	//Set the device state.
-	virtual void setState(bool newState);
+	
 
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	//Get the child component by index (level)
 	virtual USceneComponent* GetComponentByIndex(int indexComp = 0);
+	//Return whether the device is on or off
+	virtual bool getState();
+	//Set the device state.
+	virtual void setState(bool newState);
 
 };

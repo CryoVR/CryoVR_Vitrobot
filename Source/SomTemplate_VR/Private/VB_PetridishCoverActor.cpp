@@ -6,6 +6,7 @@
 #include "Components/BoxComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "VB_PetridishActor.h"
+#include "VB_StaticActor.h"
 
 AVB_PetridishCoverActor::AVB_PetridishCoverActor() {
 	
@@ -20,6 +21,8 @@ AVB_PetridishCoverActor::AVB_PetridishCoverActor() {
 	covercollisionComp->SetupAttachment(PickupMesh);
 	covercollisionComp->SetRelativeScale3D(FVector(0.15f, 0.15f, 0.1f));
 	covercollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_PetridishCoverActor::OnOverlapBegin);
+	covercollisionComp->OnComponentEndOverlap.AddDynamic(this, &AVB_PetridishCoverActor::OnOverlapEnd);
+
 
 }
 
@@ -30,5 +33,15 @@ void AVB_PetridishCoverActor::OnOverlapBegin(UPrimitiveComponent * OverlappedCom
 	if (petridishActor != nullptr) {
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
 		GetRootComponent()->AttachToComponent(OtherActor->GetRootComponent(), AttachRules, FName("UpperCoverSocket"));
+		petridishActor->setState(false);
+	}
+	
+}
+
+void AVB_PetridishCoverActor::OnOverlapEnd(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex)
+{
+	AVB_PetridishActor* petridishActor = Cast<AVB_PetridishActor>(OtherActor);
+	if (petridishActor != nullptr) {
+		petridishActor->setState(true);
 	}
 }
