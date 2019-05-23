@@ -9,6 +9,8 @@
 #include "UObject/ConstructorHelpers.h"
 #include "Components/BoxComponent.h"
 #include "VirtualReality/TP_MotionController.h"
+#include "VB_WorkstationActor.h"
+
 
 
 AVB_VitrobotActor::AVB_VitrobotActor() {
@@ -29,7 +31,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	WorkstationHolder = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Workstation_Holder"));
 	WorkstationHolder->SetupAttachment(meshComp);
 	WorkstationHolder->SetGenerateOverlapEvents(true);
-	WorkstationHolder->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	WorkstationHolder->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	WorkstationHolder->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	WorkstationHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	WorkstationHolder->SetVisibility(true);
@@ -38,10 +40,11 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 		WorkstationHolder->SetStaticMesh(SM_WorkstationHolder.Object);
 	}
 	WorkstationHolder_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("test"));
-	WorkstationHolder_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+	WorkstationHolder_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	WorkstationHolder_Collider->SetupAttachment(WorkstationHolder);
 	WorkstationHolder_Collider->SetRelativeLocation(FVector(0.0f, -15.95f, 0.8f));
 	Cast<UBoxComponent>(WorkstationHolder_Collider)->SetBoxExtent(FVector(8.0f, 8.0f, 1.3f));
+	WorkstationHolder->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::OnOverlapBegin);
 
 
 	//#2 InnerHolder
@@ -142,6 +145,11 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 				bIsButtonOn = true;
 			}
 		}
+	}
+
+	if ((Cast<AVB_WorkstationActor>(OtherActor) != nullptr) && (OverlappedComp == WorkstationHolder_Collider))
+	{
+		OtherComp->SetupAttachment(WorkstationHolder);
 	}
 }
 
