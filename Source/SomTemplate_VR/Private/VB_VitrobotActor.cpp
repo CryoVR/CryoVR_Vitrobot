@@ -149,7 +149,10 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 
 	if ((Cast<AVB_WorkstationActor>(OtherActor) != nullptr) && (OverlappedComp == WorkstationHolder_Collider))
 	{
-		OtherComp->SetupAttachment(WorkstationHolder);
+		//Use either of them
+		//OtherComp->SetupAttachment(WorkstationHolder);
+		//OtherActor->GetRootComponent()->SetupAttachment(WorkstationHolder); 
+		OtherActor->GetRootComponent()->AttachToComponent(WorkstationHolder, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	}
 }
 

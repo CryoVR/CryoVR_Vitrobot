@@ -25,7 +25,7 @@ public:
 	UFUNCTION()
 	void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
-	//void Tick(float DeltaTime);
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 
@@ -33,6 +33,9 @@ protected:
 	UBoxComponent* BoxCompCap;
 	UPROPERTY(VisibleAnywhere, Category = "ParticleEffect")
 	UParticleSystemComponent* FrozenFX;
+
+private:
+	bool bTest;
 
 
 };

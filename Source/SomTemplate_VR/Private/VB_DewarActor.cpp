@@ -1,6 +1,6 @@
 // Copyright (c) 2014-2019 Sombusta, All Rights Reserved.
 
-
+//Now it's the test version with the Tick function
 #include "VB_DewarActor.h"
 #include "Public/Engine.h"
 #include "Components/Boxcomponent.h"
@@ -9,6 +9,7 @@
 
 AVB_DewarActor::AVB_DewarActor()
 {
+	PrimaryActorTick.bCanEverTick = true;
 	BoxCompCap = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCompCap"));
 	BoxCompCap->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	BoxCompCap->OnComponentBeginOverlap.AddDynamic(this, &AVB_DewarActor::OnOverlapBegin);
@@ -36,20 +37,29 @@ AVB_DewarActor::AVB_DewarActor()
 
 }
 
-
 void AVB_DewarActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (Cast<AVB_NitrogenTankCapActor>(OtherActor) != nullptr)
 	{
 		FrozenFX->SetVisibility(false);
+		PickupMesh->SetSimulatePhysics(false);
+		bTest = true;
 	}
 }
-
 
 void AVB_DewarActor::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	if (Cast<AVB_NitrogenTankCapActor>(OtherActor) != nullptr)
 	{
 		FrozenFX->SetVisibility(true);
+		bTest = false;
+	}
+}
+
+void AVB_DewarActor::Tick(float DeltaTime)
+{
+	if (bTest)
+	{
+		PickupMesh->AddWorldOffset(FVector(1.0f, 1.0f, 1.0f));
 	}
 }
