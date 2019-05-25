@@ -20,15 +20,19 @@ class SOMTEMPLATE_VR_API AVB_EthaneTipActor : public AVB_DynamicActor
 	
 public:
 	AVB_EthaneTipActor();
+	
+	UFUNCTION()
+		void OnActorBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Particles")
 		UParticleSystemComponent* ethaneParticle;
+
+protected:
+	
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UCapsuleComponent* ethaneTipCollisionComp;
 
-	UFUNCTION()
-	void OnActorBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	
 
 };

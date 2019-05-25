@@ -9,6 +9,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "VB_EthaneTankActor.h"
 
+
 AVB_EthaneTipActor::AVB_EthaneTipActor() {
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_EthaneTipMesh(TEXT("StaticMesh'/Game/Models/EthaneTip.EthaneTip'"));
@@ -19,6 +20,7 @@ AVB_EthaneTipActor::AVB_EthaneTipActor() {
 	}
 	PickupMesh->SetRelativeScale3D(FVector(0.2f));
 	PickupMesh->SetGenerateOverlapEvents(false);
+	
 
 	ethaneTipCollisionComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("EthaneTipCollision"));
 	ethaneTipCollisionComp->SetupAttachment(PickupMesh);
@@ -31,6 +33,7 @@ AVB_EthaneTipActor::AVB_EthaneTipActor() {
 	if (PAR_EthaneParticle.Succeeded()) {
 		ethaneParticle->SetTemplate(PAR_EthaneParticle.Object);
 	}
+	ethaneParticle->SetActive(false);
 
 }
 
@@ -41,6 +44,7 @@ void AVB_EthaneTipActor::OnActorBeginOverlap(UPrimitiveComponent * OverlappedCom
 		UPrimitiveComponent* comp = Cast<UPrimitiveComponent>(ethaneTankRef->GetComponentByIndex(3));
 		if (comp != nullptr && comp == OtherComp) {
 			FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+			PickupMesh->SetSimulatePhysics(false);
 			GetRootComponent()->AttachToComponent(OtherActor->GetRootComponent(), AttachRules, FName("TipSocket"));
 			//UE_LOG(LogTemp, Log, TEXT("======================Test+==================="));
 		}

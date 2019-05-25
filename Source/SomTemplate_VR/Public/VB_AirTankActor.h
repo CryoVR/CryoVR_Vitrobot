@@ -17,8 +17,7 @@ UCLASS()
 class SOMTEMPLATE_VR_API AVB_AirTankActor : public AVB_StaticActor
 {
 	GENERATED_BODY()
-private:
-	bool m_isFirstKnobOn;
+
 protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UStaticMeshComponent* firstKnob;
@@ -36,6 +35,10 @@ protected:
 		UCapsuleComponent* secondKnobCollisionComp;
 
 public:
+	bool m_isFirstKnobOn;
+
+	bool m_isSecondKnobOn;
+
 	AVB_AirTankActor();
 
 	virtual void Tick(float DeltaTime) override;

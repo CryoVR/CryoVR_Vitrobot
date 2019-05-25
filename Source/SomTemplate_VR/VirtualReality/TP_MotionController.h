@@ -29,8 +29,7 @@ class SOMTEMPLATE_VR_API ATP_MotionController : public AActor
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VRTemplate|Components", meta = (AllowPrivateAccess = "true"))
 	class USplineComponent* ArcSpline;					  
 															  
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VRTemplate|Components", meta = (AllowPrivateAccess = "true"))
-	class USphereComponent* GrabShpere; 
+	
 															  
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VRTemplate|Components", meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* ArcEndPoint;
@@ -161,6 +160,10 @@ private: // SomWorks :D // Variables Initialization //
 protected:	
 
 public:		
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VRTemplate|Components", meta = (AllowPrivateAccess = "true"))
+		class USphereComponent* GrabShpere;
+
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VRTemplate|Variables")
 	EControllerHand Hand;
 	

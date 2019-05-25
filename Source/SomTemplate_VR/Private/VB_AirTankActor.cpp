@@ -14,6 +14,7 @@ AVB_AirTankActor::AVB_AirTankActor() {
 	PrimaryActorTick.bCanEverTick = true;
 
 	m_isFirstKnobOn = false;
+	m_isSecondKnobOn = false;
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_AirtankMesh(TEXT("StaticMesh'/Game/Models/EthaneTank.EthaneTank'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_FirstKnobMesh(TEXT("StaticMesh'/Game/Models/EthaneKnob.EthaneKnob'"));
