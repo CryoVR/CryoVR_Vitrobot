@@ -51,7 +51,7 @@ void AVB_EthaneTankActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, A
 	ATP_MotionController* MotionController = Cast<ATP_MotionController>(OtherActor);
 	if (MotionController != nullptr) {
 		if (Cast<USphereComponent>(OtherComp) == MotionController->GrabShpere) {
-			UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01==========================="));
+			//UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01==========================="));
 			if (OverlappedComp == shapeComp) {
 				m_isFirstKnobOn = !m_isFirstKnobOn;
 			}
@@ -73,7 +73,7 @@ void AVB_EthaneTankActor::OnTipOverlapBegin(UPrimitiveComponent * OverlappedComp
 	AVB_EthaneTipActor* EthaneTipActor = Cast<AVB_EthaneTipActor>(OtherActor);
 	if (EthaneTipActor != nullptr) {
 		if (ethaneTip == nullptr) {
-			UE_LOG(LogTemp, Log, TEXT("=======================Code Executed222222==========================="));
+			//UE_LOG(LogTemp, Log, TEXT("=======================Code Executed222222==========================="));
 			ethaneTip = EthaneTipActor;
 		}
 	}
