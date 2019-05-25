@@ -32,4 +32,7 @@ protected:
 	UParticleSystemComponent* FrozenFX;
 
 	void PlayEffects();
+
+private:
+	bool bIsAttached;
 };

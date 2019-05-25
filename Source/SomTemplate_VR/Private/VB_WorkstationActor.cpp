@@ -6,6 +6,7 @@
 #include "Components/Boxcomponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "VB_DewarActor.h"
+#include "VB_VitrobotActor.h"
 
 AVB_WorkstationActor::AVB_WorkstationActor() 
 {
@@ -34,8 +35,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 }
 
 void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	
+{	
 	if (Cast<AVB_DewarActor>(OtherActor) != nullptr)
 	{
 		FrozenFX->SetVisibility(true);
