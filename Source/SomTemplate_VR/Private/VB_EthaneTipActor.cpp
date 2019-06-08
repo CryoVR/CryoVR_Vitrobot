@@ -20,6 +20,7 @@ AVB_EthaneTipActor::AVB_EthaneTipActor() {
 	}
 	PickupMesh->SetRelativeScale3D(FVector(0.2f));
 	PickupMesh->SetGenerateOverlapEvents(false);
+	PickupMesh->SetSimulatePhysics(true);
 	
 
 	ethaneTipCollisionComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("EthaneTipCollision"));
@@ -35,6 +36,7 @@ AVB_EthaneTipActor::AVB_EthaneTipActor() {
 		ethaneParticle->SetTemplate(PAR_EthaneParticle.Object);
 	}
 	ethaneParticle->SetActive(false);
+	ethaneParticle->SetAutoActivate(false);
 
 }
 
