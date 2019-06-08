@@ -60,6 +60,7 @@ AVB_AirTankActor::AVB_AirTankActor() {
 	secondKnobCollisionComp->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	secondKnobCollisionComp->SetupAttachment(secondKnob);
 	secondKnobCollisionComp->SetRelativeLocation(FVector(0.0f, -0.04f, 3.26f));
+	secondKnobCollisionComp->SetRelativeScale3D(FVector(0.75f, 0.75f, 0.75f));
 	Cast<UCapsuleComponent>(secondKnobCollisionComp)->SetCapsuleSize(1.8f, 1.8f);
 
 	//First pointer mesh
