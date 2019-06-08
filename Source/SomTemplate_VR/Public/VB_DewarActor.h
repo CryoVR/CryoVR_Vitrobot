@@ -6,10 +6,13 @@
 #include "VB_DynamicActor.h"
 #include "VB_DewarActor.generated.h"
 
-class UBoxComponent;
 /**
  * 
  */
+
+class UParticleSystemComponent;
+class UBoxComponent;
+
 UCLASS()
 class SOMTEMPLATE_VR_API AVB_DewarActor : public AVB_DynamicActor
 {
@@ -32,7 +35,6 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UBoxComponent* BoxCompCap;
 	UPROPERTY(VisibleAnywhere, Category = "ParticleEffect")
-	UParticleSystemComponent* FrozenFX;
-
+		UParticleSystemComponent* FrozenFX;
 
 };

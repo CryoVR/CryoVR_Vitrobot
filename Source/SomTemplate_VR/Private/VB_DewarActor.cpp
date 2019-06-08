@@ -6,6 +6,7 @@
 #include "Components/Boxcomponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "VB_NitrogenTankCapActor.h"
+#include "Particles/ParticleSystemComponent.h"
 
 AVB_DewarActor::AVB_DewarActor()
 {
@@ -26,13 +27,14 @@ AVB_DewarActor::AVB_DewarActor()
 
 	}
 
-	static ConstructorHelpers::FObjectFinder<UParticleSystem> P_Effect(TEXT("ParticleSystem'/Game/Test_Geometry/Test_Particle/P_Steam_Lit.P_Steam_Lit'"));
+	
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> P_Effect(TEXT("ParticleSystem'/Game/Particles/WaterSplash_P.WaterSplash_P'"));
 	if (P_Effect.Succeeded())
 	{
 		FrozenFX = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("FrozenEffect"));
 		FrozenFX->SetTemplate(P_Effect.Object);
-		FrozenFX->SetVisibility(false);
 		FrozenFX->SetupAttachment(PickupMesh);
+		FrozenFX->SetWorldLocation(FVector(0.0f, 0.0f, 38.0f));
 	}
 
 }
