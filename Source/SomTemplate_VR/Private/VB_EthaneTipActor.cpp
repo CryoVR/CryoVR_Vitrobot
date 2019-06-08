@@ -24,7 +24,8 @@ AVB_EthaneTipActor::AVB_EthaneTipActor() {
 
 	ethaneTipCollisionComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("EthaneTipCollision"));
 	ethaneTipCollisionComp->SetupAttachment(PickupMesh);
-	ethaneTipCollisionComp->SetCapsuleSize(16.0f, 2.0f);
+	ethaneTipCollisionComp->SetCapsuleSize(2.0f, 16.0f);
+	ethaneTipCollisionComp->SetRelativeLocation(FVector(0.0f, 0.0f, -15.0f));
 	ethaneTipCollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTipActor::OnActorBeginOverlap);
 
 	ethaneParticle = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("EthaneParticle"));
