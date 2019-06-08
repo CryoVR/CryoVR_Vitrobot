@@ -23,6 +23,8 @@ AVB_PetridishActor::AVB_PetridishActor()
 		boxComp->SetupAttachment(meshComp);
 	}
 
+	m_isOn = true;
+
 	petridish_grid = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Petridish_grid"));
 	petridish_grid->SetGenerateOverlapEvents(true);
 	petridish_grid->SetCollisionEnabled(ECollisionEnabled::QueryOnly);

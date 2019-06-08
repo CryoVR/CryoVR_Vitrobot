@@ -7,14 +7,19 @@
 #include "UObject/ConstructorHelpers.h"
 #include "VB_PetridishActor.h"
 #include "VB_StaticActor.h"
+#include "Materials/MaterialInstanceConstant.h"
 
 AVB_PetridishCoverActor::AVB_PetridishCoverActor() {
 	
 	
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_PetridishCover(TEXT("StaticMesh'/Game/Models/GridHolderUMesh.GridHolderUMesh'"));
+	static ConstructorHelpers::FObjectFinder<UMaterialInstanceConstant> MI_GlassMatInst(TEXT("MaterialInstanceConstant'/Game/Models/01GridHolderMat_Inst.01GridHolderMat_Inst'"));
 
 	if (SM_PetridishCover.Succeeded()) {
 		PickupMesh->SetStaticMesh(SM_PetridishCover.Object);
+	}
+	if (MI_GlassMatInst.Succeeded()) {
+		PickupMesh->SetMaterial(0, MI_GlassMatInst.Object);
 	}
 
 	covercollisionComp = CreateDefaultSubobject<UBoxComponent>(TEXT("boxComp"));
