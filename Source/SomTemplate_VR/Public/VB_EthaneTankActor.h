@@ -30,12 +30,13 @@ public:
 
 	UPROPERTY(VisibleAnyWhere, Category = "Particles")
 		UParticleSystemComponent* particle;
+
+	
 	
 
-
 protected:
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
-	UCapsuleComponent* ethaneTipPosCollisionComp;
-
 	AVB_EthaneTipActor* ethaneTip;
+
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+		UCapsuleComponent* ethaneTipPosCollisionComp;
 };

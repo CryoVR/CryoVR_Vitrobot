@@ -27,12 +27,8 @@ public:
 	UPROPERTY(VisibleAnyWhere, Category = "Particles")
 		UParticleSystemComponent* ethaneParticle;
 
-protected:
-	
-
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UCapsuleComponent* ethaneTipCollisionComp;
 
-	
 
 };

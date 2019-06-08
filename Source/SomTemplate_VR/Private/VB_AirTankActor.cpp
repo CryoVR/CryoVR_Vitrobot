@@ -79,7 +79,6 @@ AVB_AirTankActor::AVB_AirTankActor() {
 		firstPointer->SetStaticMesh(SM_PointerMesh.Object);
 		secondPointer->SetStaticMesh(SM_PointerMesh.Object);
 	}
-
 }
 
 void AVB_AirTankActor::Tick(float DeltaTime)
