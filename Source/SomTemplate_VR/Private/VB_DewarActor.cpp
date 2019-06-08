@@ -43,7 +43,6 @@ void AVB_DewarActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, c
 	{
 		FrozenFX->SetVisibility(false);
 		PickupMesh->SetSimulatePhysics(false);
-		bTest = true;
 	}
 }
 
@@ -52,14 +51,10 @@ void AVB_DewarActor::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, AAc
 	if (Cast<AVB_NitrogenTankCapActor>(OtherActor) != nullptr)
 	{
 		FrozenFX->SetVisibility(true);
-		bTest = false;
 	}
 }
 
 void AVB_DewarActor::Tick(float DeltaTime)
 {
-	if (bTest)
-	{
-		PickupMesh->AddWorldOffset(FVector(1.0f, 1.0f, 1.0f));
-	}
+
 }

@@ -34,8 +34,5 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "ParticleEffect")
 	UParticleSystemComponent* FrozenFX;
 
-private:
-	bool bTest;
-
 
 };
