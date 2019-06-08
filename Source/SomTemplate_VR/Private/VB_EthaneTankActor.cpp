@@ -46,6 +46,7 @@ USceneComponent * AVB_EthaneTankActor::GetComponentByIndex(int indexComp)
 	return nullptr;
 }
 
+//Handle tip collides with ethane tank
 void AVB_EthaneTankActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
 	ATP_MotionController* MotionController = Cast<ATP_MotionController>(OtherActor);
