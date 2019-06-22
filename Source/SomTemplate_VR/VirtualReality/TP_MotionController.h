@@ -156,7 +156,7 @@ private: // SomWorks :D // Variables Initialization //
 	
 	//Define hand scale factor, default is 0.8f
 	float m_HandScale;
-
+	
 protected:	
 
 public:		
@@ -166,6 +166,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VRTemplate|Variables")
 	EControllerHand Hand;
+
+	//This variable stores the initial rotator when our hand collides with knobs / revolving door
+	FRotator m_HandInitialKnobRotator;
 	
 	FORCEINLINE class UMotionControllerComponent* GetMotionController() const { return MotionController; }
 	FORCEINLINE FRotator GetInitialControllerRotation() const { return InitialControllerRotation; }

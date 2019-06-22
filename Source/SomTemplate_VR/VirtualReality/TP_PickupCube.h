@@ -31,5 +31,4 @@ public:
 		
 	virtual void Drop_Implementation();
 
-		
 };

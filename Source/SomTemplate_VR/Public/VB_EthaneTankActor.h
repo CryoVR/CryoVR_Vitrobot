@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "VB_AirTankActor.h"
+#include "VirtualReality/TP_InteractionInterface.h"
 #include "VB_EthaneTankActor.generated.h"
 
 /**
@@ -14,7 +15,7 @@ class UCapsuleComponent;
 class AVB_EthaneTipActor;
 
 UCLASS()
-class SOMTEMPLATE_VR_API AVB_EthaneTankActor : public AVB_AirTankActor
+class SOMTEMPLATE_VR_API AVB_EthaneTankActor : public AVB_AirTankActor, public ITP_InteractionInterface
 {
 	GENERATED_BODY()
 public:
@@ -31,7 +32,9 @@ public:
 	UPROPERTY(VisibleAnyWhere, Category = "Particles")
 		UParticleSystemComponent* particle;
 
-	
+	virtual void Pickup_Implementation(class USceneComponent* AttachTo);
+
+	virtual void Drop_Implementation();
 	
 
 protected:

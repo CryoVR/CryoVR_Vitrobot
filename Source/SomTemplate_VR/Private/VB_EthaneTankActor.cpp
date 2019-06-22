@@ -80,5 +80,13 @@ void AVB_EthaneTankActor::OnTipOverlapBegin(UPrimitiveComponent * OverlappedComp
 	}
 }
 
+void AVB_EthaneTankActor::Pickup_Implementation(USceneComponent * AttachTo)
+{
+}
+
+void AVB_EthaneTankActor::Drop_Implementation()
+{
+}
+
 
 
