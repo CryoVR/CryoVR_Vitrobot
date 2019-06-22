@@ -10,6 +10,7 @@
 #include "VB_VitrobotActor.h"
 #include "VB_EthaneTankActor.h"
 #include "VB_EthaneTipActor.h"
+#include "VB_VitrobotActor.h"
 
 AVB_WorkstationActor::AVB_WorkstationActor() 
 {
@@ -20,6 +21,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnOverlapBegin);
 	BoxComp->SetRelativeLocation(FVector(0.0f, 0.0f, 3.26f));
 	BoxComp->SetRelativeScale3D(FVector(0.22f, 0.22f, 0.11f));
+	
 
 	capsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("capsuleComp"));
 	capsuleComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
@@ -27,6 +29,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	capsuleComp->SetupAttachment(PickupMesh);
 	capsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnTipOverlapBegin);
 
+	PickupMesh->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnVitrobotOverlapBegin);
 	
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Test_Geometry/Workstation_Vitrobot_1_3size.Workstation_Vitrobot_1_3size'"));
 	if (SM_Pickup.Succeeded())
@@ -66,3 +69,13 @@ void AVB_WorkstationActor::OnTipOverlapBegin(UPrimitiveComponent * OverlappedCom
 	}
 }
 
+void AVB_WorkstationActor::OnVitrobotOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	AVB_VitrobotActor* VitrobotActor = Cast<AVB_VitrobotActor>(OtherActor);
+	if (VitrobotActor != nullptr) {
+		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+		GetRootComponent()->AttachToComponent(VitrobotActor->WorkstationHolder, AttachRules, FName("workstationSocket"));
+	}
+}
+
+ 

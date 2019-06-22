@@ -8,6 +8,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Components/BoxComponent.h"
+#include "Components/SphereComponent.h"
 #include "VirtualReality/TP_MotionController.h"
 #include "VB_WorkstationActor.h"
 
@@ -69,17 +70,21 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	BottomCover->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	BottomCover->SetVisibility(true);
 	BottomCover->SetRelativeLocation(FVector(12.9f, -26.6f, 49.3f));
-	BottomCover->SetRelativeRotation(FRotator(0.0f, 45.0f, 0.0f));
+	BottomCover->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
 	if (SM_BottomCover.Succeeded()) {
 		BottomCover->SetStaticMesh(SM_BottomCover.Object);
 	}
 	BottomCover_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Bottom_Cover_Collider"));
-	BottomCover_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
-	BottomCover_Collider->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
+	//BottomCover_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+	//BottomCover_Collider->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
+	BottomCover_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	BottomCover_Collider->SetupAttachment(BottomCover);
 	BottomCover_Collider->SetRelativeLocation(FVector(-25.0f, -0.85f, 1.3f));
 	Cast<UBoxComponent>(BottomCover_Collider)->SetBoxExtent(FVector(1.3f, 1.3f, 12.7f));
 	BottomCover_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::OnOverlapBegin);
+
+	bIsBottomCoverOn = false;
+	bIsBottomCoverGoingOpen = true;
 
 	//#4 LEDCover and its collider
 	LEDCover = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LED_Cover"));
@@ -120,19 +125,11 @@ void AVB_VitrobotActor::MoveWorkstationHolder(float F)
 //Generate the overlap function for bottom cover and workstation holder
 void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+
 	if (Cast<ATP_MotionController>(OtherActor) != nullptr)	
 	{	
-		if (OverlappedComp == BottomCover_Collider)
-		{	
-			if (BottomCover_Collider->GetComponentRotation().Yaw >= 60.0f)
-			{
-				InnerHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
-			}
-			else if (BottomCover_Collider->GetComponentRotation().Yaw >= 0.0f && BottomCover_Collider->GetComponentRotation().Yaw < 60.0f)
-			{
-				InnerHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Ignore);
-			}
-		}
+		
+
 		//Set the Button ON/OFF
 		if (OverlappedComp == TestButton_Collider)
 		{	
@@ -145,15 +142,31 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 				bIsButtonOn = true;
 			}
 		}
+
+		
+		
+		if (OverlappedComp == BottomCover_Collider)
+		{
+			/*if (BottomCover_Collider->GetComponentRotation().Yaw >= 60.0f)
+			{
+				InnerHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
+			}
+			else if (BottomCover_Collider->GetComponentRotation().Yaw >= 0.0f && BottomCover_Collider->GetComponentRotation().Yaw < 60.0f)
+			{
+				InnerHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Ignore);
+			}*/
+
+			bIsBottomCoverOn = !bIsBottomCoverOn;
+		}
 	}
 
-	if ((Cast<AVB_WorkstationActor>(OtherActor) != nullptr) && (OverlappedComp == WorkstationHolder_Collider))
-	{
-		//Use either of them
-		//OtherComp->SetupAttachment(WorkstationHolder);
-		//OtherActor->GetRootComponent()->SetupAttachment(WorkstationHolder); 
-		OtherActor->GetRootComponent()->AttachToComponent(WorkstationHolder, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
-	}
+	//if ((Cast<AVB_WorkstationActor>(OtherActor) != nullptr) && (OverlappedComp == WorkstationHolder_Collider))
+	//{
+	//	//Use either of them
+	//	//OtherComp->SetupAttachment(WorkstationHolder);
+	//	//OtherActor->GetRootComponent()->SetupAttachment(WorkstationHolder); 
+	//	OtherActor->GetRootComponent()->AttachToComponent(WorkstationHolder, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+	//}
 }
 
 void AVB_VitrobotActor::Tick(float DeltaTime)
@@ -184,4 +197,23 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 		}
 	}
 
+	if (bIsBottomCoverOn) {
+		if (BottomCover->GetComponentRotation().Yaw < -91.0f) 
+		{
+			bIsBottomCoverGoingOpen = true;
+			bIsBottomCoverOn = false;
+		}
+		else if (BottomCover->GetComponentRotation().Yaw > -1.0f) 
+		{
+			bIsBottomCoverGoingOpen = false;
+			bIsBottomCoverOn = false;
+		}
+
+		if (bIsBottomCoverGoingOpen) {
+			BottomCover->AddWorldRotation(FRotator(0.0f, 1.0f, 0.0f));
+		}
+		else if (!bIsBottomCoverGoingOpen) {
+			BottomCover->AddWorldRotation(FRotator(0.0f, -1.0f, 0.0f));
+		}
+	}
 }
