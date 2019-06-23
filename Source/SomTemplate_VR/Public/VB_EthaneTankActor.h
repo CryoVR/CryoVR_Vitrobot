@@ -27,6 +27,9 @@ public:
 		void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UFUNCTION()
+		void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	UFUNCTION()
 		void OnTipOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UPROPERTY(VisibleAnyWhere, Category = "Particles")
@@ -38,8 +41,18 @@ public:
 	
 
 protected:
+	USceneComponent * handObjRef;
+
 	AVB_EthaneTipActor* ethaneTip;
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UCapsuleComponent* ethaneTipPosCollisionComp;
+
+	float m_HandInitialKnobDeltaRotator;
+
+	bool bIsFirstKnobTouched;
+
+	bool bIsFirstKnowHold;
+
+	virtual void Tick(float DeltaTime) override;
 };

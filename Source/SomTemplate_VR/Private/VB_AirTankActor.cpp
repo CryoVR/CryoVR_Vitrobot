@@ -11,7 +11,7 @@
 	//UE_LOG(LogTemp, Log, TEXT("Test =================================================== %s"), BBB);
 
 AVB_AirTankActor::AVB_AirTankActor() {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	m_isFirstKnobOn = false;
 	m_isSecondKnobOn = false;
@@ -85,7 +85,5 @@ AVB_AirTankActor::AVB_AirTankActor() {
 void AVB_AirTankActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	UE_LOG(LogTemp, Log, TEXT("Why not functional?"));
-
 }
  

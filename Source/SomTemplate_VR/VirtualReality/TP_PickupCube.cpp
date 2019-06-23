@@ -61,7 +61,7 @@ void ATP_PickupCube::Pickup_Implementation(USceneComponent* AttachTo)
 void ATP_PickupCube::Drop_Implementation()
 {
 	PickupMesh->SetSimulatePhysics(true);
-
+	
 	FDetachmentTransformRules DetatchmentTransformRules(EDetachmentRule::KeepWorld, true);
 	DetachFromActor(DetatchmentTransformRules);
 }

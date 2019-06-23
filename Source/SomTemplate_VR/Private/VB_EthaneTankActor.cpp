@@ -13,8 +13,12 @@
 
 
 
+
 AVB_EthaneTankActor::AVB_EthaneTankActor() {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
+
+	bIsFirstKnobTouched = false;
+	bIsFirstKnowHold = false;
 
 	
 	ConstructorHelpers::FObjectFinder<UMaterial> M_EthaneTankMat(TEXT("Material'/Game/Models/EthaneTank_MainMat.EthaneTank_MainMat'"));
@@ -28,6 +32,7 @@ AVB_EthaneTankActor::AVB_EthaneTankActor() {
 	ethaneTipPosCollisionComp->SetRelativeLocation(FVector(-29.33f, 0.75f, 42.8f));
 
 	shapeComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTankActor::OnOverlapBegin);
+	shapeComp->OnComponentEndOverlap.AddDynamic(this, &AVB_EthaneTankActor::OnOverlapEnd);
 	secondKnobCollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTankActor::OnOverlapBegin);
 
 	ethaneTipPosCollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTankActor::OnTipOverlapBegin);
@@ -52,8 +57,10 @@ void AVB_EthaneTankActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, A
 	ATP_MotionController* MotionController = Cast<ATP_MotionController>(OtherActor);
 	if (MotionController != nullptr) {
 		if (Cast<USphereComponent>(OtherComp) == MotionController->GrabShpere) {
-			//UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01==========================="));
-			if (OverlappedComp == shapeComp) {
+
+			bIsFirstKnobTouched = true;
+			
+			/*if (OverlappedComp == shapeComp) {
 				m_isFirstKnobOn = !m_isFirstKnobOn;
 			}
 			if (OverlappedComp == secondKnobCollisionComp) {
@@ -64,8 +71,17 @@ void AVB_EthaneTankActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, A
 			}
 			else {
 				ethaneTip->ethaneParticle->SetActive(false);
-			}
+			}*/
 		}
+	}
+}
+
+void AVB_EthaneTankActor::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	ATP_MotionController* MotionController = Cast<ATP_MotionController>(OtherActor);
+	if (MotionController != nullptr) {
+			bIsFirstKnobTouched = false;
+			bIsFirstKnowHold = false; // still has a bug: drop_implemetation() is not implemented!! 
 	}
 }
 
@@ -74,7 +90,6 @@ void AVB_EthaneTankActor::OnTipOverlapBegin(UPrimitiveComponent * OverlappedComp
 	AVB_EthaneTipActor* EthaneTipActor = Cast<AVB_EthaneTipActor>(OtherActor);
 	if (EthaneTipActor != nullptr) {
 		if (ethaneTip == nullptr) {
-			//UE_LOG(LogTemp, Log, TEXT("=======================Code Executed222222==========================="));
 			ethaneTip = EthaneTipActor;
 		}
 	}
@@ -82,10 +97,27 @@ void AVB_EthaneTankActor::OnTipOverlapBegin(UPrimitiveComponent * OverlappedComp
 
 void AVB_EthaneTankActor::Pickup_Implementation(USceneComponent * AttachTo)
 {
+	handObjRef = AttachTo;
+	UE_LOG(LogTemp, Log, TEXT("=======================Code Executed11111==========================="));
+	m_HandInitialKnobDeltaRotator = handObjRef->GetComponentRotation().Yaw - firstKnob->GetComponentRotation().Yaw;
+	bIsFirstKnowHold = true;
 }
 
 void AVB_EthaneTankActor::Drop_Implementation()
 {
+	UE_LOG(LogTemp, Log, TEXT("=======================Code Executed222222==========================="));
+	bIsFirstKnowHold = false;
+	
+}
+
+void AVB_EthaneTankActor::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (bIsFirstKnobTouched && bIsFirstKnowHold) {
+		float newSub = handObjRef->GetComponentRotation().Yaw - m_HandInitialKnobDeltaRotator;
+		firstKnob->SetWorldRotation(FRotator(firstKnob->GetComponentRotation().Pitch, newSub, firstKnob->GetComponentRotation().Roll));
+	}
 }
 
 
