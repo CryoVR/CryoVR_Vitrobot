@@ -4,6 +4,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Interface.h"
 #include "TP_InteractionInterface.generated.h"
 
 // This class does not need to be modified.

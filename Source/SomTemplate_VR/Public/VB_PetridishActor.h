@@ -23,11 +23,11 @@ public:
 	//return the grid
 	UStaticMeshComponent* GetGrid();
 
+
 protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UStaticMeshComponent* petridish_grid;
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UBoxComponent* boxComp;
-	
 };

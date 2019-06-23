@@ -10,9 +10,10 @@
 
 AVB_PetridishActor::AVB_PetridishActor() 
 {
-	boxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("boxComp"));
+	boxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("PetridishComp"));
 	boxComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	boxComp->SetRelativeScale3D(FVector(0.15f, 0.15f, 0.1f));
+	boxComp->SetBoxExtent(FVector(4.5f, 4.5f, 1.0f));
+	boxComp->SetRelativeLocation(FVector(0.0f, 0.0f, 1.5f));
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_GridHolderDMesh(TEXT("StaticMesh'/Game/Models/GridHolderDMesh.GridHolderDMesh'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Petridish_Grid(TEXT("StaticMesh'/Game/Models/Tweezer_Grid.Tweezer_Grid'"));
@@ -26,9 +27,8 @@ AVB_PetridishActor::AVB_PetridishActor()
 	m_isOn = true;
 
 	petridish_grid = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Petridish_grid"));
-	petridish_grid->SetGenerateOverlapEvents(true);
-	petridish_grid->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	petridish_grid->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+	petridish_grid->SetGenerateOverlapEvents(false);
+	petridish_grid->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	petridish_grid->SetVisibility(true);
 	petridish_grid->SetRelativeLocation(FVector(0.0f, 0.0f, 0.3f));
 	petridish_grid->SetRelativeRotation(FRotator(0.0f, 0.0f, 90.0f));
@@ -39,7 +39,7 @@ AVB_PetridishActor::AVB_PetridishActor()
 	}
 
 	shapeComp->DestroyComponent();
-	shapeComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Petridish"));
+	shapeComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("PetridishGridComp"));
 	shapeComp->SetGenerateOverlapEvents(true);
 	shapeComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	shapeComp->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
