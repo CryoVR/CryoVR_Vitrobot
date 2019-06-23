@@ -22,12 +22,15 @@ AVB_PetridishCoverActor::AVB_PetridishCoverActor() {
 		PickupMesh->SetMaterial(0, MI_GlassMatInst.Object);
 	}
 
+	PickupMesh->SetSimulatePhysics(true);
+	PickupMesh->SetGenerateOverlapEvents(false);
+
 	covercollisionComp = CreateDefaultSubobject<UBoxComponent>(TEXT("boxComp"));
 	covercollisionComp->SetupAttachment(PickupMesh);
-	covercollisionComp->SetRelativeScale3D(FVector(0.15f, 0.15f, 0.1f));
+	covercollisionComp->SetBoxExtent(FVector(4.5f, 4.5f, 1.0f));
+	covercollisionComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.5f));
 	covercollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_PetridishCoverActor::OnOverlapBegin);
 	covercollisionComp->OnComponentEndOverlap.AddDynamic(this, &AVB_PetridishCoverActor::OnOverlapEnd);
-
 
 }
 
@@ -35,12 +38,13 @@ AVB_PetridishCoverActor::AVB_PetridishCoverActor() {
 void AVB_PetridishCoverActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 { 
 	AVB_PetridishActor* petridishActor = Cast<AVB_PetridishActor>(OtherActor);
+
 	if (petridishActor != nullptr) {
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+		PickupMesh->SetSimulatePhysics(false);
 		GetRootComponent()->AttachToComponent(OtherActor->GetRootComponent(), AttachRules, FName("UpperCoverSocket"));
 		petridishActor->setState(false);
 	}
-	
 }
 
 void AVB_PetridishCoverActor::OnOverlapEnd(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex)
