@@ -37,6 +37,7 @@ void AVB_NitrogenTankCapActor::OnOverlapBegin(class UPrimitiveComponent* Overlap
 		FName DewarSocket = "CapSocket";
 		FAttachmentTransformRules AttachmentTransformRules(EAttachmentRule::SnapToTarget, false);
 		PickupMesh->SetSimulatePhysics(false);
+		//UE_LOG(LogTemp, Log, TEXT("=======================Nitrogen Tank============================"));
 		PickupMesh->AttachToComponent(OtherActor->GetRootComponent(), AttachmentTransformRules, DewarSocket);
 	}
 }

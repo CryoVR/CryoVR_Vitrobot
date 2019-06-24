@@ -63,7 +63,7 @@ void AVB_WorkstationActor::OnTipOverlapBegin(UPrimitiveComponent * OverlappedCom
 	AVB_EthaneTipActor* EthaneTipActor = Cast<AVB_EthaneTipActor>(OtherActor);
 	if (EthaneTipActor != nullptr) {
 		if (EthaneTipActor->ethaneTipCollisionComp == OtherComp && EthaneTipActor->ethaneParticle->IsActive()) {
-			UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01111111111111==========================="));
+			//UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01111111111111==========================="));
 			isEthaneAdded = !isEthaneAdded;
 		}
 	}
