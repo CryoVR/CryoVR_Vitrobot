@@ -26,6 +26,7 @@
 #include "Engine/SkeletalMesh.h"
 #include "Materials/Material.h"
 #include "Materials/MaterialInstanceConstant.h"
+#include "VB_StaticActor.h"
 
 // Sets default values
 ATP_MotionController::ATP_MotionController()
@@ -378,7 +379,7 @@ void ATP_MotionController::ReleaseActor()
 		}
 		else
 		{
-			if (AttachedActor->GetClass()->ImplementsInterface(UTP_InteractionInterface::StaticClass()))
+			if (AttachedActor->GetClass()->ImplementsInterface(UTP_InteractionInterface::StaticClass()) && Cast<AVB_StaticActor>(AttachedActor))
 			{
 				ITP_InteractionInterface::Execute_Drop(AttachedActor); // This is the Execute_* function. The asterisk means your function name. :)
 			}

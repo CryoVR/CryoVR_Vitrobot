@@ -10,7 +10,7 @@
 
 AVB_DewarActor::AVB_DewarActor()
 {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 	BoxCompCap = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCompCap"));
 	BoxCompCap->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	BoxCompCap->OnComponentBeginOverlap.AddDynamic(this, &AVB_DewarActor::OnOverlapBegin);
@@ -44,7 +44,7 @@ void AVB_DewarActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, c
 	if (Cast<AVB_NitrogenTankCapActor>(OtherActor) != nullptr)
 	{
 		FrozenFX->SetVisibility(false);
-		PickupMesh->SetSimulatePhysics(false);
+		//PickupMesh->SetSimulatePhysics(false);
 	}
 }
 
