@@ -52,7 +52,13 @@ protected:
 
 	bool bIsFirstKnobTouched;
 
-	bool bIsFirstKnowHold;
+	bool bIsFirstKnobHold;
+
+	bool bIsSecondKnobTouched;
+
+	bool bIsSecondKnobHold;
 
 	virtual void Tick(float DeltaTime) override;
+
+
 };

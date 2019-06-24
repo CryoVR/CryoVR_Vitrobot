@@ -18,8 +18,9 @@ AVB_EthaneTankActor::AVB_EthaneTankActor() {
 	PrimaryActorTick.bCanEverTick = true;
 
 	bIsFirstKnobTouched = false;
-	bIsFirstKnowHold = false;
-
+	bIsFirstKnobHold = false;
+	bIsSecondKnobTouched = false;
+	bIsSecondKnobHold = false;
 	
 	ConstructorHelpers::FObjectFinder<UMaterial> M_EthaneTankMat(TEXT("Material'/Game/Models/EthaneTank_MainMat.EthaneTank_MainMat'"));
 	if (M_EthaneTankMat.Succeeded()) {
@@ -34,7 +35,6 @@ AVB_EthaneTankActor::AVB_EthaneTankActor() {
 	shapeComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTankActor::OnOverlapBegin);
 	shapeComp->OnComponentEndOverlap.AddDynamic(this, &AVB_EthaneTankActor::OnOverlapEnd);
 	secondKnobCollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTankActor::OnOverlapBegin);
-
 	ethaneTipPosCollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTankActor::OnTipOverlapBegin);
 }
 
@@ -81,7 +81,7 @@ void AVB_EthaneTankActor::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp
 	ATP_MotionController* MotionController = Cast<ATP_MotionController>(OtherActor);
 	if (MotionController != nullptr) {
 			bIsFirstKnobTouched = false;
-			bIsFirstKnowHold = false; // still has a bug: drop_implemetation() is not implemented!! 
+			bIsFirstKnobHold = false; // still has a bug: drop_implemetation() is not implemented!! 
 	}
 }
 
@@ -100,13 +100,13 @@ void AVB_EthaneTankActor::Pickup_Implementation(USceneComponent * AttachTo)
 	handObjRef = AttachTo;
 	UE_LOG(LogTemp, Log, TEXT("=======================Code Executed11111==========================="));
 	m_HandInitialKnobDeltaRotator = handObjRef->GetComponentRotation().Yaw - firstKnob->GetComponentRotation().Yaw;
-	bIsFirstKnowHold = true;
+	bIsFirstKnobHold = true;
 }
 
 void AVB_EthaneTankActor::Drop_Implementation()
 {
 	UE_LOG(LogTemp, Log, TEXT("=======================Code Executed222222==========================="));
-	bIsFirstKnowHold = false;
+	bIsFirstKnobHold = false;
 	
 }
 
@@ -114,11 +114,13 @@ void AVB_EthaneTankActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (bIsFirstKnobTouched && bIsFirstKnowHold) {
+	if (bIsFirstKnobTouched && bIsFirstKnobHold) {
 		float newSub = handObjRef->GetComponentRotation().Yaw - m_HandInitialKnobDeltaRotator;
 		firstKnob->SetWorldRotation(FRotator(firstKnob->GetComponentRotation().Pitch, newSub, firstKnob->GetComponentRotation().Roll));
 	}
 }
+
+
 
 
 
