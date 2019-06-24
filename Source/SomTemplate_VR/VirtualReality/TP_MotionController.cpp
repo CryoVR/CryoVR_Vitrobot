@@ -356,12 +356,16 @@ void ATP_MotionController::GrabActor()
 void ATP_MotionController::ReleaseActor()
 {
 	bWantsToGrip = false;
+	//if(AttachedActor)
+		
 
 	if (AttachedActor && AttachedActor->IsValidLowLevel() && !AttachedActor->IsPendingKill())
 	{
+		
 		// Epic Comment :D // Make sure this hand is still holding the Actor (May have been taken by another hand / event)
 		if (AttachedActor->GetRootComponent()->GetAttachParent() == MotionController)
 		{
+			
 			if (AttachedActor->GetClass()->ImplementsInterface(UTP_InteractionInterface::StaticClass()))
 			{
 				ITP_InteractionInterface::Execute_Drop(AttachedActor); // This is the Execute_* function. The asterisk means your function name. :)
@@ -374,6 +378,10 @@ void ATP_MotionController::ReleaseActor()
 		}
 		else
 		{
+			if (AttachedActor->GetClass()->ImplementsInterface(UTP_InteractionInterface::StaticClass()))
+			{
+				ITP_InteractionInterface::Execute_Drop(AttachedActor); // This is the Execute_* function. The asterisk means your function name. :)
+			}
 			// Epic Comment :D // Clear the reference
 			AttachedActor = nullptr;
 		}

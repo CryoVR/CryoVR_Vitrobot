@@ -98,16 +98,13 @@ void AVB_EthaneTankActor::OnTipOverlapBegin(UPrimitiveComponent * OverlappedComp
 void AVB_EthaneTankActor::Pickup_Implementation(USceneComponent * AttachTo)
 {
 	handObjRef = AttachTo;
-	UE_LOG(LogTemp, Log, TEXT("=======================Code Executed11111==========================="));
 	m_HandInitialKnobDeltaRotator = handObjRef->GetComponentRotation().Yaw - firstKnob->GetComponentRotation().Yaw;
 	bIsFirstKnowHold = true;
 }
 
 void AVB_EthaneTankActor::Drop_Implementation()
 {
-	UE_LOG(LogTemp, Log, TEXT("=======================Code Executed222222==========================="));
 	bIsFirstKnowHold = false;
-	
 }
 
 void AVB_EthaneTankActor::Tick(float DeltaTime)
