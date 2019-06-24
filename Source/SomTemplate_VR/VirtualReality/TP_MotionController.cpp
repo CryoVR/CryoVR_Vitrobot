@@ -41,7 +41,7 @@ ATP_MotionController::ATP_MotionController()
 	
 	// SomWorks :D // Animation Blueprint // cast "UClass" and Asset path is Different Why? -> Because UAnimBlueprint Class will crash a packaged game. so use postfix "_C", animation blueprint cast to UClass.
 	static ConstructorHelpers::FObjectFinder<UClass> AnimBP_HandAnimation(TEXT("Class'/Game/VirtualReality/Mannequin/Animations/AnimBP_SomRightHand.AnimBP_SomRightHand_C'"));
-	
+
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SK_Hand(TEXT("SkeletalMesh'/Game/VirtualReality/VR_Hands/Meshes/StylizedManHand_Right.StylizedManHand_Right'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Sphere(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Cylinder(TEXT("StaticMesh'/Engine/BasicShapes/Cylinder.Cylinder'"));
@@ -356,12 +356,16 @@ void ATP_MotionController::GrabActor()
 void ATP_MotionController::ReleaseActor()
 {
 	bWantsToGrip = false;
+	//if(AttachedActor)
+		
 
 	if (AttachedActor && AttachedActor->IsValidLowLevel() && !AttachedActor->IsPendingKill())
 	{
+		
 		// Epic Comment :D // Make sure this hand is still holding the Actor (May have been taken by another hand / event)
 		if (AttachedActor->GetRootComponent()->GetAttachParent() == MotionController)
 		{
+			
 			if (AttachedActor->GetClass()->ImplementsInterface(UTP_InteractionInterface::StaticClass()))
 			{
 				ITP_InteractionInterface::Execute_Drop(AttachedActor); // This is the Execute_* function. The asterisk means your function name. :)
@@ -374,6 +378,10 @@ void ATP_MotionController::ReleaseActor()
 		}
 		else
 		{
+			if (AttachedActor->GetClass()->ImplementsInterface(UTP_InteractionInterface::StaticClass()))
+			{
+				ITP_InteractionInterface::Execute_Drop(AttachedActor); // This is the Execute_* function. The asterisk means your function name. :)
+			}
 			// Epic Comment :D // Clear the reference
 			AttachedActor = nullptr;
 		}
