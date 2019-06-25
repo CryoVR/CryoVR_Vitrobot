@@ -55,7 +55,3 @@ void AVB_DewarActor::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, AAc
 	}
 }
 
-void AVB_DewarActor::Tick(float DeltaTime)
-{
-
-}
