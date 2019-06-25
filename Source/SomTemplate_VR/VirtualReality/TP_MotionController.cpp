@@ -349,7 +349,8 @@ void ATP_MotionController::GrabActor()
 	if (NearActor && NearActor->IsValidLowLevel() && !NearActor->IsPendingKill())
 	{
 		AttachedActor = NearActor;
-		ITP_InteractionInterface::Execute_Pickup(NearActor, MotionController);
+		//ITP_InteractionInterface::Execute_Pickup(NearActor, MotionController);
+		ITP_InteractionInterface::Execute_Pickup(NearActor, HandMesh);
 		RumbleController(0.7f);
 	}
 }
@@ -364,7 +365,7 @@ void ATP_MotionController::ReleaseActor()
 	{
 		
 		// Epic Comment :D // Make sure this hand is still holding the Actor (May have been taken by another hand / event)
-		if (AttachedActor->GetRootComponent()->GetAttachParent() == MotionController)
+		if (AttachedActor->GetRootComponent()->GetAttachParent() == HandMesh)
 		{
 			
 			if (AttachedActor->GetClass()->ImplementsInterface(UTP_InteractionInterface::StaticClass()))

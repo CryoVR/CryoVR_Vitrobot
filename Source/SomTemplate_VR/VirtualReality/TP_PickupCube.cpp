@@ -53,15 +53,18 @@ void ATP_PickupCube::Tick(float DeltaTime)
 void ATP_PickupCube::Pickup_Implementation(USceneComponent* AttachTo)
 {
 	PickupMesh->SetSimulatePhysics(false);
-	
+	FString AAA = AttachTo->GetFName().ToString();
+	const TCHAR* BBB = *AAA;
+	//UE_LOG(LogTemp, Log, TEXT("Attach To Name =================================================== %s"), BBB)
 	FAttachmentTransformRules AttachmentTransformRules(EAttachmentRule::KeepWorld, false);
 	GetRootComponent()->AttachToComponent(AttachTo, AttachmentTransformRules);
 }
 
 void ATP_PickupCube::Drop_Implementation()
 {
+	//UE_LOG(LogTemp, Log, TEXT("Drop Execution =================================================== "))
 	PickupMesh->SetSimulatePhysics(true);
-	
-	FDetachmentTransformRules DetatchmentTransformRules(EDetachmentRule::KeepWorld, true);
+	FDetachmentTransformRules DetatchmentTransformRules(EDetachmentRule::KeepWorld, false);
 	DetachFromActor(DetatchmentTransformRules);
+	
 }

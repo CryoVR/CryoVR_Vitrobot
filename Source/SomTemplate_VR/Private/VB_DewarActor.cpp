@@ -43,8 +43,7 @@ void AVB_DewarActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, c
 {
 	if (Cast<AVB_NitrogenTankCapActor>(OtherActor) != nullptr)
 	{
-		FrozenFX->SetVisibility(false);
-		//PickupMesh->SetSimulatePhysics(false);
+		FrozenFX->SetActive(false);
 	}
 }
 
@@ -52,7 +51,7 @@ void AVB_DewarActor::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, AAc
 {
 	if (Cast<AVB_NitrogenTankCapActor>(OtherActor) != nullptr)
 	{
-		FrozenFX->SetVisibility(true);
+		FrozenFX->SetActive(true);
 	}
 }
 
