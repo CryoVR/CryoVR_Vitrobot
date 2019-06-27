@@ -41,8 +41,9 @@ ATP_MotionController::ATP_MotionController()
 	//=============// HandMesh->SetAnimInstanceClass(AnimBP_HandAnimation.Object->GeneratedClass);
 	
 	// SomWorks :D // Animation Blueprint // cast "UClass" and Asset path is Different Why? -> Because UAnimBlueprint Class will crash a packaged game. so use postfix "_C", animation blueprint cast to UClass.
-	static ConstructorHelpers::FObjectFinder<UClass> AnimBP_HandAnimation(TEXT("Class'/Game/VirtualReality/Mannequin/Animations/AnimBP_SomRightHand.AnimBP_SomRightHand_C'"));
-
+	//static ConstructorHelpers::FObjectFinder<UClass> AnimBP_HandAnimation(TEXT("Class'/Game/VirtualReality/Mannequin/Animations/AnimBP_SomRightHand.AnimBP_SomRightHand_C'"));
+	static ConstructorHelpers::FObjectFinder<UClass> AnimBP_HandAnimation(TEXT("Class'/Game/VirtualReality/Mannequin/Animations/RightHand_AnimBP.RightHand_AnimBP_C'"));
+	//Class'/Game/VirtualReality/Mannequin/Animations/RightHand_AnimBP.RightHand_AnimBP_C'
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SK_Hand(TEXT("SkeletalMesh'/Game/VirtualReality/VR_Hands/Meshes/StylizedManHand_Right.StylizedManHand_Right'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Sphere(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Cylinder(TEXT("StaticMesh'/Engine/BasicShapes/Cylinder.Cylinder'"));
@@ -94,6 +95,9 @@ ATP_MotionController::ATP_MotionController()
 			HandMesh->SetAnimInstanceClass(AnimBP_HandAnimation.Object);
 		}
 	}
+	//Initialize default hand gesture input and hand gesture
+	HandGestureInput = { 2.0f, 1.0f };
+	HandGesturetoAnimationBP = { 0.0f, 1.0f };
 
 	ArcDirection->SetupAttachment(HandMesh);
 	ArcDirection->SetRelativeLocation(FVector(14.175764f, 0.859525f, -4.318897f));
@@ -655,6 +659,8 @@ void ATP_MotionController::UpdateHandAnimation()
 	if (AttachedActor || bWantsToGrip)
 	{
 		CurrentGripState = EGrip_Code::Grab;
+		HandGesturetoAnimationBP[0] = HandGestureInput[0];
+		HandGesturetoAnimationBP[1] = HandGestureInput[1];
 	}
 	else
 	{
@@ -663,23 +669,28 @@ void ATP_MotionController::UpdateHandAnimation()
 		if (NearActor)
 		{
 			CurrentGripState = EGrip_Code::CanGrab;
+			HandGesturetoAnimationBP[0] = 1.0f;
 		}
 		else
 		{
 			if (bWantsToGrip)
 			{
 				CurrentGripState = EGrip_Code::Grab;
+				HandGesturetoAnimationBP[0] = HandGestureInput[0];
+				HandGesturetoAnimationBP[1] = HandGestureInput[1];
 			}
 			else
 			{
 				CurrentGripState = EGrip_Code::Open;
+				HandGesturetoAnimationBP[0] = 0.0f;
+				HandGesturetoAnimationBP[1] = 1.0f;
 			}
 		}
 	}
 
 	// Epic Comment :D // Update the animation state of the hand mesh.
 	UTP_HandAnimInstance* HandAnimation = Cast<UTP_HandAnimInstance>(HandMesh->GetAnimInstance());
-	HandAnimation->SetGripState(CurrentGripState);
+	HandAnimation->SetGripState(CurrentGripState, HandGesturetoAnimationBP);
 
 	// Epic Comment :D // Only let hand collide with environment while gripping
 	// SomWorks :D // Not Use Switch
@@ -697,3 +708,4 @@ void ATP_MotionController::SetTeleportRotation(FRotator& NewTeleportRotation)
 {
 	TeleportRotation = NewTeleportRotation;
 }
+

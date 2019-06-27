@@ -156,20 +156,26 @@ private: // SomWorks :D // Variables Initialization //
 	
 	//Define hand scale factor, default is 0.8f
 	float m_HandScale;
-	
+	//This array will accept parameters from HandGestureInput, the latter one will be updated by dynamic actors
+	//Note currently we only have X and Y axis, which means our array will have only two entries
+	TArray<float> HandGesturetoAnimationBP;
+
 protected:	
 
 public:		
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VRTemplate|Components", meta = (AllowPrivateAccess = "true"))
 		class USphereComponent* GrabShpere;
 
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VRTemplate|Variables")
 	EControllerHand Hand;
 
 	//This variable stores the initial rotator when our hand collides with knobs / revolving door
 	FRotator m_HandInitialKnobRotator;
-	
+
+	//This variable define the hand gesture parameters, which will affect the animation state of hand mesh
+	//Note currently we only have X and Y axis, which means our array will have only two entries
+	TArray<float> HandGestureInput;
+
 	FORCEINLINE class UMotionControllerComponent* GetMotionController() const { return MotionController; }
 	FORCEINLINE FRotator GetInitialControllerRotation() const { return InitialControllerRotation; }
 	FORCEINLINE bool GetIsValidTeleportDestination() const { return bIsValidTeleportDestination; }

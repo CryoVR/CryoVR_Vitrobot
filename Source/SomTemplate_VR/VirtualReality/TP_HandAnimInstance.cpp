@@ -6,9 +6,18 @@
 UTP_HandAnimInstance::UTP_HandAnimInstance()
 {
 	CurrentGripState = EGrip_Code::Open;
+	//Default state of our hand
+	HandGuestureParameters = { 0.0, 1.0 };
 }
 
-void UTP_HandAnimInstance::SetGripState(EGrip_Code GripState)
+void UTP_HandAnimInstance::SetGripState(EGrip_Code GripState, const TArray<float>& HandGestureInput)
 {
 	CurrentGripState = GripState;
+	if (HandGestureInput.Num() == 2) {
+		HandGuestureParameters[0] = HandGestureInput[0];
+		HandGuestureParameters[1] = HandGestureInput[1];
+	}
+	else {
+		HandGuestureParameters = { 0.0, 1.0 };
+	}
 }
