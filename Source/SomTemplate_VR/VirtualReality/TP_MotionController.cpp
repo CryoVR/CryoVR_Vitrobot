@@ -98,6 +98,7 @@ ATP_MotionController::ATP_MotionController()
 	//Initialize default hand gesture input and hand gesture
 	HandGestureInput = { 2.0f, 1.0f };
 	HandGesturetoAnimationBP = { 0.0f, 1.0f };
+	m_isGrab = false;
 
 	ArcDirection->SetupAttachment(HandMesh);
 	ArcDirection->SetRelativeLocation(FVector(14.175764f, 0.859525f, -4.318897f));
@@ -353,8 +354,7 @@ void ATP_MotionController::GrabActor()
 	if (NearActor && NearActor->IsValidLowLevel() && !NearActor->IsPendingKill())
 	{
 		AttachedActor = NearActor;
-		//ITP_InteractionInterface::Execute_Pickup(NearActor, MotionController);
-		ITP_InteractionInterface::Execute_Pickup(NearActor, HandMesh);
+		ITP_InteractionInterface::Execute_Pickup(NearActor, MotionController);
 		RumbleController(0.7f);
 	}
 }
@@ -369,7 +369,7 @@ void ATP_MotionController::ReleaseActor()
 	{
 		
 		// Epic Comment :D // Make sure this hand is still holding the Actor (May have been taken by another hand / event)
-		if (AttachedActor->GetRootComponent()->GetAttachParent() == HandMesh)
+		if (AttachedActor->GetRootComponent()->GetAttachParent() == MotionController->GetChildComponent(0))
 		{
 			
 			if (AttachedActor->GetClass()->ImplementsInterface(UTP_InteractionInterface::StaticClass()))
@@ -661,6 +661,7 @@ void ATP_MotionController::UpdateHandAnimation()
 		CurrentGripState = EGrip_Code::Grab;
 		HandGesturetoAnimationBP[0] = HandGestureInput[0];
 		HandGesturetoAnimationBP[1] = HandGestureInput[1];
+		m_isGrab = true;
 	}
 	else
 	{
@@ -678,12 +679,14 @@ void ATP_MotionController::UpdateHandAnimation()
 				CurrentGripState = EGrip_Code::Grab;
 				HandGesturetoAnimationBP[0] = HandGestureInput[0];
 				HandGesturetoAnimationBP[1] = HandGestureInput[1];
+				m_isGrab = true;
 			}
 			else
 			{
 				CurrentGripState = EGrip_Code::Open;
 				HandGesturetoAnimationBP[0] = 0.0f;
 				HandGesturetoAnimationBP[1] = 1.0f;
+				m_isGrab = false;
 			}
 		}
 	}

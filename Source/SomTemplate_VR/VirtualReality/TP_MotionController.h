@@ -175,6 +175,8 @@ public:
 	//This variable define the hand gesture parameters, which will affect the animation state of hand mesh
 	//Note currently we only have X and Y axis, which means our array will have only two entries
 	TArray<float> HandGestureInput;
+	//If player holds something, this should be true. Checked by derived dynamic actors
+	bool m_isGrab;
 
 	FORCEINLINE class UMotionControllerComponent* GetMotionController() const { return MotionController; }
 	FORCEINLINE FRotator GetInitialControllerRotation() const { return InitialControllerRotation; }

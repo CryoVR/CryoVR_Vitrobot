@@ -21,12 +21,17 @@ public:
 	AVB_TweezerActor();
 
 	UFUNCTION()
-		void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+	void OnTweezerBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UStaticMeshComponent* tweezer_grid;
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UCapsuleComponent* capsuleComp;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UCapsuleComponent* tweezerMainCapsuleComp;
 
 };

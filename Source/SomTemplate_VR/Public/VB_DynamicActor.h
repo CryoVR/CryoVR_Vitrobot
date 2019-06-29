@@ -18,6 +18,8 @@ public:
 	AVB_DynamicActor();
 	//Pick up interface
 	virtual void Pickup_Implementation(class USceneComponent* AttachTo);
+	//Drop interface
+	virtual void Drop_Implementation();
 
 	virtual void BeginPlay() override;
 
@@ -34,6 +36,8 @@ public:
 	UFUNCTION()
 	void ResetActorState();
 	
+	//Indicate whether this object is picked up #default, false
+	bool m_isGrab;
 
 
 protected:
@@ -44,4 +48,5 @@ protected:
 	FTransform m_OriginalTransform;
 	//Time Handler
 	FTimerHandle timeHandler;
+	
 };
