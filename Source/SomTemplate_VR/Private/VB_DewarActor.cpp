@@ -7,6 +7,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "VB_NitrogenTankCapActor.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "VirtualReality/TP_MotionController.h"
 
 AVB_DewarActor::AVB_DewarActor()
 {
@@ -37,6 +39,14 @@ AVB_DewarActor::AVB_DewarActor()
 		FrozenFX->SetWorldLocation(FVector(0.0f, 0.0f, 38.0f));
 	}
 
+	HandcapsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("DewarCapsuleComp"));
+	HandcapsuleComp->SetGenerateOverlapEvents(true);
+	HandcapsuleComp->SetGenerateOverlapEvents(ECollisionEnabled::QueryOnly);
+	HandcapsuleComp->SetCapsuleSize(2.5f, 10.0f);
+	HandcapsuleComp->SetRelativeLocation(FVector(-10.0f, 0.0f, 20.0f));
+	HandcapsuleComp->SetupAttachment(PickupMesh);
+	HandcapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_DewarActor::OnHandOverlapBegin);
+
 }
 
 void AVB_DewarActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -52,6 +62,13 @@ void AVB_DewarActor::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, AAc
 	if (Cast<AVB_NitrogenTankCapActor>(OtherActor) != nullptr)
 	{
 		FrozenFX->SetActive(true);
+	}
+}
+
+void AVB_DewarActor::OnHandOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	if (Cast<ATP_MotionController>(OtherActor)) {
+		UpdateHandGuestureFunc(true, FName("Dewar_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {-1.0f, 0.0f}, Cast<ATP_MotionController>(OtherActor));
 	}
 }
 

@@ -12,6 +12,8 @@
 
 class UParticleSystemComponent;
 class UBoxComponent;
+class UCapsuleComponent;
+
 
 UCLASS()
 class SOMTEMPLATE_VR_API AVB_DewarActor : public AVB_DynamicActor
@@ -28,6 +30,10 @@ public:
 	UFUNCTION()
 	void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+	//Hand gesture setting
+	UFUNCTION()
+		void OnHandOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
 
 protected:
 
@@ -35,5 +41,8 @@ protected:
 	UBoxComponent* BoxCompCap;
 	UPROPERTY(VisibleAnywhere, Category = "ParticleEffect")
 		UParticleSystemComponent* FrozenFX;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UCapsuleComponent* HandcapsuleComp;
 
 };

@@ -11,6 +11,7 @@
 #include "VB_EthaneTankActor.h"
 #include "VB_EthaneTipActor.h"
 #include "VB_VitrobotActor.h"
+#include "VirtualReality/TP_MotionController.h"
 
 AVB_WorkstationActor::AVB_WorkstationActor() 
 {
@@ -18,18 +19,30 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComp"));
 	BoxComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnOverlapBegin);
+	BoxComp->SetGenerateOverlapEvents(true);
+	//BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnOverlapBegin);
 	BoxComp->SetRelativeLocation(FVector(0.0f, 0.0f, 3.26f));
 	BoxComp->SetRelativeScale3D(FVector(0.22f, 0.22f, 0.11f));
 	
 
-	capsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("capsuleComp"));
+	/*capsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("capsuleComp"));
 	capsuleComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	capsuleComp->SetRelativeScale3D(FVector(0.1f, 0.1f, 0.1f));
 	capsuleComp->SetupAttachment(PickupMesh);
-	capsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnTipOverlapBegin);
+	capsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnTipOverlapBegin);*/
 
-	PickupMesh->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnVitrobotOverlapBegin);
+	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnVitrobotOverlapBegin);
+
+	//PickupMesh->SetSimulatePhysics(true);
+	//PickupMesh->SetGenerateOverlapEvents(false);
+
+	/*HandcapsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("WorkstationCapsuleComp"));
+	HandcapsuleComp->SetGenerateOverlapEvents(true);
+	HandcapsuleComp->SetGenerateOverlapEvents(ECollisionEnabled::QueryOnly);
+	HandcapsuleComp->SetCapsuleSize(4.0f, 4.0f);
+	HandcapsuleComp->SetRelativeLocation(FVector(0.0f, 0.0f, 7.0f));
+	HandcapsuleComp->SetupAttachment(PickupMesh);*/
+	//HandcapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnHandOverlapBegin);
 	
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Test_Geometry/Workstation_Vitrobot_1_3size.Workstation_Vitrobot_1_3size'"));
 	if (SM_Pickup.Succeeded())
@@ -58,24 +71,34 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 	}
 }
 
-void AVB_WorkstationActor::OnTipOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
-{
-	AVB_EthaneTipActor* EthaneTipActor = Cast<AVB_EthaneTipActor>(OtherActor);
-	if (EthaneTipActor != nullptr) {
-		if (EthaneTipActor->ethaneTipCollisionComp == OtherComp && EthaneTipActor->ethaneParticle->IsActive()) {
-			//UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01111111111111==========================="));
-			isEthaneAdded = !isEthaneAdded;
-		}
-	}
-}
+//void AVB_WorkstationActor::OnTipOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+//{
+//	AVB_EthaneTipActor* EthaneTipActor = Cast<AVB_EthaneTipActor>(OtherActor);
+//	if (EthaneTipActor != nullptr) {
+//		if (EthaneTipActor->ethaneTipCollisionComp == OtherComp && EthaneTipActor->ethaneParticle->IsActive()) {
+//			//UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01111111111111==========================="));
+//			isEthaneAdded = !isEthaneAdded;
+//		}
+//	}
+//}
 
 void AVB_WorkstationActor::OnVitrobotOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
+	UE_LOG(LogTemp, Log, TEXT("=======================Vitrobot==========================="));
 	AVB_VitrobotActor* VitrobotActor = Cast<AVB_VitrobotActor>(OtherActor);
 	if (VitrobotActor != nullptr) {
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
 		GetRootComponent()->AttachToComponent(VitrobotActor->WorkstationHolder, AttachRules, FName("workstationSocket"));
+		UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01==========================="));
 	}
+	if (Cast<ATP_MotionController>(OtherActor)) {
+		UpdateHandGuestureFunc(true, FName("WorkStation_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.25f, 1.0f}, Cast<ATP_MotionController>(OtherActor));
+	}
+}
+
+void AVB_WorkstationActor::OnHandOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	
 }
 
  

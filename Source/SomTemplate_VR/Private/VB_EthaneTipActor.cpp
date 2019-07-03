@@ -8,6 +8,7 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "VB_EthaneTankActor.h"
+#include "VirtualReality/TP_MotionController.h"
 
 
 AVB_EthaneTipActor::AVB_EthaneTipActor() {
@@ -28,6 +29,14 @@ AVB_EthaneTipActor::AVB_EthaneTipActor() {
 	ethaneTipCollisionComp->SetCapsuleSize(2.0f, 16.0f);
 	ethaneTipCollisionComp->SetRelativeLocation(FVector(0.0f, 0.0f, -15.0f));
 	ethaneTipCollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTipActor::OnActorBeginOverlap);
+
+	ethaneTipCapsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("TipCapsuleComp"));
+	ethaneTipCapsuleComp->SetGenerateOverlapEvents(true);
+	ethaneTipCapsuleComp->SetGenerateOverlapEvents(ECollisionEnabled::QueryOnly);
+	ethaneTipCapsuleComp->SetCapsuleSize(0.4f, 5.0f);
+	ethaneTipCapsuleComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.3f));
+	ethaneTipCapsuleComp->SetupAttachment(PickupMesh);
+	ethaneTipCapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTipActor::OnTipBeginOverlap);
 
 	ethaneParticle = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("EthaneParticle"));
 	ethaneParticle->SetupAttachment(PickupMesh);
@@ -51,5 +60,12 @@ void AVB_EthaneTipActor::OnActorBeginOverlap(UPrimitiveComponent * OverlappedCom
 			GetRootComponent()->AttachToComponent(OtherActor->GetRootComponent(), AttachRules, FName("TipSocket"));
 			//UE_LOG(LogTemp, Log, TEXT("======================Test+==================="));
 		}
+	}
+}
+
+void AVB_EthaneTipActor::OnTipBeginOverlap(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	if (Cast<ATP_MotionController>(OtherActor)) {
+		UpdateHandGuestureFunc(true, FName("Tip_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.0f, 0.5f}, Cast<ATP_MotionController>(OtherActor));
 	}
 }

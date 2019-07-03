@@ -42,5 +42,4 @@ public:
 	virtual bool getState();
 	//Set the device state.
 	virtual void setState(bool newState);
-
 };
