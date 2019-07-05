@@ -8,6 +8,7 @@
 #include "VB_PetridishActor.h"
 #include "VB_StaticActor.h"
 #include "Materials/MaterialInstanceConstant.h"
+#include "VirtualReality/TP_MotionController.h"
 
 AVB_PetridishCoverActor::AVB_PetridishCoverActor() {
 	
@@ -30,6 +31,7 @@ AVB_PetridishCoverActor::AVB_PetridishCoverActor() {
 	covercollisionComp->SetBoxExtent(FVector(4.5f, 4.5f, 1.0f));
 	covercollisionComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.5f));
 	covercollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_PetridishCoverActor::OnOverlapBegin);
+	covercollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_PetridishCoverActor::OnHandOverlapBegin);
 	covercollisionComp->OnComponentEndOverlap.AddDynamic(this, &AVB_PetridishCoverActor::OnOverlapEnd);
 
 }
@@ -52,5 +54,12 @@ void AVB_PetridishCoverActor::OnOverlapEnd(UPrimitiveComponent * OverlappedComp,
 	AVB_PetridishActor* petridishActor = Cast<AVB_PetridishActor>(OtherActor);
 	if (petridishActor != nullptr) {
 		petridishActor->setState(true);
+	}
+}
+
+void AVB_PetridishCoverActor::OnHandOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	if (Cast<ATP_MotionController>(OtherActor)) {
+		UpdateHandGuestureFunc(true, FName("Petridish_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.0f, 1.0f}, Cast<ATP_MotionController>(OtherActor));
 	}
 }

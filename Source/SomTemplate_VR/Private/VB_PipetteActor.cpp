@@ -23,7 +23,7 @@ AVB_PipetteActor::AVB_PipetteActor()
 	HandcapsuleComp->SetCapsuleSize(0.5f, 7.0f);
 	HandcapsuleComp->SetRelativeLocation(FVector(0.0f, 0.0f, 1.0f));
 	HandcapsuleComp->SetupAttachment(PickupMesh);
-	HandcapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_PipetteActor::OnHandOverlapBegin);
+	HandcapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_PipetteActor::OnPipetHandOverlapBegin);
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Models/Pipet.Pipet'"));
 	if (SM_Pickup.Succeeded()) 
@@ -59,10 +59,12 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 	}
 }
 
-void AVB_PipetteActor::OnHandOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+void AVB_PipetteActor::OnPipetHandOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
+	UE_LOG(LogTemp, Log, TEXT("-------1111-------"));
 	if (Cast<ATP_MotionController>(OtherActor)) {
-		UpdateHandGuestureFunc(true, FName("Pipet_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float>{ -3.7f, 1.0f }, Cast<ATP_MotionController>(OtherActor));
+		UE_LOG(LogTemp, Log, TEXT("-----22222------"));
+		UpdateHandGuestureFunc(true, FName("Pipet_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float>{ -3.0f, 1.0f }, Cast<ATP_MotionController>(OtherActor));
 	}
 }
 

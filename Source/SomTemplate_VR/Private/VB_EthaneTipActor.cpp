@@ -36,7 +36,7 @@ AVB_EthaneTipActor::AVB_EthaneTipActor() {
 	ethaneTipCapsuleComp->SetCapsuleSize(0.4f, 5.0f);
 	ethaneTipCapsuleComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.3f));
 	ethaneTipCapsuleComp->SetupAttachment(PickupMesh);
-	ethaneTipCapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTipActor::OnTipBeginOverlap);
+	ethaneTipCapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTipActor::OnActorBeginOverlap);
 
 	ethaneParticle = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("EthaneParticle"));
 	ethaneParticle->SetupAttachment(PickupMesh);
@@ -61,11 +61,15 @@ void AVB_EthaneTipActor::OnActorBeginOverlap(UPrimitiveComponent * OverlappedCom
 			//UE_LOG(LogTemp, Log, TEXT("======================Test+==================="));
 		}
 	}
-}
 
-void AVB_EthaneTipActor::OnTipBeginOverlap(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
-{
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("Tip_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.0f, 0.5f}, Cast<ATP_MotionController>(OtherActor));
 	}
 }
+
+//void AVB_EthaneTipActor::OnTipBeginOverlap(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+//{
+//	if (Cast<ATP_MotionController>(OtherActor)) {
+//		UpdateHandGuestureFunc(true, FName("Tip_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.0f, 0.5f}, Cast<ATP_MotionController>(OtherActor));
+//	}
+//}

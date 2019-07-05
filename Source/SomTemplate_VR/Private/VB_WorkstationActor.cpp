@@ -16,13 +16,15 @@
 AVB_WorkstationActor::AVB_WorkstationActor() 
 {
 	isEthaneAdded = false;
+	PickupMesh->SetGenerateOverlapEvents(true);
 
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComp"));
 	BoxComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	BoxComp->SetGenerateOverlapEvents(true);
-	//BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnOverlapBegin);
+	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnOverlapBegin);
 	BoxComp->SetRelativeLocation(FVector(0.0f, 0.0f, 3.26f));
 	BoxComp->SetRelativeScale3D(FVector(0.22f, 0.22f, 0.11f));
+	//BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnVitrobotOverlapBegin);
 	
 
 	/*capsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("capsuleComp"));
@@ -31,18 +33,9 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	capsuleComp->SetupAttachment(PickupMesh);
 	capsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnTipOverlapBegin);*/
 
-	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnVitrobotOverlapBegin);
+	
 
-	//PickupMesh->SetSimulatePhysics(true);
-	//PickupMesh->SetGenerateOverlapEvents(false);
 
-	/*HandcapsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("WorkstationCapsuleComp"));
-	HandcapsuleComp->SetGenerateOverlapEvents(true);
-	HandcapsuleComp->SetGenerateOverlapEvents(ECollisionEnabled::QueryOnly);
-	HandcapsuleComp->SetCapsuleSize(4.0f, 4.0f);
-	HandcapsuleComp->SetRelativeLocation(FVector(0.0f, 0.0f, 7.0f));
-	HandcapsuleComp->SetupAttachment(PickupMesh);*/
-	//HandcapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnHandOverlapBegin);
 	
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Test_Geometry/Workstation_Vitrobot_1_3size.Workstation_Vitrobot_1_3size'"));
 	if (SM_Pickup.Succeeded())
@@ -67,7 +60,20 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 	if (Cast<AVB_DewarActor>(OtherActor) != nullptr)
 	{
 		FrozenFX->SetVisibility(true);
-		PickupMesh->SetSimulatePhysics(false);
+		//PickupMesh->SetSimulatePhysics(false);
+	}
+
+	UE_LOG(LogTemp, Log, TEXT("=======================Vitrobot==========================="));
+	AVB_VitrobotActor* VitrobotActor = Cast<AVB_VitrobotActor>(OtherActor);
+	if (VitrobotActor != nullptr) {
+		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+		GetRootComponent()->AttachToComponent(VitrobotActor->WorkstationHolder, AttachRules, FName("workstationSocket"));
+		UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01==========================="));
+	}
+
+	//Hand gesture setting
+	if (Cast<ATP_MotionController>(OtherActor)) {
+		UpdateHandGuestureFunc(true, FName("WorkStation_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.25f, 1.0f}, Cast<ATP_MotionController>(OtherActor));
 	}
 }
 
@@ -82,23 +88,6 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 //	}
 //}
 
-void AVB_WorkstationActor::OnVitrobotOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
-{
-	UE_LOG(LogTemp, Log, TEXT("=======================Vitrobot==========================="));
-	AVB_VitrobotActor* VitrobotActor = Cast<AVB_VitrobotActor>(OtherActor);
-	if (VitrobotActor != nullptr) {
-		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
-		GetRootComponent()->AttachToComponent(VitrobotActor->WorkstationHolder, AttachRules, FName("workstationSocket"));
-		UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01==========================="));
-	}
-	if (Cast<ATP_MotionController>(OtherActor)) {
-		UpdateHandGuestureFunc(true, FName("WorkStation_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.25f, 1.0f}, Cast<ATP_MotionController>(OtherActor));
-	}
-}
 
-void AVB_WorkstationActor::OnHandOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
-{
-	
-}
 
  

@@ -68,7 +68,7 @@ void AVB_DewarActor::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, AAc
 void AVB_DewarActor::OnHandOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
 	if (Cast<ATP_MotionController>(OtherActor)) {
-		UpdateHandGuestureFunc(true, FName("Dewar_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {-1.0f, 0.0f}, Cast<ATP_MotionController>(OtherActor));
+		UpdateHandGuestureFunc(true, FName("Dewar_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {3.0f, 0.0f}, Cast<ATP_MotionController>(OtherActor));
 	}
 }
 
