@@ -112,10 +112,12 @@ void AVB_EthaneTankActor::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	if (bIsFirstKnobTouched && bIsFirstKnobHold) {
-		float newSub = handObjRef->GetComponentRotation().Yaw - m_HandInitialKnobDeltaRotator;
-		firstKnob->SetWorldRotation(FRotator(firstKnob->GetComponentRotation().Pitch, newSub, firstKnob->GetComponentRotation().Roll));
+			float newSub = handObjRef->GetComponentRotation().Yaw - m_HandInitialKnobDeltaRotator;
+			firstKnob->SetWorldRotation(FRotator(firstKnob->GetComponentRotation().Pitch, newSub, firstKnob->GetComponentRotation().Roll));
+		}
+	
 
-	}
+	
 }
 
 

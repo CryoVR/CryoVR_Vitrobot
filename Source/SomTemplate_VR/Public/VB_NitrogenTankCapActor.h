@@ -6,7 +6,7 @@
 #include "VB_DynamicActor.h"
 #include "VB_NitrogenTankCapActor.generated.h"
 
-class UBoxComponent;
+class UCapsuleComponent;
 
 /**
  * 
@@ -25,7 +25,7 @@ public:
 protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UBoxComponent* BoxComp;
+	UCapsuleComponent* BoxComp;
 
 	
 
