@@ -62,6 +62,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	if (SM_InnerHolder.Succeeded()) {
 		InnerHolder->SetStaticMesh(SM_InnerHolder.Object);
 	}
+	bIsHolderGoingUp = true;
 
 	//#3 Door
 	Door = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Door"));
@@ -216,12 +217,12 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 	if (bIsButtonOn)
 	{	
 		//Holder range(Component location) Z:(125.68->147.68)
-		if (WorkstationHolder->GetComponentLocation().Z < 125.6f)
+		if (WorkstationHolder->GetComponentLocation().Z < 8.0f)
 		{
 			bIsHolderGoingUp = true;
 			bIsButtonOn = false;
 		}
-		else if (WorkstationHolder->GetComponentLocation().Z > 147.0f)
+		else if (WorkstationHolder->GetComponentLocation().Z > 27.42f)
 		{
 			bIsHolderGoingUp = false;
 			bIsButtonOn = false;
@@ -238,12 +239,12 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 	}
 
 	if (bIsDoorOn) {
-		if (Door->GetComponentRotation().Yaw < -91.0f) 
+		if (Door->GetComponentRotation().Yaw > -0.5f) 
 		{
 			bIsDoorGoingOpen = true;
 			bIsDoorOn = false;
 		}
-		else if (Door->GetComponentRotation().Yaw > -1.0f) 
+		else if (Door->GetComponentRotation().Yaw < 91.0f) 
 		{
 			bIsDoorGoingOpen = false;
 			bIsDoorOn = false;
