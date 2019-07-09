@@ -369,7 +369,7 @@ void ATP_MotionController::ReleaseActor()
 	{
 		
 		// Epic Comment :D // Make sure this hand is still holding the Actor (May have been taken by another hand / event)
-		if (AttachedActor->GetRootComponent()->GetAttachParent() == MotionController->GetChildComponent(0))
+		if (AttachedActor->GetRootComponent()->GetAttachParent() == MotionController)
 		{
 			
 			if (AttachedActor->GetClass()->ImplementsInterface(UTP_InteractionInterface::StaticClass()))

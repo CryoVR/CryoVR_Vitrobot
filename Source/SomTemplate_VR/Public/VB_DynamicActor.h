@@ -1,10 +1,12 @@
 // Copyright (c) 2014-2019 Sombusta, All Rights Reserved.
-//Written by Jun Zhang, May 2019
+//Written by Jun Zhang & Jiahui Dong, May 2019
 #pragma once
 
 #include "CoreMinimal.h"
+#include "VB_StaticActor.h"
 #include "VirtualReality/TP_PickupCube.h"
 #include "VB_DynamicActor.generated.h"
+
 
 /**
  * 
@@ -35,7 +37,7 @@ public:
 	//Reset Actor to original position and state
 	UFUNCTION()
 	void ResetActorState();
-	
+
 	//Indicate whether this object is picked up #default, false
 	bool m_isGrab;
 

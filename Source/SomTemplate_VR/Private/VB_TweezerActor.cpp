@@ -9,6 +9,7 @@
 #include "VB_PetridishCoverActor.h"
 #include "VB_StaticActor.h"
 #include "VirtualReality/TP_MotionController.h"
+#include "VB_VitrobotActor.h"
 
 
 // Sets default values
@@ -67,6 +68,9 @@ void AVB_TweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AAct
 			//UE_LOG(LogTemp, Log, TEXT("=======================Code Executed03==========================="));
 			petridishActor->GetGrid()->SetVisibility(false);
 			tweezer_grid->SetVisibility(true);
+			if (!m_isGridAttached) {
+				m_isGridAttached = true;
+			}
 		}
 	}
 
@@ -77,5 +81,11 @@ void AVB_TweezerActor::OnTweezerBeginOverlap(UPrimitiveComponent * OverlappedCom
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("Tweezer_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.0f, 0.5f}, Cast<ATP_MotionController>(OtherActor));
 	}
+	AVB_VitrobotActor* VitrobotActor = Cast<AVB_VitrobotActor>(OtherActor);
+	if (VitrobotActor != nullptr && m_isGridAttached) {
+		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+		GetRootComponent()->AttachToComponent(VitrobotActor->WorkstationHolder, AttachRules, FName("Tweezer_Socket"));
+	}
+	//It will be changed to plunger in the future.
 }
 

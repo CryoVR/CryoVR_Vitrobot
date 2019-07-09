@@ -20,9 +20,10 @@ ATP_PickupCube::ATP_PickupCube()
 	
 	PickupMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RootMesh"));
 		
-	RootComponent = PickupMesh;
+	//RootComponent = PickupMesh;
+	SetRootComponent(PickupMesh);
 	PickupMesh->SetRelativeScale3D(FVector(1.0f, 1.0f, 1.0f));
-	PickupMesh->SetSimulatePhysics(true);
+	PickupMesh->SetSimulatePhysics(false);
 	PickupMesh->SetNotifyRigidBodyCollision(true);
 	PickupMesh->SetGenerateOverlapEvents(true);
 	PickupMesh->SetCollisionProfileName("PhysicsActor");

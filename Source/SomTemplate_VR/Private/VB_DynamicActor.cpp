@@ -1,10 +1,12 @@
 // Copyright (c) 2014-2019 Sombusta, All Rights Reserved.
-//Written by Jun Zhang, May 2019
+//Written by Jun Zhang & Jiahui Dong, May 2019
 #include "VB_DynamicActor.h"
 #include "Components/StaticMeshComponent.h"
 #include "VirtualReality/TP_MotionController.h"
 #include "MotionControllerComponent.h"
 #include "TimerManager.h"
+#include "Runtime/Engine/Classes/PhysicsEngine/PhysicsConstraintComponent.h"
+//#include "SkeletalMeshComponent.h"
 
 
 AVB_DynamicActor::AVB_DynamicActor() {
@@ -26,7 +28,7 @@ void AVB_DynamicActor::Pickup_Implementation(USceneComponent * AttachTo)
 				if (m_isDefinedPick) {
 					EControllerHand E_hand = m_ourMotionController->Hand;
 					FAttachmentTransformRules AttachmentTransformRules(m_attachToSocketRule, m_attachToSocketRule, EAttachmentRule::KeepWorld, false);
-					GetRootComponent()->AttachToComponent(motionController->GetChildComponent(0), AttachmentTransformRules, m_attachSocketName);
+					GetRootComponent()->AttachToComponent(motionController, AttachmentTransformRules, m_attachSocketName);
 					if (E_hand == EControllerHand::Left && m_attachToSocketRule == EAttachmentRule::SnapToTarget) {
 						//*************Left Hand************//
 						UStaticMeshComponent* dynamicActorRootStaticComponent = Cast<UStaticMeshComponent>(GetRootComponent());
@@ -41,7 +43,7 @@ void AVB_DynamicActor::Pickup_Implementation(USceneComponent * AttachTo)
 				}
 				else {
 					FAttachmentTransformRules AttachmentTransformRules(EAttachmentRule::KeepWorld, false);
-					GetRootComponent()->AttachToComponent(motionController->GetChildComponent(0), AttachmentTransformRules);
+					GetRootComponent()->AttachToComponent(motionController, AttachmentTransformRules);
 				}
 				m_isGrab = true;
 			}
@@ -59,6 +61,45 @@ void AVB_DynamicActor::Drop_Implementation()
 	m_isGrab = false;
 	m_ourMotionController->m_isGrab = false;
 }
+
+//void AVB_DynamicActor::CreateNewPhysicsConstraintBetween(AStaticMeshActor* RootSMA, AStaticMeshActor* TargetSMA)
+//{
+//	//set up the constraint instance with all the desired values
+//	FConstraintInstance ConstraintInstance;
+//
+//	//set values here, see functions I am sharing with you below
+//	AVB_DynamicActor::SetAngularLimits( //or make functions below non static, put in .h
+//		ConstraintInstance,
+//		1, //swing 1 limited
+//		1, //swing 2 limited
+//		1, //twist is limited
+//		60, //swing 1 angle limit
+//		30 //swing 2 angle limit 
+//		10 //twist limit (not used cause its free)
+//	);
+//	//New Object
+//	UPhysicsConstraintComponent* ConstraintComp = NewObject<UPhysicsConstraintComponent>(RootSMA);
+//	if (!ConstraintComp)
+//	{
+//		//UE_LOG constraint UObject could not be created!
+//		return;
+//	}
+//
+//	//~~~~~~~~~~~~~~~~~~~~~~~~
+//	//Set Constraint Instance!
+//	ConstraintComp->ConstraintInstance = ConstraintInstance;
+//	//~~~~~~~~~~~~~~~~~~~~~~~~
+//
+//	//Set World Location
+//	ConstraintComp->SetWorldLocation(RootSMA->GetActorLocation());
+//
+//	//Attach to Root!
+//	ConstraintComp->AttachTo(RootSMA->GetRootComponent(), NAME_None, EAttachLocation::KeepWorldPosition);
+//
+//	//~~~ Init Constraint ~~~
+//	ConstraintComp->SetConstrainedComponents(RootSMA->GetRootComponent, NAME_None, TargetSMA->GetRootComponent, NAME_None);
+//}
+
 
 void AVB_DynamicActor::BeginPlay()
 {

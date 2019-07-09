@@ -33,5 +33,7 @@ protected:
 		UCapsuleComponent* capsuleComp;
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UCapsuleComponent* tweezerMainCapsuleComp;
+	
+	bool m_isGridAttached;
 
 };

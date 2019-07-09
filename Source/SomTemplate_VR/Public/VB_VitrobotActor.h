@@ -26,11 +26,15 @@ public:
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UStaticMeshComponent* WorkstationHolder;
-
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+		UStaticMeshComponent* Door;
 
 
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+	void TurnOnMachine(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	virtual void Tick(float DeltaTime) override;
 
@@ -41,26 +45,39 @@ protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	UStaticMeshComponent* InnerHolder;
 	
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
-	UStaticMeshComponent* BottomCover;
+	//UPROPERTY(VisibleAnyWhere, Category = "Components")
+	//UStaticMeshComponent* Door;
+	
+	/*UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UStaticMeshComponent* LEDCover;*/
 	
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
-	UStaticMeshComponent* LEDCover;
+	UStaticMeshComponent* Plunger;
+
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UStaticMeshComponent* Bottom_Cover;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UBoxComponent* WorkstationHolder_Collider;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UBoxComponent* BottomCover_Collider;
+	UBoxComponent* Door_Collider;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UBoxComponent* TestButton_Collider;
 
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UBoxComponent* PowerButton_Collider;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UBoxComponent* Plunger_Collider;
+
 private:
+	bool m_IsMachineOn;
 	bool bIsInteractable;
 	bool bIsButtonOn;
 	bool bIsHolderGoingUp;
 
-	bool bIsBottomCoverOn;
-	bool bIsBottomCoverGoingOpen;
+	bool bIsDoorOn;
+	bool bIsDoorGoingOpen;
 };
