@@ -38,7 +38,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	WorkstationHolder->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	WorkstationHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	WorkstationHolder->SetVisibility(true);
-	WorkstationHolder->SetRelativeLocation(FVector(-1.45f, 0.0f, 8.33f));
+	WorkstationHolder->SetRelativeLocation(FVector(-2.1f, 0.0f, 8.33f));
 	if (SM_WorkstationHolder.Succeeded()) {
 		WorkstationHolder->SetStaticMesh(SM_WorkstationHolder.Object);
 	}
@@ -89,18 +89,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	bIsDoorOn = false;
 	bIsDoorGoingOpen = true;
 
-	//#4 LEDCover and its collider
-	/*LEDCover = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LED_Cover"));
-	LEDCover->SetupAttachment(meshComp);
-	LEDCover->SetGenerateOverlapEvents(true);
-	LEDCover->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	LEDCover->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
-	LEDCover->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
-	LEDCover->SetVisibility(true);
-	LEDCover->SetRelativeLocation(FVector(12.9f, -26.6f, 74.5f));
-	if (SM_LEDCover.Succeeded()) {
-		LEDCover->SetStaticMesh(SM_LEDCover.Object);
-	}*/
+	//Test button on the LED screen
 	TestButton_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("TestButton_Collider"));
 	TestButton_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	TestButton_Collider->SetupAttachment(meshComp);
@@ -109,6 +98,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Cast<UBoxComponent>(TestButton_Collider)->SetBoxExtent(FVector(3.0f, 1.0f, 3.0f));
 	TestButton_Collider->SetHiddenInGame(false);
 	TestButton_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::OnOverlapBegin);
+	bIsHolderTouchingBottom = true;
 
 	//#Power button test version
 	PowerButton_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("PowerButton_Collider"));
@@ -161,10 +151,10 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	
 void AVB_VitrobotActor::TurnOnMachine(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	UE_LOG(LogTemp, Log, TEXT("==TEST=="));
 	if (Cast<ATP_MotionController>(OtherActor))
 	{
 		m_IsMachineOn = true;
+		PowerButton_Collider->DestroyComponent();		
 	}
 }
 //Set if the cover is interactable by rotation vector
@@ -180,6 +170,7 @@ void AVB_VitrobotActor::MoveWorkstationHolder(float F)
 	float addz = 1.0f;
 	addz = addz * F;
 	WorkstationHolder->AddWorldOffset(FVector(0.0f, 0.0f, addz));
+
 }
 
 //Generate the overlap function for bottom cover and workstation holder
@@ -213,38 +204,58 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 void AVB_VitrobotActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
+
 	if (bIsButtonOn)
 	{	
 		//Holder range(Component location) Z:(125.68->147.68)
-		if (WorkstationHolder->GetComponentLocation().Z < 8.0f)
+		if (WorkstationHolder->GetComponentLocation().Z < 127.0f && !bIsHolderTouchingBottom)
 		{
 			bIsHolderGoingUp = true;
+			bIsHolderTouchingBottom = true;
 			bIsButtonOn = false;
 		}
-		else if (WorkstationHolder->GetComponentLocation().Z > 27.42f)
+		else if (WorkstationHolder->GetComponentLocation().Z > 148.0f && !bIsHolderTouchingBottom)
 		{
 			bIsHolderGoingUp = false;
 			bIsButtonOn = false;
 		}
 
-		if (bIsHolderGoingUp)
+		if (WorkstationHolder->GetComponentLocation().X > 70.877f && bIsHolderTouchingBottom)
 		{
-			MoveWorkstationHolder(0.1f);
+			//bIsHolderTouchingBottom = false;
+			bIsHolderMovingFoward = true;
 		}
-		else if (!bIsHolderGoingUp)
+		else if (WorkstationHolder->GetComponentLocation().X < 65.447f && bIsHolderTouchingBottom)
 		{
-			MoveWorkstationHolder(-0.1f);
+			bIsButtonOn = false;
+			bIsHolderMovingFoward = false;
+		}
+
+		if (bIsHolderGoingUp && !bIsHolderTouchingBottom)
+		{
+			WorkstationHolder->AddWorldOffset(FVector(0.0f, 0.0f, 0.07f));
+		}
+		else if (!bIsHolderGoingUp && !bIsHolderTouchingBottom)
+		{
+			WorkstationHolder->AddWorldOffset(FVector(0.0f, 0.0f, -0.07f));
+		}
+		else if (bIsHolderTouchingBottom && bIsHolderMovingFoward)
+		{
+			WorkstationHolder->AddWorldOffset(FVector(-0.07f, 0.0f, 0.0f));
+		}
+		else if (bIsHolderTouchingBottom && !bIsHolderMovingFoward)
+		{
+			WorkstationHolder->AddWorldOffset(FVector(0.07f, 0.0f, 0.0f));
 		}
 	}
 
 	if (bIsDoorOn) {
-		if (Door->GetComponentRotation().Yaw > -0.5f) 
+		if (Door->GetComponentRotation().Yaw < -0.5f) 
 		{
 			bIsDoorGoingOpen = true;
 			bIsDoorOn = false;
 		}
-		else if (Door->GetComponentRotation().Yaw < 91.0f) 
+		else if (Door->GetComponentRotation().Yaw > 91.0f) 
 		{
 			bIsDoorGoingOpen = false;
 			bIsDoorOn = false;
@@ -252,6 +263,7 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 
 		if (bIsDoorGoingOpen) {
 			Door->AddWorldRotation(FRotator(0.0f, 1.0f, 0.0f));
+			UE_LOG(LogTemp, Log, TEXT("=== %f ==="), Door->GetComponentRotation().Yaw);
 		}
 		else if (!bIsDoorGoingOpen) {
 			Door->AddWorldRotation(FRotator(0.0f, -1.0f, 0.0f));

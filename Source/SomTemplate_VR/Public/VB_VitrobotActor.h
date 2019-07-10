@@ -77,6 +77,8 @@ private:
 	bool bIsInteractable;
 	bool bIsButtonOn;
 	bool bIsHolderGoingUp;
+	bool bIsHolderTouchingBottom;
+	bool bIsHolderMovingFoward;
 
 	bool bIsDoorOn;
 	bool bIsDoorGoingOpen;

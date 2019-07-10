@@ -15,35 +15,72 @@
 
 AVB_WorkstationActor::AVB_WorkstationActor() 
 {
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Workstation_Main.Workstation_Main'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P0(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Workstation_P0.Workstation_P0'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P1(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Workstation_P1.Workstation_P1'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P2(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Workstation_P2.Workstation_P2'"));
+	if (SM_Pickup.Succeeded())
+	{
+		UStaticMesh* Asset = SM_Pickup.Object;
+		PickupMesh->SetStaticMesh(Asset);
+	}
+
+	Workstation_P0 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Workstation_P0"));
+	Workstation_P0->SetupAttachment(PickupMesh);
+	Workstation_P0->SetGenerateOverlapEvents(false);
+	Workstation_P0->SetSimulatePhysics(false);
+	Workstation_P0->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	Workstation_P0->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+	Workstation_P0->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
+	Workstation_P0->SetVisibility(true);
+	Workstation_P0->SetRelativeLocation(FVector(-0.094f, -0.131f, 0.806f));
+	if (SM_P0.Succeeded()) {
+		Workstation_P0->SetStaticMesh(SM_P0.Object);
+	}
+
+	Workstation_P1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Workstation_P1"));
+	Workstation_P1->SetupAttachment(PickupMesh);
+	Workstation_P1->SetGenerateOverlapEvents(false);
+	Workstation_P1->SetSimulatePhysics(false);
+	Workstation_P1->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	Workstation_P1->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+	Workstation_P1->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
+	Workstation_P1->SetVisibility(true);
+	Workstation_P1->SetRelativeLocation(FVector(0.176f, -0.007f, 1.622f));
+	if (SM_P1.Succeeded()) {
+		Workstation_P1->SetStaticMesh(SM_P1.Object);
+	}
+
+	Workstation_P2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Workstation_P2"));
+	Workstation_P2->SetupAttachment(PickupMesh);
+	Workstation_P2->SetGenerateOverlapEvents(false);
+	Workstation_P2->SetSimulatePhysics(false);
+	Workstation_P2->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	Workstation_P2->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+	Workstation_P2->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
+	Workstation_P2->SetVisibility(true);
+	Workstation_P2->SetRelativeLocation(FVector(-0.04f, 0.0f, 3.582f));
+	if (SM_P2.Succeeded()) {
+		Workstation_P2->SetStaticMesh(SM_P2.Object);
+	}
+	
+	
 	isEthaneAdded = false;
 	PickupMesh->SetGenerateOverlapEvents(true);
 
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComp"));
 	BoxComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	BoxComp->SetGenerateOverlapEvents(true);
+	BoxComp->SetGenerateOverlapEvents(true); 
+	BoxComp->SetupAttachment(PickupMesh);
 	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnOverlapBegin);
 	BoxComp->SetRelativeLocation(FVector(0.0f, 0.0f, 3.26f));
 	BoxComp->SetRelativeScale3D(FVector(0.22f, 0.22f, 0.11f));
-	//BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnVitrobotOverlapBegin);
-	
 
-	/*capsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("capsuleComp"));
-	capsuleComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	capsuleComp->SetRelativeScale3D(FVector(0.1f, 0.1f, 0.1f));
-	capsuleComp->SetupAttachment(PickupMesh);
-	capsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnTipOverlapBegin);*/
 
 	
 
 
 	
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Test_Geometry/Workstation_Vitrobot_1_3size.Workstation_Vitrobot_1_3size'"));
-	if (SM_Pickup.Succeeded())
-	{
-		UStaticMesh* Asset = SM_Pickup.Object;
-		PickupMesh->SetStaticMesh(Asset);
-		BoxComp->SetupAttachment(PickupMesh);
-	}
 
 	static ConstructorHelpers::FObjectFinder<UParticleSystem> P_Effect(TEXT("ParticleSystem'/Game/Test_Geometry/Test_Particle/P_Steam_Lit.P_Steam_Lit'"));
 	if (P_Effect.Succeeded())
@@ -67,7 +104,7 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 	AVB_VitrobotActor* VitrobotActor = Cast<AVB_VitrobotActor>(OtherActor);
 	if (VitrobotActor != nullptr) {
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
-		GetRootComponent()->AttachToComponent(VitrobotActor->WorkstationHolder, AttachRules, FName("workstationSocket"));
+		GetRootComponent()->AttachToComponent(VitrobotActor->WorkstationHolder, AttachRules, FName("workstationSocket1"));
 		UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01==========================="));
 	}
 

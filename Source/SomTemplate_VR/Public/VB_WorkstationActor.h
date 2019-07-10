@@ -39,10 +39,14 @@ protected:
 	UParticleSystemComponent* FrozenFX;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-		UCapsuleComponent* capsuleComp;
+	UStaticMeshComponent* Workstation_P0;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-		UCapsuleComponent* HandcapsuleComp;
+	UStaticMeshComponent* Workstation_P1;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UStaticMeshComponent* Workstation_P2;
+
 
 	void PlayEffects();
 
