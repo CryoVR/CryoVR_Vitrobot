@@ -138,10 +138,8 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 		Plunger->SetStaticMesh(SM_Plunger.Object);
 	}
 	Plunger_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Plunger_Collider"));
-	Plunger_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
-	Plunger_Collider->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	Plunger_Collider->SetupAttachment(Plunger);
-	Plunger_Collider->SetRelativeLocation(FVector(-20.6f, 0.0f, 30.82f));
+	Plunger_Collider->SetRelativeLocation(FVector(0.0f, 0.0f, -32.33f));
 	Cast<UBoxComponent>(Plunger_Collider)->SetBoxExtent(FVector(0.8f, 0.8f, 0.8f));
 	Plunger_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::TurnOnMachine);
 }
@@ -208,45 +206,27 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 	if (bIsButtonOn)
 	{	
 		//Holder range(Component location) Z:(125.68->147.68)
-		if (WorkstationHolder->GetComponentLocation().Z < 127.0f && !bIsHolderTouchingBottom)
+		if (WorkstationHolder->GetComponentLocation().Z < 127.0f)
 		{
 			bIsHolderGoingUp = true;
-			bIsHolderTouchingBottom = true;
+			//bIsHolderTouchingBottom = true;
 			bIsButtonOn = false;
 		}
-		else if (WorkstationHolder->GetComponentLocation().Z > 148.0f && !bIsHolderTouchingBottom)
+		else if (WorkstationHolder->GetComponentLocation().Z > 148.0f)
 		{
 			bIsHolderGoingUp = false;
 			bIsButtonOn = false;
 		}
 
-		if (WorkstationHolder->GetComponentLocation().X > 70.877f && bIsHolderTouchingBottom)
-		{
-			//bIsHolderTouchingBottom = false;
-			bIsHolderMovingFoward = true;
-		}
-		else if (WorkstationHolder->GetComponentLocation().X < 65.447f && bIsHolderTouchingBottom)
-		{
-			bIsButtonOn = false;
-			bIsHolderMovingFoward = false;
-		}
-
-		if (bIsHolderGoingUp && !bIsHolderTouchingBottom)
+		if (bIsHolderGoingUp)
 		{
 			WorkstationHolder->AddWorldOffset(FVector(0.0f, 0.0f, 0.07f));
 		}
-		else if (!bIsHolderGoingUp && !bIsHolderTouchingBottom)
+		else if (!bIsHolderGoingUp)
 		{
 			WorkstationHolder->AddWorldOffset(FVector(0.0f, 0.0f, -0.07f));
 		}
-		else if (bIsHolderTouchingBottom && bIsHolderMovingFoward)
-		{
-			WorkstationHolder->AddWorldOffset(FVector(-0.07f, 0.0f, 0.0f));
-		}
-		else if (bIsHolderTouchingBottom && !bIsHolderMovingFoward)
-		{
-			WorkstationHolder->AddWorldOffset(FVector(0.07f, 0.0f, 0.0f));
-		}
+		
 	}
 
 	if (bIsDoorOn) {
@@ -269,4 +249,24 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 			Door->AddWorldRotation(FRotator(0.0f, -1.0f, 0.0f));
 		}
 	}
+
+	//if (WorkstationHolder->GetComponentLocation().X > 70.877f && bIsHolderTouchingBottom)
+	//{
+	//	//bIsHolderTouchingBottom = false;
+	//	bIsHolderMovingFoward = true;
+	//}
+	//else if (WorkstationHolder->GetComponentLocation().X < 65.447f && bIsHolderTouchingBottom)
+	//{
+	//	bIsButtonOn = false;
+	//	bIsHolderMovingFoward = false;
+	//}
+
+	//if (bIsHolderTouchingBottom && bIsHolderMovingFoward)
+	//{
+	//	WorkstationHolder->AddWorldOffset(FVector(-0.07f, 0.0f, 0.0f));
+	//}
+	//else if (bIsHolderTouchingBottom && !bIsHolderMovingFoward)
+	//{
+	//	WorkstationHolder->AddWorldOffset(FVector(0.07f, 0.0f, 0.0f));
+	//}
 }

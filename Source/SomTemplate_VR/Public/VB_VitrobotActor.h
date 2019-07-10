@@ -25,10 +25,16 @@ public:
 	void MoveWorkstationHolder(float F);
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
-		UStaticMeshComponent* WorkstationHolder;
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
-		UStaticMeshComponent* Door;
+	UStaticMeshComponent* WorkstationHolder;
 
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UStaticMeshComponent* Door;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UBoxComponent* Plunger_Collider;
+
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UStaticMeshComponent* Plunger;
 
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -51,8 +57,6 @@ protected:
 	/*UPROPERTY(VisibleAnyWhere, Category = "Components")
 	UStaticMeshComponent* LEDCover;*/
 	
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
-	UStaticMeshComponent* Plunger;
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	UStaticMeshComponent* Bottom_Cover;
@@ -69,8 +73,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UBoxComponent* PowerButton_Collider;
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UBoxComponent* Plunger_Collider;
+
 
 private:
 	bool m_IsMachineOn;

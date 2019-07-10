@@ -28,13 +28,13 @@ AVB_TweezerActor::AVB_TweezerActor()
 	tweezerMainCapsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("MainComp"));
 	tweezerMainCapsuleComp->SetGenerateOverlapEvents(true);
 	tweezerMainCapsuleComp->SetGenerateOverlapEvents(ECollisionEnabled::QueryOnly);
-	tweezerMainCapsuleComp->SetCapsuleSize(0.4f, 7.4f);
-	tweezerMainCapsuleComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.3f));
+	tweezerMainCapsuleComp->SetCapsuleSize(0.4f, 5.7f);
+	tweezerMainCapsuleComp->SetRelativeLocation(FVector(0.0f, 0.0f, -5.19f));
 	tweezerMainCapsuleComp->SetupAttachment(PickupMesh);
 	tweezerMainCapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_TweezerActor::OnTweezerBeginOverlap);
 
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Tweezer(TEXT("StaticMesh'/Game/Models/Tweezer.Tweezer'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Tweezer(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Tweezer.Tweezer'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Tweezer_Grid(TEXT("StaticMesh'/Game/Models/Tweezer_Grid.Tweezer_Grid'"));
 
 	if (SM_Tweezer.Succeeded()) {
@@ -82,10 +82,9 @@ void AVB_TweezerActor::OnTweezerBeginOverlap(UPrimitiveComponent * OverlappedCom
 		UpdateHandGuestureFunc(true, FName("Tweezer_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.0f, 0.5f}, Cast<ATP_MotionController>(OtherActor));
 	}
 	AVB_VitrobotActor* VitrobotActor = Cast<AVB_VitrobotActor>(OtherActor);
-	if (VitrobotActor != nullptr && m_isGridAttached) {
+	if (VitrobotActor != nullptr) {
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
-		GetRootComponent()->AttachToComponent(VitrobotActor->WorkstationHolder, AttachRules, FName("Tweezer_Socket"));
+		GetRootComponent()->AttachToComponent(VitrobotActor->Plunger, AttachRules, FName("Plunger_Socket_T"));
 	}
-	//It will be changed to plunger in the future.
 }
 

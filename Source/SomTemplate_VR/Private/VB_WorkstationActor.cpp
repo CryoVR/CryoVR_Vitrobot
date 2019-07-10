@@ -100,12 +100,10 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 		//PickupMesh->SetSimulatePhysics(false);
 	}
 
-	UE_LOG(LogTemp, Log, TEXT("=======================Vitrobot==========================="));
 	AVB_VitrobotActor* VitrobotActor = Cast<AVB_VitrobotActor>(OtherActor);
 	if (VitrobotActor != nullptr) {
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
 		GetRootComponent()->AttachToComponent(VitrobotActor->WorkstationHolder, AttachRules, FName("workstationSocket1"));
-		UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01==========================="));
 	}
 
 	//Hand gesture setting
