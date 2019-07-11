@@ -47,12 +47,13 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UStaticMeshComponent* Workstation_P2;
 
-
-	void PlayEffects();
-
 private:
 	bool bIsAttached;
 
 	//check is ethane tip added
 	bool isEthaneAdded;
+
+	int Status;
+	FVector DeltaLocation;
+	FVector TempLocation;
 };

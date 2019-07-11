@@ -26,7 +26,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	}
 
 	Workstation_P0 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Workstation_P0"));
-	Workstation_P0->SetupAttachment(PickupMesh);
+	//Workstation_P0->SetupAttachment(PickupMesh);
 	Workstation_P0->SetGenerateOverlapEvents(false);
 	Workstation_P0->SetSimulatePhysics(false);
 	Workstation_P0->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
@@ -39,7 +39,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	}
 
 	Workstation_P1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Workstation_P1"));
-	Workstation_P1->SetupAttachment(PickupMesh);
+	//Workstation_P1->SetupAttachment(PickupMesh);
 	Workstation_P1->SetGenerateOverlapEvents(false);
 	Workstation_P1->SetSimulatePhysics(false);
 	Workstation_P1->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
@@ -52,7 +52,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	}
 
 	Workstation_P2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Workstation_P2"));
-	Workstation_P2->SetupAttachment(PickupMesh);
+	//Workstation_P2->SetupAttachment(PickupMesh);
 	Workstation_P2->SetGenerateOverlapEvents(false);
 	Workstation_P2->SetSimulatePhysics(false);
 	Workstation_P2->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
@@ -110,18 +110,19 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("WorkStation_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.25f, 1.0f}, Cast<ATP_MotionController>(OtherActor));
 	}
+	if (Status == 0)
+	{
+		TempLocation = PickupMesh->GetComponentLocation();
+		Status = 1;
+	}
+	else if (Status != 0)
+	{
+		FVector L_Main = PickupMesh->GetComponentLocation();
+		DeltaLocation = L_Main - TempLocation;
+		Workstation_P0->AddLocalOffset(DeltaLocation);
+	}
+	
 }
-
-//void AVB_WorkstationActor::OnTipOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
-//{
-//	AVB_EthaneTipActor* EthaneTipActor = Cast<AVB_EthaneTipActor>(OtherActor);
-//	if (EthaneTipActor != nullptr) {
-//		if (EthaneTipActor->ethaneTipCollisionComp == OtherComp && EthaneTipActor->ethaneParticle->IsActive()) {
-//			//UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01111111111111==========================="));
-//			isEthaneAdded = !isEthaneAdded;
-//		}
-//	}
-//}
 
 
 
