@@ -28,7 +28,7 @@ void AVB_DynamicActor::Pickup_Implementation(USceneComponent * AttachTo)
 				if (m_isDefinedPick) {
 					EControllerHand E_hand = m_ourMotionController->Hand;
 					FAttachmentTransformRules AttachmentTransformRules(m_attachToSocketRule, m_attachToSocketRule, EAttachmentRule::KeepWorld, false);
-					GetRootComponent()->AttachToComponent(motionController, AttachmentTransformRules, m_attachSocketName);
+					GetRootComponent()->AttachToComponent(motionController->GetChildComponent(0), AttachmentTransformRules, m_attachSocketName);
 					if (E_hand == EControllerHand::Left && m_attachToSocketRule == EAttachmentRule::SnapToTarget) {
 						//*************Left Hand************//
 						UStaticMeshComponent* dynamicActorRootStaticComponent = Cast<UStaticMeshComponent>(GetRootComponent());
@@ -43,7 +43,7 @@ void AVB_DynamicActor::Pickup_Implementation(USceneComponent * AttachTo)
 				}
 				else {
 					FAttachmentTransformRules AttachmentTransformRules(EAttachmentRule::KeepWorld, false);
-					GetRootComponent()->AttachToComponent(motionController, AttachmentTransformRules);
+					GetRootComponent()->AttachToComponent(motionController->GetChildComponent(0), AttachmentTransformRules);
 				}
 				m_isGrab = true;
 			}

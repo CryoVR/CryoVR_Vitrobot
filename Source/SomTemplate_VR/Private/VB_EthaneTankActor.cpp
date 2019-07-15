@@ -9,6 +9,7 @@
 #include "Materials/Material.h"
 #include "VirtualReality/TP_MotionController.h"
 #include "VB_EthaneTipActor.h"
+#include "VB_AirTankActor.h"
 #include "Particles/ParticleSystemComponent.h"
 
 
@@ -21,7 +22,7 @@ AVB_EthaneTankActor::AVB_EthaneTankActor() {
 	bIsFirstKnobHold = false;
 	bIsSecondKnobTouched = false;
 	bIsSecondKnobHold = false;
-	
+
 	ConstructorHelpers::FObjectFinder<UMaterial> M_EthaneTankMat(TEXT("Material'/Game/Models/EthaneTank_MainMat.EthaneTank_MainMat'"));
 	if (M_EthaneTankMat.Succeeded()) {
 		meshComp->SetMaterial(4, M_EthaneTankMat.Object);
@@ -36,7 +37,10 @@ AVB_EthaneTankActor::AVB_EthaneTankActor() {
 	shapeComp->OnComponentEndOverlap.AddDynamic(this, &AVB_EthaneTankActor::OnOverlapEnd);
 	secondKnobCollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTankActor::OnOverlapBegin);
 	ethaneTipPosCollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTankActor::OnTipOverlapBegin);
+
+
 }
+
 
 USceneComponent * AVB_EthaneTankActor::GetComponentByIndex(int indexComp)
 {
@@ -58,21 +62,21 @@ void AVB_EthaneTankActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, A
 	if (MotionController != nullptr) {
 		if (Cast<USphereComponent>(OtherComp) == MotionController->GrabShpere) {
 
-			bIsFirstKnobTouched = true;
-			
-			/*if (OverlappedComp == shapeComp) {
-				m_isFirstKnobOn = !m_isFirstKnobOn;
+			if (OverlappedComp == shapeComp) {
+				bIsFirstKnobTouched = true;
 			}
 			if (OverlappedComp == secondKnobCollisionComp) {
 				m_isSecondKnobOn = !m_isSecondKnobOn;
 			}
-			if (m_isFirstKnobOn && m_isSecondKnobOn && ethaneTip!=nullptr) {
-				ethaneTip->ethaneParticle->SetActive(true);
-			}
-			else {
-				ethaneTip->ethaneParticle->SetActive(false);
-			}*/
 		}
+
+		/*if (m_isFirstKnobOn && m_isSecondKnobOn && ethaneTip != nullptr) {
+			ethaneTip->ethaneParticle->SetActive(true);
+		}
+		else if (!m_isFirstKnobOn || !m_isSecondKnobOn) {
+			ethaneTip->ethaneParticle->SetActive(false);
+			UE_LOG(LogTemp, Log, TEXT("=======================Tipdown!!!!!==========================="));
+		}*/
 	}
 }
 
@@ -105,19 +109,54 @@ void AVB_EthaneTankActor::Pickup_Implementation(USceneComponent * AttachTo)
 void AVB_EthaneTankActor::Drop_Implementation()
 {
 	bIsFirstKnobHold = false;
+
 }
 
 void AVB_EthaneTankActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	
+	//check first knob
 	if (bIsFirstKnobTouched && bIsFirstKnobHold) {
 			float newSub = handObjRef->GetComponentRotation().Yaw - m_HandInitialKnobDeltaRotator;
+			newSub = FMath::Clamp(newSub, -50.0f, 30.0f);
 			firstKnob->SetWorldRotation(FRotator(firstKnob->GetComponentRotation().Pitch, newSub, firstKnob->GetComponentRotation().Roll));
-		}
-	
+			if (firstKnob->GetComponentRotation().Yaw <= -50.0f) {
+				m_isFirstKnobOn = true;
+				UE_LOG(LogTemp, Log, TEXT("=======================firstknob_ON==========================="));
+			}
+			if (firstKnob->GetComponentRotation().Yaw >= 30.0f) {
+				m_isFirstKnobOn = false;
+				UE_LOG(LogTemp, Log, TEXT("=======================firstknob_OFF==========================="));
+			}
+	}
 
-	
+	//meter on
+	if (m_isFirstKnobOn) {
+		if (firstPointer->GetComponentRotation().Yaw < 40.0f) {
+			firstPointer->AddLocalRotation(FRotator(-1.5f, 0.0f, 0.0f));
+			secondPointer->AddLocalRotation(FRotator(-1.5f, 0.0f, 0.0f));
+		}
+	}
+
+	//meter off
+	if (!m_isFirstKnobOn) {
+		if (firstPointer->GetComponentRotation().Yaw > -115.8f) {
+			firstPointer->AddLocalRotation(FRotator(1.5f, 0.0f, 0.0f));
+		}
+		if (secondPointer->GetComponentRotation().Yaw > -158.5f) {
+			secondPointer->AddLocalRotation(FRotator(1.5f, 0.0f, 0.0f));
+		}
+	}	
+
+
+	if (m_isFirstKnobOn && m_isSecondKnobOn && ethaneTip != nullptr) {
+		ethaneTip->ethaneParticle->SetActive(true);
+	}
+	else if ((!m_isFirstKnobOn || !m_isSecondKnobOn) && ethaneTip != nullptr) {
+		ethaneTip->ethaneParticle->SetActive(false);
+		UE_LOG(LogTemp, Log, TEXT("=======================Tipdown!!!!!==========================="));
+	}
 }
 
 

@@ -70,6 +70,8 @@ AVB_AirTankActor::AVB_AirTankActor() {
 	firstPointer->SetupAttachment(meshComp);
 	firstPointer->SetRelativeLocationAndRotation(FVector(-12.653f, -4.8575f, 54.3f), FRotator(55.0f, -133.1f, -127.52f));
 
+	
+
 	//Second pointer mesh
 	secondPointer = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Pointer_02"));
 	secondPointer->SetGenerateOverlapEvents(false);
@@ -84,6 +86,9 @@ AVB_AirTankActor::AVB_AirTankActor() {
 
 void AVB_AirTankActor::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+	//Super::Tick(DeltaTime);
+
+	//firstPointer->AddLocalRotation(FRotator(-1.0f, 0.0f, 0.0f));
+	//secondPointer->AddLocalRotation(FRotator(-1.0f, 0.0f, 0.0f));
 }
  

@@ -42,5 +42,8 @@ public:
 	AVB_AirTankActor();
 
 	virtual void Tick(float DeltaTime) override;
+
+	FRotator tempA;
+	FRotator tempB;
 	
 };

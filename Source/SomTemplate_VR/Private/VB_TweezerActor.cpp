@@ -20,7 +20,7 @@ AVB_TweezerActor::AVB_TweezerActor()
 	capsuleComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	capsuleComp->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	capsuleComp->SetCapsuleSize(0.2f, 0.2f);
-	capsuleComp->SetRelativeLocation(FVector(0.0f, 0.0f, -7.0f));
+	capsuleComp->SetRelativeLocation(FVector(0.0f, 0.0f, -10.0f));
 	capsuleComp->SetRelativeScale3D(FVector(1.0f, 1.0f, 1.0f));
 	capsuleComp->SetupAttachment(PickupMesh);
 	capsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_TweezerActor::OnOverlapBegin);
@@ -46,7 +46,7 @@ AVB_TweezerActor::AVB_TweezerActor()
 	tweezer_grid->SetGenerateOverlapEvents(false);
 	tweezer_grid->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	tweezer_grid->SetVisibility(false);
-	tweezer_grid->SetRelativeLocation(FVector(0.0f, 0.0f, -6.92f));
+	tweezer_grid->SetRelativeLocation(FVector(0.0f, 0.0f, -10.92f));
 	tweezer_grid->SetupAttachment(PickupMesh);
 
 	if (SM_Tweezer_Grid.Succeeded()) {
