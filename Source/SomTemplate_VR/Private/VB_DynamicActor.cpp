@@ -62,44 +62,6 @@ void AVB_DynamicActor::Drop_Implementation()
 	m_ourMotionController->m_isGrab = false;
 }
 
-//void AVB_DynamicActor::CreateNewPhysicsConstraintBetween(AStaticMeshActor* RootSMA, AStaticMeshActor* TargetSMA)
-//{
-//	//set up the constraint instance with all the desired values
-//	FConstraintInstance ConstraintInstance;
-//
-//	//set values here, see functions I am sharing with you below
-//	AVB_DynamicActor::SetAngularLimits( //or make functions below non static, put in .h
-//		ConstraintInstance,
-//		1, //swing 1 limited
-//		1, //swing 2 limited
-//		1, //twist is limited
-//		60, //swing 1 angle limit
-//		30 //swing 2 angle limit 
-//		10 //twist limit (not used cause its free)
-//	);
-//	//New Object
-//	UPhysicsConstraintComponent* ConstraintComp = NewObject<UPhysicsConstraintComponent>(RootSMA);
-//	if (!ConstraintComp)
-//	{
-//		//UE_LOG constraint UObject could not be created!
-//		return;
-//	}
-//
-//	//~~~~~~~~~~~~~~~~~~~~~~~~
-//	//Set Constraint Instance!
-//	ConstraintComp->ConstraintInstance = ConstraintInstance;
-//	//~~~~~~~~~~~~~~~~~~~~~~~~
-//
-//	//Set World Location
-//	ConstraintComp->SetWorldLocation(RootSMA->GetActorLocation());
-//
-//	//Attach to Root!
-//	ConstraintComp->AttachTo(RootSMA->GetRootComponent(), NAME_None, EAttachLocation::KeepWorldPosition);
-//
-//	//~~~ Init Constraint ~~~
-//	ConstraintComp->SetConstrainedComponents(RootSMA->GetRootComponent, NAME_None, TargetSMA->GetRootComponent, NAME_None);
-//}
-
 
 void AVB_DynamicActor::BeginPlay()
 {

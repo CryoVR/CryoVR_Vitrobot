@@ -38,7 +38,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	WorkstationHolder->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	WorkstationHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	WorkstationHolder->SetVisibility(true);
-	WorkstationHolder->SetRelativeLocation(FVector(-2.1f, 0.0f, 8.33f));
+	WorkstationHolder->SetRelativeLocation(FVector(3.73f, 0.0f, 8.33f));
 	if (SM_WorkstationHolder.Succeeded()) {
 		WorkstationHolder->SetStaticMesh(SM_WorkstationHolder.Object);
 	}
@@ -58,7 +58,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	InnerHolder->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	InnerHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	InnerHolder->SetVisibility(true);
-	InnerHolder->SetRelativeLocation(FVector(-20.54f, 0.0f, 66.0f));
+	InnerHolder->SetRelativeLocation(FVector(-17.0f, 0.0f, 62.63f));
 	if (SM_InnerHolder.Succeeded()) {
 		InnerHolder->SetStaticMesh(SM_InnerHolder.Object);
 	}
@@ -118,7 +118,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Bottom_Cover->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	Bottom_Cover->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	Bottom_Cover->SetVisibility(true);
-	Bottom_Cover->SetRelativeLocation(FVector(-16.21f, 0.0f, 37.0f));
+	Bottom_Cover->SetRelativeLocation(FVector(-13.13f, 0.0f, 37.63f));
 	Bottom_Cover->SetRelativeRotation(FRotator(0.0f, -16.0f, 0.0f));
 	if (SM_BottomCover.Succeeded()) {
 		Bottom_Cover->SetStaticMesh(SM_BottomCover.Object);
@@ -132,7 +132,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Plunger->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	Plunger->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	Plunger->SetVisibility(true);
-	Plunger->SetRelativeLocation(FVector(-20.62f, 0.0f, 66.66f));
+	Plunger->SetRelativeLocation(FVector(-17.0f, 0.0f, 65.02f));
 	Plunger->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
 	if (SM_Plunger.Succeeded()) {
 		Plunger->SetStaticMesh(SM_Plunger.Object);
@@ -142,6 +142,8 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Plunger_Collider->SetRelativeLocation(FVector(0.0f, 0.0f, -32.33f));
 	Cast<UBoxComponent>(Plunger_Collider)->SetBoxExtent(FVector(0.8f, 0.8f, 0.8f));
 	Plunger_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::TurnOnMachine);
+	
+
 }
 	
 
@@ -190,21 +192,45 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 		}
 	}
 
-	//if ((Cast<AVB_WorkstationActor>(OtherActor) != nullptr) && (OverlappedComp == WorkstationHolder_Collider))
-	//{
-	//	//Use either of them
-	//	//OtherComp->SetupAttachment(WorkstationHolder);
-	//	//OtherActor->GetRootComponent()->SetupAttachment(WorkstationHolder); 
-	//	OtherActor->GetRootComponent()->AttachToComponent(WorkstationHolder, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
-	//}
+
+}
+
+void AVB_VitrobotActor::PlungerDelay()
+{	
+	float PlungerPosition = Plunger->GetComponentLocation().Z;
+	Counter++;
+	if (Counter >= 48)
+	{
+		if (PlungerPosition > 207.0f)
+		{
+			bPlungerStatus = true;
+		}
+		else if (PlungerPosition < 183.5f)
+		{
+			bPlungerStatus = false;
+
+		}
+
+		if (bPlungerStatus)
+		{
+			Plunger->AddWorldOffset(FVector(0.0f, 0.0f, -0.07f));
+
+		}
+		else if (!bPlungerStatus)
+		{
+			Plunger->AddWorldOffset(FVector(0.0f, 0.0f, 0.07f));
+		}
+	}
 }
 
 void AVB_VitrobotActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	UE_LOG(LogTemp, Log, TEXT("==%f=="), WorkstationHolder->GetComponentLocation().Z);
 	if (bIsButtonOn)
 	{	
+
+		PlungerDelay();
 		//Holder range(Component location) Z:(125.68->147.68)
 		if (WorkstationHolder->GetComponentLocation().Z < 127.0f)
 		{
@@ -212,7 +238,7 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 			//bIsHolderTouchingBottom = true;
 			bIsButtonOn = false;
 		}
-		else if (WorkstationHolder->GetComponentLocation().Z > 148.0f)
+		else if (WorkstationHolder->GetComponentLocation().Z > 145.6f)
 		{
 			bIsHolderGoingUp = false;
 			bIsButtonOn = false;
