@@ -72,7 +72,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Door->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	Door->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	Door->SetVisibility(true);
-	Door->SetRelativeLocation(FVector(-25.12f, -13.34f, 50.48f));
+	Door->SetRelativeLocation(FVector(-21.9140778f, -12.8175192f, 50.48f));
 	Door->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
 	if (SM_Door.Succeeded()) {
 		Door->SetStaticMesh(SM_Door.Object);
@@ -93,7 +93,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	TestButton_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("TestButton_Collider"));
 	TestButton_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	TestButton_Collider->SetupAttachment(meshComp);
-	TestButton_Collider->SetRelativeLocation(FVector(-27.5f, 0.0f, 76.4f));
+	TestButton_Collider->SetRelativeLocation(FVector(-27.5f, -6.827611f, 76.4f));
 
 	Cast<UBoxComponent>(TestButton_Collider)->SetBoxExtent(FVector(3.0f, 1.0f, 3.0f));
 	TestButton_Collider->SetHiddenInGame(false);
@@ -102,10 +102,10 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 
 	//#Power button test version
 	PowerButton_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("PowerButton_Collider"));
-	PowerButton_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
-	PowerButton_Collider->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
+	PowerButton_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+	//PowerButton_Collider->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	PowerButton_Collider->SetupAttachment(meshComp);
-	PowerButton_Collider->SetRelativeLocation(FVector(3.7f, 14.0f, 16.0f));
+	PowerButton_Collider->SetRelativeLocation(FVector(-24.4023972f, 5.3110352f, 74.2524109f));
 	Cast<UBoxComponent>(PowerButton_Collider)->SetBoxExtent(FVector(3.0f,3.0f,3.0f));
 	PowerButton_Collider->SetHiddenInGame(false);
 	PowerButton_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::TurnOnMachine);
@@ -132,7 +132,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Plunger->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	Plunger->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	Plunger->SetVisibility(true);
-	Plunger->SetRelativeLocation(FVector(-17.0f, 0.0f, 65.02f));
+	Plunger->SetRelativeLocation(FVector(-17.0f, 0.0f, 67.620285f));
 	Plunger->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
 	if (SM_Plunger.Succeeded()) {
 		Plunger->SetStaticMesh(SM_Plunger.Object);
@@ -141,7 +141,6 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Plunger_Collider->SetupAttachment(Plunger);
 	Plunger_Collider->SetRelativeLocation(FVector(0.0f, 0.0f, -32.33f));
 	Cast<UBoxComponent>(Plunger_Collider)->SetBoxExtent(FVector(0.8f, 0.8f, 0.8f));
-	Plunger_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::TurnOnMachine);
 	
 
 }
@@ -153,8 +152,15 @@ void AVB_VitrobotActor::TurnOnMachine(class UPrimitiveComponent* OverlappedComp,
 {
 	if (Cast<ATP_MotionController>(OtherActor))
 	{
-		m_IsMachineOn = true;
-		PowerButton_Collider->DestroyComponent();		
+		m_IsMachineOn = !m_IsMachineOn;	
+		if (Status == 2)
+		{
+			Status = 0;
+		}
+		else if (Status < 2 && Status >= 0)
+		{
+			Status++;
+		}
 	}
 }
 //Set if the cover is interactable by rotation vector
@@ -198,16 +204,17 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 void AVB_VitrobotActor::PlungerDelay()
 {	
 	float PlungerPosition = Plunger->GetComponentLocation().Z;
-	Counter++;
-	if (Counter >= 48)
+	if (m_IsMachineOn)
 	{
 		if (PlungerPosition > 207.0f)
 		{
 			bPlungerStatus = true;
+			m_IsMachineOn = false;
 		}
-		else if (PlungerPosition < 183.5f)
+		else if (PlungerPosition < 185.0f)
 		{
 			bPlungerStatus = false;
+			m_IsMachineOn = false;
 
 		}
 
@@ -226,11 +233,10 @@ void AVB_VitrobotActor::PlungerDelay()
 void AVB_VitrobotActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	UE_LOG(LogTemp, Log, TEXT("==%f=="), WorkstationHolder->GetComponentLocation().Z);
+	UE_LOG(LogTemp, Log, TEXT("==%f=="), Plunger->GetComponentLocation().Z);
+	PlungerDelay();
 	if (bIsButtonOn)
 	{	
-
-		PlungerDelay();
 		//Holder range(Component location) Z:(125.68->147.68)
 		if (WorkstationHolder->GetComponentLocation().Z < 127.0f)
 		{
