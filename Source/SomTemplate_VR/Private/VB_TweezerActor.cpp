@@ -83,8 +83,10 @@ void AVB_TweezerActor::OnTweezerBeginOverlap(UPrimitiveComponent * OverlappedCom
 	}
 	AVB_VitrobotActor* VitrobotActor = Cast<AVB_VitrobotActor>(OtherActor);
 	if (VitrobotActor != nullptr) {
-		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
-		GetRootComponent()->AttachToComponent(VitrobotActor->Plunger, AttachRules, FName("Plunger_Socket_T"));
+		if (m_isGridAttached) {
+			FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+			GetRootComponent()->AttachToComponent(VitrobotActor->Plunger, AttachRules, FName("Plunger_Socket_T"));
+		}
 	}
 }
 
