@@ -90,5 +90,6 @@ private:
 	bool bIsDoorOn;
 	bool bIsDoorGoingOpen;
 
+	int Status = 0;
 	int Counter = 0;
 };
