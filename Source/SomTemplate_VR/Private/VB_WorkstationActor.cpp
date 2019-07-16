@@ -110,7 +110,7 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("WorkStation_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.25f, 1.0f}, Cast<ATP_MotionController>(OtherActor));
 	}
-	if (Status == 0)
+	/*if (Status == 0)
 	{
 		TempLocation = PickupMesh->GetComponentLocation();
 		Status = 1;
@@ -120,7 +120,7 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 		FVector L_Main = PickupMesh->GetComponentLocation();
 		DeltaLocation = L_Main - TempLocation;
 		Workstation_P0->AddLocalOffset(DeltaLocation);
-	}
+	}*/
 	
 }
 

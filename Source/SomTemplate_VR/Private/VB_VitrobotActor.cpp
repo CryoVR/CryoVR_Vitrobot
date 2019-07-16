@@ -72,7 +72,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Door->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	Door->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	Door->SetVisibility(true);
-	Door->SetRelativeLocation(FVector(-21.9140778f, -12.8175192f, 50.48f));
+	Door->SetRelativeLocation(FVector(-22.010479f, -13.1936617f, 50.48f));
 	Door->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
 	if (SM_Door.Succeeded()) {
 		Door->SetStaticMesh(SM_Door.Object);
