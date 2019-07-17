@@ -8,6 +8,7 @@
 #include "VB_SampleTubeActor.h"
 #include "Components/CapsuleComponent.h"
 #include "VirtualReality/TP_MotionController.h"
+#include "VB_TweezerActor.h"
 
 class UPrimitiveComponent;
 
@@ -41,20 +42,34 @@ AVB_PipetteActor::AVB_PipetteActor()
 
 void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {	
+
+	UMaterialInstanceDynamic* DynamicMaterial = UMaterialInstanceDynamic::Create(PickupMesh->GetMaterial(0), this);
+	UMaterialInstanceDynamic* DynamicMaterial_1 = UMaterialInstanceDynamic::Create(PickupMesh->GetMaterial(0), this);
+	DynamicMaterial->SetVectorParameterValue("BodyColor", FLinearColor::Blue);
+	DynamicMaterial_1->SetVectorParameterValue("BodyColor", FLinearColor::Transparent);
+
 	//When overlaps with the sample tube
 	if (Cast<AVB_SampleTubeActor>(OtherActor) != nullptr)
 	{
 		//This one is for the constructor function.Temporary can not be used.
 		//static ConstructorHelpers::FObjectFinder<UMaterial> MI_SmallCubes(TEXT("MaterialInstanceConstant'/Game/Models/Pipet_body01Mat.Pipet_body01Mat'"));
 
-		UMaterialInstanceDynamic* DynamicMaterial = UMaterialInstanceDynamic::Create(PickupMesh->GetMaterial(0), this);
-		DynamicMaterial->SetVectorParameterValue("BodyColor", FLinearColor::Blue);
+		
 		
 
 		if (DynamicMaterial != nullptr) 
 		{	
 			PickupMesh->SetMaterial(4, DynamicMaterial);
 			UE_LOG(LogTemp, Log, TEXT("Activated"));
+		}
+	}
+
+	AVB_TweezerActor* tweezerGrid = Cast<AVB_TweezerActor>(OtherActor);
+	if (tweezerGrid != nullptr) {
+		if (tweezerGrid->m_isGridAttached && tweezerGrid->tweezer_grid == OtherComp) 
+		{
+			UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01==========================="));
+			PickupMesh->SetMaterial(4, DynamicMaterial_1);
 		}
 	}
 }

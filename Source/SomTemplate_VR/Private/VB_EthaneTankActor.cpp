@@ -123,11 +123,11 @@ void AVB_EthaneTankActor::Tick(float DeltaTime)
 			firstKnob->SetWorldRotation(FRotator(firstKnob->GetComponentRotation().Pitch, newSub, firstKnob->GetComponentRotation().Roll));
 			if (firstKnob->GetComponentRotation().Yaw <= -50.0f) {
 				m_isFirstKnobOn = true;
-				UE_LOG(LogTemp, Log, TEXT("=======================firstknob_ON==========================="));
+				//UE_LOG(LogTemp, Log, TEXT("=======================firstknob_ON==========================="));
 			}
 			if (firstKnob->GetComponentRotation().Yaw >= 30.0f) {
 				m_isFirstKnobOn = false;
-				UE_LOG(LogTemp, Log, TEXT("=======================firstknob_OFF==========================="));
+				//UE_LOG(LogTemp, Log, TEXT("=======================firstknob_OFF==========================="));
 			}
 	}
 
@@ -155,7 +155,7 @@ void AVB_EthaneTankActor::Tick(float DeltaTime)
 	}
 	else if ((!m_isFirstKnobOn || !m_isSecondKnobOn) && ethaneTip != nullptr) {
 		ethaneTip->ethaneParticle->SetActive(false);
-		UE_LOG(LogTemp, Log, TEXT("=======================Tipdown!!!!!==========================="));
+		//UE_LOG(LogTemp, Log, TEXT("=======================Tipdown!!!!!==========================="));
 	}
 }
 
