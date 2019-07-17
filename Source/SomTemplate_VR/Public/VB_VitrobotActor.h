@@ -54,6 +54,13 @@ protected:
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	UStaticMeshComponent* InnerHolder;
+
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UStaticMeshComponent* InnerHolder_Left;
+
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UStaticMeshComponent* InnerHolder_Right;
+
 	
 	//UPROPERTY(VisibleAnyWhere, Category = "Components")
 	//UStaticMeshComponent* Door;
@@ -80,7 +87,7 @@ protected:
 
 
 private:
-	bool m_IsMachineOn;
+	bool m_IsMachineOn = false;
 	bool bIsInteractable;
 	bool bIsButtonOn;
 	bool bIsHolderGoingUp;

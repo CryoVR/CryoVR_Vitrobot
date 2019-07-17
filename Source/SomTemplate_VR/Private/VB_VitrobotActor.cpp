@@ -16,13 +16,15 @@
 
 AVB_VitrobotActor::AVB_VitrobotActor() {
 	PrimaryActorTick.bCanEverTick = true;
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_MainMesh(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Vitrobot.Vitrobot'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_WorkstationHolder(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Workstation_Holder.Workstation_Holder'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_InnerHolder(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Holder.Holder'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Door(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Door.Door'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_MainMesh(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Vitrobot.Vitrobot'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_WorkstationHolder(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_Holder.Workstation_Holder'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_InnerHolder(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Holder.Holder'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_InnerHolder_L(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/HolderArm_Left.HolderArm_Left'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_InnerHolder_R(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/HolderArm_Right.HolderArm_Right'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Door(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Door.Door'"));
 	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_LEDCover(TEXT("StaticMesh'/Game/Test_Geometry/LED_Cover.LED_Cover'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Plunger(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Plunger.Plunger'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_BottomCover(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/BottomCover.BottomCover'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Plunger(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Plunger.Plunger'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_BottomCover(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/BottomCover.BottomCover'"));
 
 	if (SM_MainMesh.Succeeded()) {
 		meshComp->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
@@ -63,6 +65,18 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 		InnerHolder->SetStaticMesh(SM_InnerHolder.Object);
 	}
 	bIsHolderGoingUp = true;
+	InnerHolder_Left = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inner_Holder_L"));
+	InnerHolder_Left->SetupAttachment(InnerHolder);
+	InnerHolder_Left->SetRelativeLocation(FVector(0.0f, 0.0f, -7.82f));
+	if (SM_InnerHolder_L.Succeeded()) {
+		InnerHolder_Left->SetStaticMesh(SM_InnerHolder_L.Object);
+	}
+	InnerHolder_Right = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inner_Holder_R"));
+	InnerHolder_Right->SetupAttachment(InnerHolder);
+	InnerHolder_Right->SetRelativeLocation(FVector(0.0f, 0.0f, -7.82f));
+	if (SM_InnerHolder_R.Succeeded()) {
+		InnerHolder_Right->SetStaticMesh(SM_InnerHolder_R.Object);
+	}
 
 	//#3 Door
 	Door = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Door"));
@@ -130,7 +144,6 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Plunger->SetGenerateOverlapEvents(true);
 	Plunger->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	Plunger->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
-	Plunger->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	Plunger->SetVisibility(true);
 	Plunger->SetRelativeLocation(FVector(-17.0f, 0.0f, 67.620285f));
 	Plunger->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
@@ -144,23 +157,12 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	
 
 }
-	
-
-	//Future components: plunger, Door, 
-	
+		
 void AVB_VitrobotActor::TurnOnMachine(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (Cast<ATP_MotionController>(OtherActor))
 	{
 		m_IsMachineOn = !m_IsMachineOn;	
-		if (Status == 2)
-		{
-			Status = 0;
-		}
-		else if (Status < 2 && Status >= 0)
-		{
-			Status++;
-		}
 	}
 }
 //Set if the cover is interactable by rotation vector
