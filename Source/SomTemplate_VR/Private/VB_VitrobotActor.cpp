@@ -235,7 +235,7 @@ void AVB_VitrobotActor::PlungerDelay()
 void AVB_VitrobotActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	UE_LOG(LogTemp, Log, TEXT("==%f=="), Plunger->GetComponentLocation().Z);
+	//UE_LOG(LogTemp, Log, TEXT("==%f=="), Plunger->GetComponentLocation().Z);
 	PlungerDelay();
 	if (bIsButtonOn)
 	{	

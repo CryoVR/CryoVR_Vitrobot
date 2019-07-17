@@ -26,15 +26,19 @@ public:
 	UFUNCTION()
 	void OnTweezerBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-protected:
+	bool m_isGridAttached;
+
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UStaticMeshComponent* tweezer_grid;
+
+protected:
+	
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UCapsuleComponent* capsuleComp;
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UCapsuleComponent* tweezerMainCapsuleComp;
 	
-	bool m_isGridAttached;
+	
 
 
 };
