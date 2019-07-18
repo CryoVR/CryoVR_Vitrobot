@@ -9,6 +9,7 @@
 #include "Components/CapsuleComponent.h"
 #include "VirtualReality/TP_MotionController.h"
 #include "VB_TweezerActor.h"
+#include "VB_PippetHolderActor.h"
 
 class UPrimitiveComponent;
 
@@ -72,12 +73,21 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 			PickupMesh->SetMaterial(4, DynamicMaterial_1);
 		}
 	}
+
+	
 }
 
 void AVB_PipetteActor::OnPipetHandOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("Pipet_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float>{ -3.0f, 1.0f }, Cast<ATP_MotionController>(OtherActor));
+	}
+
+	AVB_PippetHolderActor* holder = Cast<AVB_PippetHolderActor>(OtherActor);
+	if (holder != nullptr) {
+		UE_LOG(LogTemp, Log, TEXT("=======================Holder Attach==========================="));
+		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+		GetRootComponent()->AttachToComponent(OtherActor->GetRootComponent(), AttachRules, FName("Holder_Socket_Pippet"));
 	}
 }
 
