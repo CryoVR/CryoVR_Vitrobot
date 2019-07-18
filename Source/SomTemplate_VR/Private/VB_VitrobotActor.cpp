@@ -308,10 +308,10 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 	}
 	else if (Counter >= 920 && Counter < 1320)
 	{
-		Plunger->SetRelativeLocation(FVector(-17.0f, 0.0f, 67.0f));
+		Plunger->SetRelativeLocation(FVector(-17.0f, 0.0f, 73.0f));
 		Counter++;
 	}
-	else if (Counter >= 1320 && Counter <= 1620)
+	else if (Counter >= 1320 && Counter <= 1580)
 	{
 		Plunger->AddLocalOffset(FVector(0.0f, 0.0f, -0.07f));
 		WorkstationHolder->AddLocalOffset(FVector(0.0f, 0.0f, -0.07f));
