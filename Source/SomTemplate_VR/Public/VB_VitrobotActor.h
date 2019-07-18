@@ -97,6 +97,6 @@ private:
 	bool bIsDoorOn;
 	bool bIsDoorGoingOpen;
 
-	int Status = 0;
+	int Status = 1;
 	int Counter = 0;
 };

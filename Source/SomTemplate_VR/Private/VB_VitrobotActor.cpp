@@ -68,12 +68,14 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	InnerHolder_Left = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inner_Holder_L"));
 	InnerHolder_Left->SetupAttachment(InnerHolder);
 	InnerHolder_Left->SetRelativeLocation(FVector(0.0f, 0.0f, -7.82f));
+	InnerHolder_Left->SetRelativeRotation(FRotator(0.0f, 0.0f, 5.0f));
 	if (SM_InnerHolder_L.Succeeded()) {
 		InnerHolder_Left->SetStaticMesh(SM_InnerHolder_L.Object);
 	}
 	InnerHolder_Right = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inner_Holder_R"));
 	InnerHolder_Right->SetupAttachment(InnerHolder);
 	InnerHolder_Right->SetRelativeLocation(FVector(0.0f, 0.0f, -7.82f));
+	InnerHolder_Right->SetRelativeRotation(FRotator(0.0f, 0.0f, -5.0f));
 	if (SM_InnerHolder_R.Succeeded()) {
 		InnerHolder_Right->SetStaticMesh(SM_InnerHolder_R.Object);
 	}
@@ -208,7 +210,7 @@ void AVB_VitrobotActor::PlungerDelay()
 	float PlungerPosition = Plunger->GetComponentLocation().Z;
 	if (m_IsMachineOn)
 	{
-		if (PlungerPosition > 207.0f)
+		if (PlungerPosition > 209.963f)
 		{
 			bPlungerStatus = true;
 			m_IsMachineOn = false;
@@ -217,7 +219,12 @@ void AVB_VitrobotActor::PlungerDelay()
 		{
 			bPlungerStatus = false;
 			m_IsMachineOn = false;
-
+			Status = 1;
+		}
+		else if (PlungerPosition > 203.836685f && Status == 1)
+		{
+			m_IsMachineOn = false;
+			Status = 0;
 		}
 
 		if (bPlungerStatus)
@@ -235,7 +242,12 @@ void AVB_VitrobotActor::PlungerDelay()
 void AVB_VitrobotActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//UE_LOG(LogTemp, Log, TEXT("==%f=="), Plunger->GetComponentLocation().Z);
+	UE_LOG(LogTemp, Log, TEXT("==%d=="), Counter);
+	float PlungerPosition = Plunger->GetComponentLocation().Z;
+	if(PlungerPosition > 209.0f)
+	{
+		Counter++;
+	}
 	PlungerDelay();
 	if (bIsButtonOn)
 	{	
@@ -277,11 +289,33 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 
 		if (bIsDoorGoingOpen) {
 			Door->AddWorldRotation(FRotator(0.0f, 1.0f, 0.0f));
-			UE_LOG(LogTemp, Log, TEXT("=== %f ==="), Door->GetComponentRotation().Yaw);
 		}
 		else if (!bIsDoorGoingOpen) {
 			Door->AddWorldRotation(FRotator(0.0f, -1.0f, 0.0f));
 		}
+	}
+
+
+	else if (Counter >= 180 && Counter <= 300)
+	{
+		InnerHolder_Left->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.125f));
+		InnerHolder_Right->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.125f));
+	}
+	else if (Counter >= 600 && Counter <= 720)
+	{
+		InnerHolder_Left->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.125f));
+		InnerHolder_Right->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.125f));
+	}
+	else if (Counter >= 920 && Counter < 1320)
+	{
+		Plunger->SetRelativeLocation(FVector(-17.0f, 0.0f, 67.0f));
+		Counter++;
+	}
+	else if (Counter >= 1320 && Counter <= 1620)
+	{
+		Plunger->AddLocalOffset(FVector(0.0f, 0.0f, -0.07f));
+		WorkstationHolder->AddLocalOffset(FVector(0.0f, 0.0f, -0.07f));
+		Counter++;
 	}
 
 	//if (WorkstationHolder->GetComponentLocation().X > 70.877f && bIsHolderTouchingBottom)
