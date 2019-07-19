@@ -15,6 +15,10 @@
 
 AVB_WorkstationActor::AVB_WorkstationActor() 
 {
+	PrimaryActorTick.bCanEverTick = true;
+	
+	isTipTouched = false;
+
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation.Workstation'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P0(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_P0.Workstation_P0'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P1(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_P1.Workstation_P1'"));
@@ -118,8 +122,9 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 	//AVB_EthaneTankActor* ethaneTank = Cast<AVB_EthaneTankActor>(OtherActor);
 	if (ethaneTip != nullptr) {
 		if (OtherComp == ethaneTip->ethaneTipCollisionComp) {
-			GetWorld()->GetTimerManager().SetTimer(UnusedHandle, this, &AVB_WorkstationActor::setFrozVisible, 5.0f, false);
+			//GetWorld()->GetTimerManager().SetTimer(UnusedHandle, this, &AVB_WorkstationActor::setFrozVisible, 5.0f, false);
 			//FrozenFX->SetVisibility(false);
+			isTipTouched = true;
 		}
 	}
 
@@ -143,7 +148,15 @@ void AVB_WorkstationActor::setFrozVisible()
 }
 
 
-
+void AVB_WorkstationActor::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	bool m_IsVisable = Water_Mesh->IsVisible();
+	if (Water_Mesh->GetComponentLocation().Z > 119.4831085f && m_IsVisable) {
+		Water_Mesh->AddWorldOffset(FVector(0.0f, 0.0f, -0.005f));
+	}
+	
+}
 
 
  

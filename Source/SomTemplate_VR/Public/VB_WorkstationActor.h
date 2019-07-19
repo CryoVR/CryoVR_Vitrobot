@@ -27,6 +27,8 @@ public:
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	virtual void Tick(float DeltaTime) override;
+
 	/*UFUNCTION()
 		void OnTipOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);*/
 
@@ -56,6 +58,8 @@ protected:
 private:
 	bool bIsAttached;
 
+	bool isTipTouched;
+
 	//check is ethane tip added
 	bool isEthaneAdded;
 
@@ -64,4 +68,5 @@ private:
 	int Status;
 	FVector DeltaLocation;
 	FVector TempLocation;
+
 };
