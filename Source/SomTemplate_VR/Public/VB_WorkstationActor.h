@@ -50,6 +50,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UStaticMeshComponent* Workstation_P2;
 
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UStaticMeshComponent* Water_Mesh;
+
 private:
 	bool bIsAttached;
 

@@ -12,6 +12,7 @@
 #include "Components/BoxComponent.h"
 #include "Components/SphereComponent.h"
 #include "VirtualReality/TP_MotionController.h"
+#include "Runtime/Engine/Classes/Materials/MaterialInstanceDynamic.h"
 #include "VB_WorkstationActor.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
@@ -29,6 +30,8 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Plunger(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Plunger.Plunger'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_BottomCover(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/BottomCover.BottomCover'"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_Plunger(TEXT("/Game/Test_Geometry/Test_Textures/PlungerSound.PlungerSound"));
+	static ConstructorHelpers::FObjectFinder<UMaterial> M_MainMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_1.Screen_Shot_1"));
+	static ConstructorHelpers::FObjectFinder<UMaterial> M_OptionMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_2.Screen_Shot_2"));
 
 	if (SM_MainMesh.Succeeded()) {
 		meshComp->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
@@ -123,7 +126,6 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	//#Power button test version
 	PowerButton_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("PowerButton_Collider"));
 	PowerButton_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
-	//PowerButton_Collider->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	PowerButton_Collider->SetupAttachment(meshComp);
 	PowerButton_Collider->SetRelativeLocation(FVector(-24.4023972f, 5.3110352f, 74.2524109f));
 	Cast<UBoxComponent>(PowerButton_Collider)->SetBoxExtent(FVector(3.0f,3.0f,3.0f));
@@ -152,7 +154,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Plunger->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	Plunger->SetVisibility(true);
 	Plunger->SetRelativeLocation(FVector(-17.0f, 0.0f, 67.620285f));
-	Plunger->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
+	Plunger->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));
 	if (SM_Plunger.Succeeded()) {
 		Plunger->SetStaticMesh(SM_Plunger.Object);
 	}
@@ -161,6 +163,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Plunger_Collider->SetRelativeLocation(FVector(0.0f, 0.0f, -32.33f));
 	Cast<UBoxComponent>(Plunger_Collider)->SetBoxExtent(FVector(0.8f, 0.8f, 0.8f));
 	
+	//LED Screen
 	Screen = CreateAbstractDefaultSubobject<UStaticMeshComponent>(TEXT("Screen"));
 	Screen->SetupAttachment(meshComp);
 	Screen->SetGenerateOverlapEvents(false);
@@ -169,12 +172,24 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Screen->SetRelativeRotation(FRotator(0.0f, 90.0f, 90.0f));
 	Screen->SetRelativeScale3D(FVector(0.19f, 0.13f, 1.0f));
 
+	//Sounds & Materials Setting
 	USoundWave* SoundWave = S_Plunger.Object;
 	PlungerSound = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest"));
 	PlungerSound->SetupAttachment(meshComp);
 	PlungerSound->SetAutoActivate(false);
 	PlungerSound->SetSound(SoundWave);
 
+	MainMaterial = CreateDefaultSubobject<UMaterial>(TEXT("MainMaterial"));
+	if (M_MainMaterial.Succeeded())
+	{
+		MainMaterial = M_MainMaterial.Object;
+	}
+	OptionMaterial = CreateDefaultSubobject<UMaterial>(TEXT("OptionMaterial"));
+	if (M_OptionMaterial.Succeeded())
+	{
+		OptionMaterial = M_OptionMaterial.Object;
+	}
+	DynamicMaterialInst = UMaterialInstanceDynamic::Create(OptionMaterial, meshComp);
 }
 		
 void AVB_VitrobotActor::TurnOnMachine(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -182,6 +197,7 @@ void AVB_VitrobotActor::TurnOnMachine(class UPrimitiveComponent* OverlappedComp,
 	if (Cast<ATP_MotionController>(OtherActor))
 	{
 		m_IsMachineOn = !m_IsMachineOn;	
+		//Screen->SetMaterial(0, DynamicMaterialInst);
 	}
 }
 //Set if the cover is interactable by rotation vector
@@ -323,13 +339,11 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 		InnerHolder_Left->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.125f));
 		InnerHolder_Right->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.125f));
 	}
-	else if (Counter == 920)
+	else if (Counter == 860)
 	{
 		PlungerSound->Play();
-		Counter++;
-
 	}
-	else if (Counter > 920 && Counter < 1320)
+	else if (Counter >= 920 && Counter < 1320)
 	{	
 		Plunger->SetRelativeLocation(FVector(-17.0f, 0.0f, 73.0f));
 		Counter++;
@@ -340,6 +354,7 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 		WorkstationHolder->AddLocalOffset(FVector(0.0f, 0.0f, -0.07f));
 		Counter++;
 	}
+
 
 
 	//if (WorkstationHolder->GetComponentLocation().X > 70.877f && bIsHolderTouchingBottom)

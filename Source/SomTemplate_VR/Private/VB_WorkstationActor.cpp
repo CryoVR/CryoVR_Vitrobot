@@ -75,6 +75,12 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	BoxComp->SetRelativeLocation(FVector(0.0f, 0.0f, 3.26f));
 	BoxComp->SetRelativeScale3D(FVector(0.22f, 0.22f, 0.11f));
 
+	Water_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WaterComp"));
+	Water_Mesh->SetupAttachment(PickupMesh);
+	Water_Mesh->SetRelativeLocation(FVector(0.0f, 0.0f, 5.8415222f));//Least 1.39f
+	Water_Mesh->SetRelativeScale3D(FVector(0.16f, 0.16f, 0.01f));
+	Water_Mesh->SetVisibility(false);
+
 
 	static ConstructorHelpers::FObjectFinder<UParticleSystem> P_Effect(TEXT("ParticleSystem'/Game/Test_Geometry/Test_Particle/P_Steam_Lit.P_Steam_Lit'"));
 	if (P_Effect.Succeeded())
@@ -93,7 +99,7 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 	if (Cast<AVB_DewarActor>(OtherActor) != nullptr)
 	{
 		FrozenFX->SetVisibility(true);
-		//PickupMesh->SetSimulatePhysics(false);
+		Water_Mesh->SetVisibility(true);
 	}
 
 	AVB_VitrobotActor* VitrobotActor = Cast<AVB_VitrobotActor>(OtherActor);

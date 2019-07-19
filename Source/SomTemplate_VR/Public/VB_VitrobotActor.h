@@ -91,7 +91,13 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UBoxComponent* PowerButton_Collider;
 
+	UPROPERTY(EditAnywhere, Category = "Components")
+	class UMaterial* MainMaterial;
 
+	UPROPERTY(EditAnywhere, Category = "Components")
+	class UMaterial* OptionMaterial;
+
+	UMaterialInstanceDynamic* DynamicMaterialInst;
 
 
 private:
