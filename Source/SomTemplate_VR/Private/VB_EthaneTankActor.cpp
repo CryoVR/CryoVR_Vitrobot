@@ -22,6 +22,7 @@ AVB_EthaneTankActor::AVB_EthaneTankActor() {
 	bIsFirstKnobHold = false;
 	bIsSecondKnobTouched = false;
 	bIsSecondKnobHold = false;
+	m_isTipOn = false;
 
 	ConstructorHelpers::FObjectFinder<UMaterial> M_EthaneTankMat(TEXT("Material'/Game/Models/EthaneTank_MainMat.EthaneTank_MainMat'"));
 	if (M_EthaneTankMat.Succeeded()) {
@@ -152,6 +153,7 @@ void AVB_EthaneTankActor::Tick(float DeltaTime)
 
 	if (m_isFirstKnobOn && m_isSecondKnobOn && ethaneTip != nullptr) {
 		ethaneTip->ethaneParticle->SetActive(true);
+		m_isTipOn = true;
 	}
 	else if ((!m_isFirstKnobOn || !m_isSecondKnobOn) && ethaneTip != nullptr) {
 		ethaneTip->ethaneParticle->SetActive(false);

@@ -15,10 +15,10 @@
 
 AVB_WorkstationActor::AVB_WorkstationActor() 
 {
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation.Workstation'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P0(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_P0.Workstation_P0'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P1(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_P1.Workstation_P1'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P2(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_P2.Workstation_P2'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Workstation_Main.Workstation_Main'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P0(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Workstation_P0.Workstation_P0'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P1(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Workstation_P1.Workstation_P1'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P2(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Workstation_P2.Workstation_P2'"));
 	if (SM_Pickup.Succeeded())
 	{
 		UStaticMesh* Asset = SM_Pickup.Object;
@@ -64,8 +64,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 		Workstation_P2->SetStaticMesh(SM_P2.Object);
 	}
 	
-	
-	isEthaneAdded = false;
+
 	PickupMesh->SetGenerateOverlapEvents(true);
 
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComp"));
@@ -77,11 +76,6 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	BoxComp->SetRelativeScale3D(FVector(0.22f, 0.22f, 0.11f));
 
 
-	
-
-
-	
-
 	static ConstructorHelpers::FObjectFinder<UParticleSystem> P_Effect(TEXT("ParticleSystem'/Game/Test_Geometry/Test_Particle/P_Steam_Lit.P_Steam_Lit'"));
 	if (P_Effect.Succeeded())
 	{
@@ -90,6 +84,8 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 		FrozenFX->SetVisibility(false);
 		FrozenFX->SetupAttachment(PickupMesh);
 	}
+
+	FrozenFX->SetRelativeLocation(FVector(0.0f, 0.0f, 7.0f));
 }
 
 void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -110,6 +106,17 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("WorkStation_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.25f, 1.0f}, Cast<ATP_MotionController>(OtherActor));
 	}
+
+	//ethane tip add
+	AVB_EthaneTipActor* ethaneTip = Cast<AVB_EthaneTipActor>(OtherActor);
+	//AVB_EthaneTankActor* ethaneTank = Cast<AVB_EthaneTankActor>(OtherActor);
+	if (ethaneTip != nullptr) {
+		if (OtherComp == ethaneTip->ethaneTipCollisionComp) {
+			GetWorld()->GetTimerManager().SetTimer(UnusedHandle, this, &AVB_WorkstationActor::setFrozVisible, 5.0f, false);
+			//FrozenFX->SetVisibility(false);
+		}
+	}
+
 	/*if (Status == 0)
 	{
 		TempLocation = PickupMesh->GetComponentLocation();
@@ -123,6 +130,13 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 	}*/
 	
 }
+
+void AVB_WorkstationActor::setFrozVisible()
+{
+	FrozenFX->SetVisibility(false);
+}
+
+
 
 
 

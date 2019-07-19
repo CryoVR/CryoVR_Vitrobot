@@ -38,6 +38,8 @@ public:
 	virtual void Pickup_Implementation(class USceneComponent* AttachTo);
 
 	virtual void Drop_Implementation();
+
+	bool m_isTipOn;
 	
 
 protected:
