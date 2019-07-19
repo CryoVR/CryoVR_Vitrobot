@@ -15,10 +15,10 @@
 
 AVB_WorkstationActor::AVB_WorkstationActor() 
 {
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Workstation_Main.Workstation_Main'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P0(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Workstation_P0.Workstation_P0'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P1(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Workstation_P1.Workstation_P1'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P2(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Workstation_P2.Workstation_P2'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation.Workstation'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P0(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_P0.Workstation_P0'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P1(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_P1.Workstation_P1'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P2(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_P2.Workstation_P2'"));
 	if (SM_Pickup.Succeeded())
 	{
 		UStaticMesh* Asset = SM_Pickup.Object;

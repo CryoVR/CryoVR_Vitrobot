@@ -34,7 +34,7 @@ AVB_TweezerActor::AVB_TweezerActor()
 	tweezerMainCapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_TweezerActor::OnTweezerBeginOverlap);
 
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Tweezer(TEXT("StaticMesh'/Game/Test_Geometry/Test_Darius/Tweezer.Tweezer'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Tweezer(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Tweezer.Tweezer'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Tweezer_Grid(TEXT("StaticMesh'/Game/Models/Tweezer_Grid.Tweezer_Grid'"));
 
 	if (SM_Tweezer.Succeeded()) {
