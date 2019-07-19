@@ -17,6 +17,9 @@ class SOMTEMPLATE_VR_API AVB_WorkstationActor : public AVB_DynamicActor
 	GENERATED_BODY()
 
 public:
+
+	void setFrozVisible();
+
 	//Set as default
 	AVB_WorkstationActor();
 
@@ -52,6 +55,8 @@ private:
 
 	//check is ethane tip added
 	bool isEthaneAdded;
+
+	FTimerHandle UnusedHandle;
 
 	int Status;
 	FVector DeltaLocation;
