@@ -14,7 +14,7 @@ AVB_PippetHolderActor::AVB_PippetHolderActor()
 	if (SM_PippetHolderMesh.Succeeded()) {
 		meshComp->SetStaticMesh(SM_PippetHolderMesh.Object);
 	}
-	
+	meshComp->SetRelativeScale3D(FVector(1.35f, 1.35f, 1.35f));
 	shapeComp->SetRelativeScale3D(FVector(0.3f, 0.3f, 0.3f));
 	//Cast<UBoxComponent>(shapeComp)->SetBoxExtent(FVector(0.3f, 0.3f, 0.3f));
 }

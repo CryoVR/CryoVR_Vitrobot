@@ -32,6 +32,7 @@ AVB_PipetteActor::AVB_PipetteActor()
 	{
 		UStaticMesh* Asset = SM_Pickup.Object;
 		PickupMesh->SetStaticMesh(Asset);
+		PickupMesh->SetRelativeScale3D(FVector(1.35f, 1.35f, 1.35f));
 		SphereComp->SetupAttachment(PickupMesh);
 		SphereComp->SetRelativeLocation(FVector(0.0f, 0.0f, -15.02f));
 		SphereComp->SetRelativeScale3D(FVector(0.007f));
