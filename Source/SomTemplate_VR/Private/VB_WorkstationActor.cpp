@@ -27,6 +27,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	{
 		UStaticMesh* Asset = SM_Pickup.Object;
 		PickupMesh->SetStaticMesh(Asset);
+		PickupMesh->SetSimulatePhysics(false);
 	}
 
 	Workstation_P0 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Workstation_P0"));
@@ -81,7 +82,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 
 	Water_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WaterComp"));
 	Water_Mesh->SetupAttachment(PickupMesh);
-	Water_Mesh->SetRelativeLocation(FVector(0.0f, 0.0f, 5.8415222f));//Least 1.39f
+	Water_Mesh->SetRelativeLocation(FVector(0.0f, 0.0f, 5.6f));//Least 1.39f  5.8415222
 	Water_Mesh->SetRelativeScale3D(FVector(0.16f, 0.16f, 0.01f));
 	Water_Mesh->SetVisibility(false);
 
@@ -152,8 +153,18 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	bool m_IsVisable = Water_Mesh->IsVisible();
-	if (Water_Mesh->GetComponentLocation().Z > 119.4831085f && m_IsVisable) {
-		Water_Mesh->AddWorldOffset(FVector(0.0f, 0.0f, -0.005f));
+	if ((Water_Mesh->GetComponentLocation().Z - PickupMesh->GetComponentLocation().Z)> 4.84f && m_IsVisable) {
+		Water_Mesh->AddLocalOffset(FVector(0.0f, 0.0f, -0.000025f));
+		float scale = FrozenFX->GetComponentScale().X;
+		scale = scale - 0.001;
+		if (scale >= 0)
+		{
+			FrozenFX->SetRelativeScale3D(FVector(scale));
+		}
+	}
+	else if ((Water_Mesh->GetComponentLocation().Z - PickupMesh->GetComponentLocation().Z) <= 4.84f)
+	{
+		FrozenFX->SetVisibility(false);
 	}
 	
 }

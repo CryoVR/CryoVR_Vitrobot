@@ -96,13 +96,13 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Door->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	Door->SetVisibility(true);
 	Door->SetRelativeLocation(FVector(-22.010479f, -13.1936617f, 50.48f));
-	Door->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
+	Door->SetRelativeRotation(FRotator(0.0f));
 	if (SM_Door.Succeeded()) {
 		Door->SetStaticMesh(SM_Door.Object);
 	}
 	Door_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Door_Collider"));
-	//Door_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
-	//Door_Collider->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
+	Door_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+	Door_Collider->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	Door_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	Door_Collider->SetupAttachment(Door);
 	Door_Collider->SetRelativeLocation(FVector(-2.8f, 24.70f, 0.0f));
