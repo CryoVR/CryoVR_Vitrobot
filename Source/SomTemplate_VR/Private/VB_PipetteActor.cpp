@@ -6,9 +6,11 @@
 #include "Kismet/GameplayStatics.h"
 #include "Public/Engine.h"
 #include "VB_SampleTubeActor.h"
+#include "VB_TweezerActor.h"
+#include "VB_VitrobotActor.h"
 #include "Components/CapsuleComponent.h"
 #include "VirtualReality/TP_MotionController.h"
-#include "VB_TweezerActor.h"
+#include "Runtime/Engine/Classes/Materials/Material.h"
 #include "VB_PippetHolderActor.h"
 
 class UPrimitiveComponent;
@@ -33,12 +35,17 @@ AVB_PipetteActor::AVB_PipetteActor()
 		UStaticMesh* Asset = SM_Pickup.Object;
 		PickupMesh->SetStaticMesh(Asset);
 		PickupMesh->SetRelativeScale3D(FVector(1.35f, 1.35f, 1.35f));
+		//PickupMesh->SetWorldLocation(FVector(56.5103378f, 52.3637772f, 129.0230255f));
+		//PickupMesh->SetWorldRotation(FRotator(0.0f, 100.0000229f, 303.7501831f));
 		SphereComp->SetupAttachment(PickupMesh);
 		SphereComp->SetRelativeLocation(FVector(0.0f, 0.0f, -15.02f));
 		SphereComp->SetRelativeScale3D(FVector(0.007f));
 		//This is another way of setting scale;
 		//Cast<USphereComponent>(SphereComp)->SetSphereRadius();
 	}
+
+	OnMaterial = CreateDefaultSubobject<UMaterial>(TEXT("OnMaterial"));
+	OffMaterial = CreateDefaultSubobject<UMaterial>(TEXT("OffMaterial"));
 }
 
 
@@ -48,33 +55,23 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 	UMaterialInstanceDynamic* DynamicMaterial = UMaterialInstanceDynamic::Create(PickupMesh->GetMaterial(0), this);
 	UMaterialInstanceDynamic* DynamicMaterial_1 = UMaterialInstanceDynamic::Create(PickupMesh->GetMaterial(0), this);
 	DynamicMaterial->SetVectorParameterValue("BodyColor", FLinearColor::Blue);
-	DynamicMaterial_1->SetVectorParameterValue("BodyColor", FLinearColor::Transparent);
 
-	//When overlaps with the sample tube
+	//When overlaps with the sample tube & tweezer
 	if (Cast<AVB_SampleTubeActor>(OtherActor) != nullptr)
 	{
-		//This one is for the constructor function.Temporary can not be used.
-		//static ConstructorHelpers::FObjectFinder<UMaterial> MI_SmallCubes(TEXT("MaterialInstanceConstant'/Game/Models/Pipet_body01Mat.Pipet_body01Mat'"));
-
-		
-		
-
-		if (DynamicMaterial != nullptr) 
+	   	if (DynamicMaterial != nullptr) 
 		{	
-			PickupMesh->SetMaterial(4, DynamicMaterial);
-			UE_LOG(LogTemp, Log, TEXT("Activated"));
+			PickupMesh->SetMaterial(4, OffMaterial);
 		}
 	}
 
-	AVB_TweezerActor* tweezerGrid = Cast<AVB_TweezerActor>(OtherActor);
-	if (tweezerGrid != nullptr) {
-		if (tweezerGrid->m_isGridAttached && tweezerGrid->tweezer_grid == OtherComp) 
+	if (Cast<AVB_TweezerActor>(OtherActor))
+	{
+		if (OtherActor != nullptr)
 		{
-			UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01==========================="));
-			PickupMesh->SetMaterial(4, DynamicMaterial_1);
-		}
+			PickupMesh->SetMaterial(4, OnMaterial);
+		}	
 	}
-
 	
 }
 
@@ -86,7 +83,6 @@ void AVB_PipetteActor::OnPipetHandOverlapBegin(UPrimitiveComponent * OverlappedC
 
 	AVB_PippetHolderActor* holder = Cast<AVB_PippetHolderActor>(OtherActor);
 	if (holder != nullptr) {
-		UE_LOG(LogTemp, Log, TEXT("=======================Holder Attach==========================="));
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
 		GetRootComponent()->AttachToComponent(OtherActor->GetRootComponent(), AttachRules, FName("Holder_Socket_Pippet"));
 	}

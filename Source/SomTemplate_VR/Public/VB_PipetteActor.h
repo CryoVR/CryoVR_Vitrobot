@@ -42,4 +42,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UCapsuleComponent* HandcapsuleComp;
 
+	UPROPERTY(EditAnywhere, Category = "Material")
+	class UMaterial* OnMaterial;
+
+	UPROPERTY(EditAnywhere, Category = "Material")
+	class UMaterial* OffMaterial;
 };

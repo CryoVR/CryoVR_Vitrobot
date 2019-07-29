@@ -23,6 +23,9 @@ public:
 	//Set as default
 	AVB_WorkstationActor();
 
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UStaticMeshComponent* Workstation_P3;
+
 	//Declare overlap begin function
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -40,6 +43,7 @@ protected:
 	
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UBoxComponent* BoxComp;
+
 	UPROPERTY(VisibleAnywhere, Category = "Particles")
 	UParticleSystemComponent* FrozenFX;
 

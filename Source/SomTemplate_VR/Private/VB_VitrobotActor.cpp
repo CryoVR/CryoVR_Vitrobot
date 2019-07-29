@@ -275,7 +275,6 @@ void AVB_VitrobotActor::PlungerDelay()
 void AVB_VitrobotActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//UE_LOG(LogTemp, Log, TEXT("==%d=="), Counter);
 	float PlungerPosition = Plunger->GetComponentLocation().Z;
 	if(PlungerPosition > 209.0f)
 	{

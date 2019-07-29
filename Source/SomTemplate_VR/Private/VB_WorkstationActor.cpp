@@ -23,6 +23,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P0(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_P0.Workstation_P0'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P1(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_P1.Workstation_P1'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P2(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_P2.Workstation_P2'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P3(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Grid_Box.Grid_Box'"));
 	if (SM_Pickup.Succeeded())
 	{
 		UStaticMesh* Asset = SM_Pickup.Object;
@@ -31,7 +32,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	}
 
 	Workstation_P0 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Workstation_P0"));
-	//Workstation_P0->SetupAttachment(PickupMesh);
+	Workstation_P0->SetupAttachment(PickupMesh);
 	Workstation_P0->SetGenerateOverlapEvents(false);
 	Workstation_P0->SetSimulatePhysics(false);
 	Workstation_P0->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
@@ -44,7 +45,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	}
 
 	Workstation_P1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Workstation_P1"));
-	//Workstation_P1->SetupAttachment(PickupMesh);
+	Workstation_P1->SetupAttachment(PickupMesh);
 	Workstation_P1->SetGenerateOverlapEvents(false);
 	Workstation_P1->SetSimulatePhysics(false);
 	Workstation_P1->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
@@ -57,7 +58,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	}
 
 	Workstation_P2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Workstation_P2"));
-	//Workstation_P2->SetupAttachment(PickupMesh);
+	Workstation_P2->SetupAttachment(PickupMesh);
 	Workstation_P2->SetGenerateOverlapEvents(false);
 	Workstation_P2->SetSimulatePhysics(false);
 	Workstation_P2->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
@@ -69,6 +70,19 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 		Workstation_P2->SetStaticMesh(SM_P2.Object);
 	}
 	
+	Workstation_P3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Workstation_P3"));
+	Workstation_P3->SetupAttachment(PickupMesh);
+	Workstation_P3->SetGenerateOverlapEvents(false);
+	Workstation_P3->SetSimulatePhysics(false);
+	Workstation_P3->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	Workstation_P3->SetVisibility(true);
+	Workstation_P3->SetRelativeLocation(FVector(-3.3521385f, 2.5355682f, 4.9615173f));
+	Workstation_P3->SetRelativeRotation(FRotator(0.0f, 0.0f, 180.0f));
+	Workstation_P3->SetRelativeScale3D(FVector(1.4f, 1.4f, 0.7f));
+	if (SM_P3.Succeeded()) {
+		Workstation_P3->SetStaticMesh(SM_P3.Object);
+	}
+
 
 	PickupMesh->SetGenerateOverlapEvents(true);
 
@@ -77,8 +91,8 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	BoxComp->SetGenerateOverlapEvents(true); 
 	BoxComp->SetupAttachment(PickupMesh);
 	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnOverlapBegin);
-	BoxComp->SetRelativeLocation(FVector(0.0f, 0.0f, 3.26f));
-	BoxComp->SetRelativeScale3D(FVector(0.22f, 0.22f, 0.11f));
+	BoxComp->SetRelativeLocation(FVector(0.0f, 0.0f, 4.47f));
+	BoxComp->SetRelativeScale3D(FVector(0.25f, 0.25f, 0.125f));
 
 	Water_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WaterComp"));
 	Water_Mesh->SetupAttachment(PickupMesh);

@@ -61,11 +61,8 @@ AVB_TweezerActor::AVB_TweezerActor()
 void AVB_TweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
 	AVB_PetridishActor* petridishActor = Cast<AVB_PetridishActor>(OtherActor);
-	//AVB_PetridishCoverActor* petridishCoverActor = Cast<AVB_PetridishCoverActor>(OtherActor);
-	//UE_LOG(LogTemp, Log, TEXT("=======================Code Executed01==========================="));
 	if (petridishActor != nullptr && petridishActor->getState()) {
 		if (petridishActor->GetGrid() == OtherComp->GetAttachParent()) {
-			//UE_LOG(LogTemp, Log, TEXT("=======================Code Executed03==========================="));
 			petridishActor->GetGrid()->SetVisibility(false);
 			tweezer_grid->SetVisibility(true);
 			if (!m_isGridAttached) {
