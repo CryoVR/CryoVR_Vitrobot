@@ -38,7 +38,7 @@ AVB_Pipette_Hand::AVB_Pipette_Hand()
 		MeshComp->SetAnimation(Anim);
 	}
 
-	
+	PressureValue = 0.2;
 
 }
 
@@ -50,6 +50,6 @@ void AVB_Pipette_Hand::Tick(float DeltaTime)
 	FRotator RotateValue = MeshComp->GetComponentRotation();
 
 	//Try to set the pressure value here, the default value should be between 0.0 and 1.0;
-	PressureValue = 0.4;
+	PressureValue += 0.0001;
 	
 }
