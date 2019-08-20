@@ -8,6 +8,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "VB_DewarActor.h"
 #include "TimerManager.h"
+#include "VB_LevelScriptActor.h"
 #include "VirtualReality/TP_MotionController.h"
 
 AVB_NitrogenTankCapActor::AVB_NitrogenTankCapActor()
@@ -43,6 +44,12 @@ void AVB_NitrogenTankCapActor::OnOverlapBegin(class UPrimitiveComponent* Overlap
 
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("TankCap_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.33f, 0.8f}, Cast<ATP_MotionController>(OtherActor));
+
+		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if (LSA != nullptr)
+		{
+			LSA->SetStatus(3);
+		}
 	}
 }
 

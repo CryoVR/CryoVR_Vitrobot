@@ -17,11 +17,12 @@ class SOMTEMPLATE_VR_API AVB_StaticActor : public AActor
 public:
 	// Sets default values for this actor's properties
 	AVB_StaticActor();
-
-
-protected:
+	
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	UStaticMeshComponent* meshComp;
+
+protected:
+
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UShapeComponent* shapeComp;

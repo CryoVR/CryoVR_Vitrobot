@@ -41,8 +41,13 @@ protected:
 	UBoxComponent* BoxCompCap;
 	UPROPERTY(VisibleAnywhere, Category = "ParticleEffect")
 		UParticleSystemComponent* FrozenFX;
-
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UCapsuleComponent* HandcapsuleComp;
+
+	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
+
+private:
+	bool m_IsFirstTimeTouch = true;
+	bool m_IsSecondTimeTouch = false;
 
 };

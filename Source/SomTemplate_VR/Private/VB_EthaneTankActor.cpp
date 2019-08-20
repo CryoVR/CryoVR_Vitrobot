@@ -10,6 +10,7 @@
 #include "VirtualReality/TP_MotionController.h"
 #include "VB_EthaneTipActor.h"
 #include "VB_AirTankActor.h"
+#include "VB_LevelScriptActor.h"
 #include "Particles/ParticleSystemComponent.h"
 
 
@@ -68,6 +69,20 @@ void AVB_EthaneTankActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, A
 			}
 			if (OverlappedComp == secondKnobCollisionComp) {
 				m_isSecondKnobOn = !m_isSecondKnobOn;
+				AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+				if (LSA != nullptr)
+				{
+					if (LSA->GetStatus() == 7)
+					{
+						LSA->SetStatus(8);
+					}
+					
+					if (LSA->GetStatus() == 9)
+					{
+						LSA->SetStatus(10);
+					}
+					
+				}
 			}
 		}
 
@@ -125,10 +140,26 @@ void AVB_EthaneTankActor::Tick(float DeltaTime)
 			if (firstKnob->GetComponentRotation().Yaw <= -50.0f) {
 				m_isFirstKnobOn = true;
 				//UE_LOG(LogTemp, Log, TEXT("=======================firstknob_ON==========================="));
+				AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+				if (LSA != nullptr)
+				{
+					if (LSA->GetStatus() == 4)
+					{
+						LSA->SetStatus(5);
+					}
+				}
 			}
 			if (firstKnob->GetComponentRotation().Yaw >= 30.0f) {
 				m_isFirstKnobOn = false;
 				//UE_LOG(LogTemp, Log, TEXT("=======================firstknob_OFF==========================="));
+				AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+				if (LSA != nullptr)
+				{
+					if (LSA->GetStatus() == 10)
+					{
+						LSA->SetStatus(11);
+					}
+				}
 			}
 	}
 

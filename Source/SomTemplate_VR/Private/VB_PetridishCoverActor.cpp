@@ -7,6 +7,7 @@
 #include "UObject/ConstructorHelpers.h"
 #include "VB_PetridishActor.h"
 #include "VB_StaticActor.h"
+#include "VB_LevelScriptActor.h"
 #include "Materials/MaterialInstanceConstant.h"
 #include "VirtualReality/TP_MotionController.h"
 
@@ -61,5 +62,13 @@ void AVB_PetridishCoverActor::OnHandOverlapBegin(UPrimitiveComponent * Overlappe
 {
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("Petridish_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.3f, 1.0f}, Cast<ATP_MotionController>(OtherActor));
+		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if (LSA != nullptr)
+		{
+			if (LSA->GetStatus() == 11)
+			{
+				LSA->SetStatus(12);
+			}
+		}
 	}
 }

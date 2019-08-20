@@ -28,5 +28,7 @@ public:
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UBoxComponent * covercollisionComp;
+
+	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
 	
 };

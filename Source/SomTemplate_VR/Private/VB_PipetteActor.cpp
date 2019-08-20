@@ -8,6 +8,7 @@
 #include "VB_SampleTubeActor.h"
 #include "VB_TweezerActor.h"
 #include "VB_VitrobotActor.h"
+#include "VB_LevelScriptActor.h"
 #include "Components/CapsuleComponent.h"
 #include "VirtualReality/TP_MotionController.h"
 #include "Runtime/Engine/Classes/Materials/Material.h"
@@ -62,6 +63,14 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 	   	if (DynamicMaterial != nullptr) 
 		{	
 			PickupMesh->SetMaterial(4, OffMaterial);
+			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+			if (LSA != nullptr)
+			{
+				if (LSA->GetStatus() == 17)
+				{
+					LSA->SetStatus(18);
+				}
+			}
 		}
 	}
 
@@ -70,6 +79,14 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 		if (OtherActor != nullptr)
 		{
 			PickupMesh->SetMaterial(4, OnMaterial);
+			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+			if (LSA != nullptr)
+			{
+				if (LSA->GetStatus() == 19)
+				{
+					LSA->SetStatus(20);
+				}
+			}
 		}	
 	}
 	
@@ -79,6 +96,14 @@ void AVB_PipetteActor::OnPipetHandOverlapBegin(UPrimitiveComponent * OverlappedC
 {
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("Pipet_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float>{ -3.0f, 1.0f }, Cast<ATP_MotionController>(OtherActor));
+		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if (LSA != nullptr)
+		{
+			if (LSA->GetStatus() == 16)
+			{
+				LSA->SetStatus(17);
+			}
+		}
 	}
 
 	AVB_PippetHolderActor* holder = Cast<AVB_PippetHolderActor>(OtherActor);

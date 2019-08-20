@@ -49,8 +49,9 @@ public:
 	UFUNCTION()
 	void TurnOnMachine(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+
 	UFUNCTION()
-		void PlungerDelay();
+	void PlungerDelay();
 
 	virtual void Tick(float DeltaTime) override;
 
@@ -99,6 +100,11 @@ protected:
 
 	UMaterialInstanceDynamic* DynamicMaterialInst;
 
+	UPROPERTY(EditAnywhere)
+	AActor* ACT;
+
+	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
+
 
 private:
 	bool m_IsMachineOn = false;
@@ -111,6 +117,7 @@ private:
 	bool bIsDoorOn;
 	bool bIsDoorGoingOpen;
 
+	int LevelStatus = 0;
 	int Status = 1;
 	int Counter = 0;
 };

@@ -25,13 +25,16 @@ public:
 		void OnActorBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UPROPERTY(VisibleAnyWhere, Category = "Particles")
-		UParticleSystemComponent* ethaneParticle;
+	UParticleSystemComponent* ethaneParticle;
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
-		UCapsuleComponent* ethaneTipCollisionComp;
+	UCapsuleComponent* ethaneTipCollisionComp;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-		UCapsuleComponent* ethaneTipCapsuleComp;
+	UCapsuleComponent* ethaneTipCapsuleComp;
+
+protected:
+	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
 
 
 };

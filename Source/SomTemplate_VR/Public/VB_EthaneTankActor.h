@@ -62,5 +62,7 @@ protected:
 
 	virtual void Tick(float DeltaTime) override;
 
+	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
+
 
 };

@@ -38,7 +38,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UCapsuleComponent* tweezerMainCapsuleComp;
 	
-	
+	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
 
 
 };

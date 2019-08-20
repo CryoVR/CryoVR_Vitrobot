@@ -14,11 +14,14 @@ UCLASS()
 class SOMTEMPLATE_VR_API ATP_PickupCube : public AActor, public ITP_InteractionInterface
 {
 	GENERATED_BODY()
-	
-protected:
+
+public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VRTemplate|Pickup", meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* PickupMesh;
 
+	
+protected:
+	
 	//All the following variables are responsible for handling hand guesture update, will be updated by UpdateHandGuestureFunc in derived class 
 	//Determines whether we need to use our customized hand gesture, if not, default bahavior will used
 	bool m_isDefinedPick;

@@ -59,6 +59,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UStaticMeshComponent* Water_Mesh;
 
+	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
+
+
 private:
 	bool bIsAttached;
 

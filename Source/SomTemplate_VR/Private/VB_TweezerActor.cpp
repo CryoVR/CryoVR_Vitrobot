@@ -9,6 +9,7 @@
 #include "VB_PetridishCoverActor.h"
 #include "VB_StaticActor.h"
 #include "VirtualReality/TP_MotionController.h"
+#include "VB_LevelScriptActor.h"
 #include "VB_VitrobotActor.h"
 
 
@@ -47,6 +48,7 @@ AVB_TweezerActor::AVB_TweezerActor()
 	tweezer_grid->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	tweezer_grid->SetVisibility(false);
 	tweezer_grid->SetRelativeLocation(FVector(0.0f, 0.0f, -10.92f));
+	tweezer_grid->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));
 	tweezer_grid->SetupAttachment(PickupMesh);
 
 	if (SM_Tweezer_Grid.Succeeded()) {
@@ -65,6 +67,14 @@ void AVB_TweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AAct
 		if (petridishActor->GetGrid() == OtherComp->GetAttachParent()) {
 			petridishActor->GetGrid()->SetVisibility(false);
 			tweezer_grid->SetVisibility(true);
+			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+			if (LSA != nullptr)
+			{
+				if (LSA->GetStatus() == 13)
+				{
+					LSA->SetStatus(14);
+				}
+			}
 			if (!m_isGridAttached) {
 				m_isGridAttached = true;
 			}
@@ -77,12 +87,28 @@ void AVB_TweezerActor::OnTweezerBeginOverlap(UPrimitiveComponent * OverlappedCom
 {
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("Tweezer_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.0f, 0.5f}, Cast<ATP_MotionController>(OtherActor));
+		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if (LSA != nullptr)
+		{
+			if (LSA->GetStatus() == 12)
+			{
+				LSA->SetStatus(13);
+			}
+		}
 	}
 	AVB_VitrobotActor* VitrobotActor = Cast<AVB_VitrobotActor>(OtherActor);
 	if (VitrobotActor != nullptr) {
 		if (m_isGridAttached) {
 			FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
 			GetRootComponent()->AttachToComponent(VitrobotActor->Plunger, AttachRules, FName("Plunger_Socket_T"));
+			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+			if (LSA != nullptr)
+			{
+				if (LSA->GetStatus() == 14)
+				{
+					LSA->SetStatus(15);
+				}
+			}
 		}
 	}
 }

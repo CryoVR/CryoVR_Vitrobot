@@ -8,6 +8,7 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "VB_EthaneTankActor.h"
+#include "VB_LevelScriptActor.h"
 #include "VirtualReality/TP_MotionController.h"
 
 
@@ -59,12 +60,28 @@ void AVB_EthaneTipActor::OnActorBeginOverlap(UPrimitiveComponent * OverlappedCom
 			PickupMesh->SetSimulatePhysics(false);
 			GetRootComponent()->AttachToComponent(OtherActor->GetRootComponent(), AttachRules, FName("TipSocket"));
 			m_OriginalTransform = GetTransform();
+			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+			if (LSA != nullptr)
+			{
+				if (LSA->GetStatus() == 8)
+				{
+					LSA->SetStatus(9);
+				}
+			}
 		}
 	}
 
 	//hand gesture
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("Tip_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.0f, 0.5f}, Cast<ATP_MotionController>(OtherActor));
+		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if (LSA != nullptr)
+		{
+			if (LSA->GetStatus() == 5)
+			{
+				LSA->SetStatus(6);
+			}
+		}
 	}
 }
 

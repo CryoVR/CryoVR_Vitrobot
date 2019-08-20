@@ -6,6 +6,7 @@
 #include "Components/Boxcomponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "VB_NitrogenTankCapActor.h"
+#include "VB_LevelScriptActor.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "VirtualReality/TP_MotionController.h"
@@ -69,6 +70,21 @@ void AVB_DewarActor::OnHandOverlapBegin(UPrimitiveComponent * OverlappedComp, AA
 {
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("Dewar_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {3.0f, 0.0f}, Cast<ATP_MotionController>(OtherActor));
+		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if(m_IsFirstTimeTouch)
+		{	
+			//Pick up dewar(Logic)
+			LSA->SetStatus(2);
+			m_IsFirstTimeTouch = false;
+		}
+		int TempStatus = LSA->GetStatus();
+		if (TempStatus >= 20)
+		{
+			m_IsSecondTimeTouch = true;
+		}
+		if (m_IsSecondTimeTouch)
+		{
+		}
 	}
 }
 

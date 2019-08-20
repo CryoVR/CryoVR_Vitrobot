@@ -14,6 +14,8 @@
 #include "VirtualReality/TP_MotionController.h"
 #include "Runtime/Engine/Classes/Materials/MaterialInstanceDynamic.h"
 #include "VB_WorkstationActor.h"
+#include "VB_TextActor.h"
+#include "VB_LevelScriptActor.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 
@@ -221,9 +223,15 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 {
 
 	if (Cast<ATP_MotionController>(OtherActor) != nullptr)	
-	{	
-		
-
+	{		
+		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if (LSA != nullptr)
+		{
+			if (LSA->GetStatus() == 15)
+			{
+				LSA->SetStatus(16);
+			}
+		}
 		//Set the Button ON/OFF
 		if (OverlappedComp == TestButton_Collider)
 		{	
@@ -234,8 +242,6 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 			bIsDoorOn = !bIsDoorOn;
 		}
 	}
-
-
 }
 
 void AVB_VitrobotActor::PlungerDelay()
@@ -307,7 +313,7 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 		
 	}
 
-	if (bIsDoorOn) {
+	/*if (bIsDoorOn) {
 		if (Door->GetComponentRotation().Yaw < -0.5f) 
 		{
 			bIsDoorGoingOpen = true;
@@ -325,7 +331,7 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 		else if (!bIsDoorGoingOpen) {
 			Door->AddWorldRotation(FRotator(0.0f, -1.0f, 0.0f));
 		}
-	}
+	}*/
 
 
 	if (Counter >= 180 && Counter <= 300)
@@ -338,7 +344,7 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 		InnerHolder_Left->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.125f));
 		InnerHolder_Right->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.125f));
 	}
-	else if (Counter == 860)
+	else if (Counter == 870)
 	{
 		PlungerSound->Play();
 	}
@@ -375,4 +381,5 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 	//{
 	//	WorkstationHolder->AddWorldOffset(FVector(0.07f, 0.0f, 0.0f));
 	//}
+	
 }

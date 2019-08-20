@@ -31,8 +31,6 @@ public:
 
 protected:
 
-	
-
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	USphereComponent* SphereComp;
 	UPROPERTY(VisibleAnywhere, Category = "Components")
@@ -47,4 +45,6 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Material")
 	class UMaterial* OffMaterial;
+
+	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
 };
