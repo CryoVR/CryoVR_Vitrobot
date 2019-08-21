@@ -65,14 +65,15 @@ void AVB_TextActor::ClearTextLines()
 }
 
 void AVB_TextActor::Tick(float DeltaTime)
-{	
-	
+{
+
 	AVB_LevelScriptActor *LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	if (CurrentStatus != LSA->GetStatus())
 	{
 		m_HasPlayed = false;
 		CurrentStatus = LSA->GetStatus();
 	}
+	/*
 	if (LSA->GetStatus() == 2)
 	{
 		if (!m_HasPlayed)
@@ -81,6 +82,259 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("1", "2", "3");
+		SetTextLines("", "", "");
+	}
+	*/
+	if (LSA->GetStatus() == 2)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Remove the Cap", "", "");
+	}
+	if (LSA->GetStatus() == 3)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Pour liquid nitrogen into workstation.", "After adding nitrogen, lid the cap of dewar.", "");
+	}
+	if (LSA->GetStatus() == 4)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Now the workstation is cold enough.", "And then add the ethane to the workstation.", "You will see the green ethane tank on the left.");
+		ClearTextLines();
+		SetTextLines("There are two knobs used to dispense the ethane.", "First, rotate the knob clockwise on the right.", "");
+	}
+	if (LSA->GetStatus() == 5)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Now pick up the ethane despensing tip", "on the left side of the tank.", "");
+	}
+	if (LSA->GetStatus() == 6)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Then insert ethane tip into the workstaion.", "", "");
+	}
+	if (LSA->GetStatus() == 7)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Loacte the mini knob on the back", "of the tank.", "Touch the mini knob to turn on.");
+	}
+	if (LSA->GetStatus() == 8)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Keep filling until the ehane cup is", "100% full!", "Then reset tip to the ethane tank.");
+	}
+	if (LSA->GetStatus() == 9)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Touch the mini knob to turn off", "", "");
+	}
+	if (LSA->GetStatus() == 10)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Rotate the big knob counter-clockwise", "", "");
+	}
+	if (LSA->GetStatus() == 11)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Now locate the petridish", "Open it by remove the cover.", "");
+	}
+	if (LSA->GetStatus() == 12)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("You can see the grid", "Locate the tweezer,", "and grab it");
+	}
+	if (LSA->GetStatus() == 13)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Now use the tweezer to pick the grid up", "After you get the grid.", "Don't forget to lid the petridish!");
+	}
+	if (LSA->GetStatus() == 14)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Now attatch the tweezer to the plunger", "", "");
+	}
+	if (LSA->GetStatus() == 15)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Touch the point on the screen", "to rise the plunger.", "");
+	}
+	if (LSA->GetStatus() == 16)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Right now locate the pipette", "and pick it up", "");
+	}
+	if (LSA->GetStatus() == 17)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Insert pipette into the sampletube", "Then you can see the tip attached", "");
+	}
+	if (LSA->GetStatus() == 19)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Use the pipette to touch the grid", "at the bottom of tweezer", "through the holes of virtrobot.");
+	}
+	if (LSA->GetStatus() == 20)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Now grab the workstation", "", "");
+	}
+	if (LSA->GetStatus() == 21)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("And put it on the holder of vitrobot", "", "");
+	}
+	if (LSA->GetStatus() == 22)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Press the button to rise the workstation.", "", "");
+	}
+	if (LSA->GetStatus() == 23)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Press the button for the operation", "", "");
+	}
+	if (LSA->GetStatus() == 24)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("OK, now we are going to transfer your grid to a grid box for storage.", "Grab the tweezers and slowly detach it from the plunger.", "Make sure the grid is always submerged or close to the liquid nitrogen.");
+	}
+	if (LSA->GetStatus() == 25)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Now insert the grid into the grid box.", "", "");
+	}
+	if (LSA->GetStatus() == 26)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("And grab the grid box tweezer.", "", "");
+	}
+	if (LSA->GetStatus() == 27)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Pick up the grid box.", "", "");
 	}
 }
