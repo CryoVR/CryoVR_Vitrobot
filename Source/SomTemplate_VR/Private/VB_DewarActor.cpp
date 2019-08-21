@@ -80,7 +80,7 @@ void AVB_DewarActor::Tick(float DeltaTime)
 
 		if (m_isGrab == true)
 		{
-			if (LSA->GetStatus() == 0)
+			if (LSA->GetStatus() == 1)
 			{
 				LSA->SetStatus(2);
 			}

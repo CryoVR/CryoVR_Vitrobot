@@ -67,6 +67,7 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 	   	if (DynamicMaterial != nullptr) 
 		{	
 			PickupMesh->SetMaterial(4, OffMaterial);
+			//PickupMesh->SetRenderCustomDepth(true);
 			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 			if (LSA != nullptr)
 			{

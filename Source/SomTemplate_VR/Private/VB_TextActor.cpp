@@ -74,7 +74,44 @@ void AVB_TextActor::Tick(float DeltaTime)
 		SSound1->Play();
 		CurrentStatus = LSA->GetStatus();
 	}
-
+	if (LSA->GetStatus() == 0)
+	{
+		if (delay < 500)
+		{
+			ClearTextLines();
+			SetTextLines("Welcome to our CryoVR Training Module!", "In this section you will learn about the operation of the vitrobot.", "Let's begin!");
+			delay++;
+			if (!m_HasPlayed)
+			{
+				SSound1->Play();
+				m_HasPlayed = true;
+			}
+		}
+		else
+		{
+			ClearTextLines();
+			SetTextLines("At the beginning,", "you need to put on the gloves.", "Safety first!");
+			if (!m_HasPlayed)
+			{
+				SSound1->Play();
+				m_HasPlayed = true;
+			}
+		}
+		if (delay == 500)
+		{
+			m_HasPlayed = false;
+		}
+	}
+	if (LSA->GetStatus() == 1)
+	{
+		if (!m_HasPlayed)
+		{
+			SSound1->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("First step: pick up the dewar.", "", "");
+	}
 	if (LSA->GetStatus() == 2)
 	{
 		if (!m_HasPlayed)
@@ -105,7 +142,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 		ClearTextLines();
 		SetTextLines("Now the workstation is cold enough.", "And then add the ethane to the workstation.", "You will see the green ethane tank on the left.");
 		ClearTextLines();
-		SetTextLines("There are two knobs used to dispense the ethane.", "First, rotate the knob clockwise on the right.", "");
+		SetTextLines("There are two knobs used to dispense the ethane.", "First, rotate the knob counter-clockwise on the right.", "");
 	}
 	if (LSA->GetStatus() == 5)
 	{
@@ -165,7 +202,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Rotate the big knob counter-clockwise", "", "");
+		SetTextLines("Rotate the big knob clockwisely", "", "");
 	}
 	if (LSA->GetStatus() == 11)
 	{
@@ -175,7 +212,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Now locate the petridish", "Open it by remove the cover.", "");
+		SetTextLines("Now locate the petridish", "Remove the cover of petridish.", "");
 	}
 	if (LSA->GetStatus() == 12)
 	{

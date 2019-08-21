@@ -41,6 +41,8 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UAudioComponent* SSound1;
 
+	int delay = 0;
+
 	bool m_HasPlayed = false;
 	int CurrentStatus = 0;
 };

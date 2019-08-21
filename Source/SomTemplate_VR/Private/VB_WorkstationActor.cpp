@@ -140,6 +140,7 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 			if (LSA->GetStatus() == 21)
 			{
 				LSA->SetStatus(22);
+				FrozenFX->SetVisibility(false);
 			}
 		}
 	}
@@ -188,16 +189,7 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 	bool m_IsVisable = Water_Mesh->IsVisible();
 	if ((Water_Mesh->GetComponentLocation().Z - PickupMesh->GetComponentLocation().Z)> 4.84f && m_IsVisable) {
 		Water_Mesh->AddLocalOffset(FVector(0.0f, 0.0f, -0.000025f));
-		float scale = FrozenFX->GetComponentScale().X;
-		scale = scale - 0.001;
-		if (scale >= 0)
-		{
-			FrozenFX->SetRelativeScale3D(FVector(scale));
-		}
-	}
-	else if ((Water_Mesh->GetComponentLocation().Z - PickupMesh->GetComponentLocation().Z) <= 4.84f)
-	{
-		FrozenFX->SetVisibility(false);
+		
 	}
 	
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
