@@ -153,6 +153,9 @@ private: // SomWorks :D // Variables Initialization //
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "VRTemplate|Variables", meta = (AllowPrivateAccess = "true"))
 	class UMaterial* BeamMaterial;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "VRTemplate|Variables", meta = (AllowPrivateAccess = "true"))
+	class UMaterialInstance* GloveMaterial;
 	
 	//Define hand scale factor, default is 0.8f
 	float m_HandScale;
@@ -161,6 +164,9 @@ private: // SomWorks :D // Variables Initialization //
 	TArray<float> HandGesturetoAnimationBP;
 
 protected:	
+
+	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
+
 
 public:		
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VRTemplate|Components", meta = (AllowPrivateAccess = "true"))

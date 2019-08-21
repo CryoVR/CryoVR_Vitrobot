@@ -205,20 +205,7 @@ void AVB_VitrobotActor::TurnOnMachine(class UPrimitiveComponent* OverlappedComp,
 {
 	if (Cast<ATP_MotionController>(OtherActor))
 	{	
-		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 		m_IsMachineOn = !m_IsMachineOn;	
-		if (LSA != nullptr)
-		{
-			
-			if (LSA->GetStatus() == 15)
-			{
-				LSA->SetStatus(16);
-			}
-			if (LSA->GetStatus() == 23)
-			{
-				LSA->SetStatus(24);
-			}
-		}
 	}
 }
 //Set if the cover is interactable by rotation vector
@@ -243,14 +230,7 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 
 	if (Cast<ATP_MotionController>(OtherActor) != nullptr)	
 	{		
-		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-		if (LSA != nullptr)
-		{
-			if (LSA->GetStatus() == 22)
-			{
-				LSA->SetStatus(23);
-			}
-		}
+		
 		//Set the Button ON/OFF
 		if (OverlappedComp == TestButton_Collider)
 		{	
@@ -281,6 +261,11 @@ void AVB_VitrobotActor::PlungerDelay()
 		}
 		else if (PlungerPosition > 203.836685f && Status == 1)
 		{
+			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+			if (LSA->GetStatus() == 15)
+			{
+				LSA->SetStatus(16);
+			}
 			m_IsMachineOn = false;
 			Status = 0;
 		}
@@ -300,6 +285,7 @@ void AVB_VitrobotActor::PlungerDelay()
 void AVB_VitrobotActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	float PlungerPosition = Plunger->GetComponentLocation().Z;
 	if(PlungerPosition > 209.0f)
 	{
@@ -318,6 +304,13 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 		{
 			bIsHolderGoingUp = false;
 			bIsButtonOn = false;
+			if (LSA != nullptr)
+			{
+				if (LSA->GetStatus() == 22)
+				{
+					LSA->SetStatus(23);
+				}
+			}
 		}
 
 		if (bIsHolderGoingUp)
@@ -393,6 +386,10 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 	if (Counter == 1580)
 	{
 		Holder_Sound->Stop();
+		if (LSA->GetStatus() == 23)
+		{
+			LSA->SetStatus(24);
+		}
 	}
 
 

@@ -11,7 +11,7 @@
 
 AVB_TextActor::AVB_TextActor()
 {	
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_1(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/Step02.Step02"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_1(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/FinishTask.FinishTask"));
 
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -71,20 +71,10 @@ void AVB_TextActor::Tick(float DeltaTime)
 	if (CurrentStatus != LSA->GetStatus())
 	{
 		m_HasPlayed = false;
+		SSound1->Play();
 		CurrentStatus = LSA->GetStatus();
 	}
-	/*
-	if (LSA->GetStatus() == 2)
-	{
-		if (!m_HasPlayed)
-		{
-			SSound1->Play();
-			m_HasPlayed = true;
-		}
-		ClearTextLines();
-		SetTextLines("", "", "");
-	}
-	*/
+
 	if (LSA->GetStatus() == 2)
 	{
 		if (!m_HasPlayed)

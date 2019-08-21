@@ -12,8 +12,9 @@
 #include "VirtualReality/TP_MotionController.h"
 
 
-AVB_EthaneTipActor::AVB_EthaneTipActor() {
-
+AVB_EthaneTipActor::AVB_EthaneTipActor() 
+{
+	PrimaryActorTick.bCanEverTick = true;
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_EthaneTipMesh(TEXT("StaticMesh'/Game/Models/EthaneTip.EthaneTip'"));
 	static ConstructorHelpers::FObjectFinder<UParticleSystem> PAR_EthaneParticle(TEXT("ParticleSystem'/Game/Particles/EthaneSplash_P.EthaneSplash_P'"));
 	//Set up base mesh
@@ -74,13 +75,18 @@ void AVB_EthaneTipActor::OnActorBeginOverlap(UPrimitiveComponent * OverlappedCom
 	//hand gesture
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("Tip_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.0f, 0.5f}, Cast<ATP_MotionController>(OtherActor));
-		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-		if (LSA != nullptr)
+	}
+}
+
+void AVB_EthaneTipActor::Tick(float DeltaTime)
+{
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+
+	if (m_isGrab == true)
+	{
+		if (LSA->GetStatus() == 5)
 		{
-			if (LSA->GetStatus() == 5)
-			{
-				LSA->SetStatus(6);
-			}
+			LSA->SetStatus(6);
 		}
 	}
 }

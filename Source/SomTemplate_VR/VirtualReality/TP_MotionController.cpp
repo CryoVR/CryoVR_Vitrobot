@@ -27,6 +27,8 @@
 #include "Materials/Material.h"
 #include "Materials/MaterialInstanceConstant.h"
 #include "VB_StaticActor.h"
+#include "VB_GloveActor.h"
+#include "VB_LevelScriptActor.h"
 
 // Sets default values
 ATP_MotionController::ATP_MotionController()
@@ -53,6 +55,7 @@ ATP_MotionController::ATP_MotionController()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Beam(TEXT("StaticMesh'/Game/VirtualReality/Meshes/BeamMesh.BeamMesh'"));
 	static ConstructorHelpers::FObjectFinder<UMaterial> M_Beam(TEXT("Material'/Game/VirtualReality/Materials/M_SplineArcMat.M_SplineArcMat'"));
 	static ConstructorHelpers::FObjectFinder<UMaterial> M_ArcEndPoint(TEXT("Material'/Game/VirtualReality/Materials/M_ArcEndpoint.M_ArcEndpoint'"));
+	static ConstructorHelpers::FObjectFinder<UMaterialInstance> M_Gloves(TEXT("Material'/Game/VirtualReality/Mannequin/Character/Materials/MI_StylizedManHand_Inst.MI_StylizedManHand_Inst'"));
 	static ConstructorHelpers::FObjectFinder<UMaterialInstanceConstant> MI_TeleportCylinderPreview(TEXT("MaterialInstanceConstant'/Game/VirtualReality/Materials/MI_TeleportCylinderPreview.MI_TeleportCylinderPreview'"));
 	static ConstructorHelpers::FObjectFinder<UMaterialInstanceConstant> MI_ChaperoneOutline(TEXT("MaterialInstanceConstant'/Game/VirtualReality/Materials/MI_ChaperoneOutline.MI_ChaperoneOutline'"));
 	static ConstructorHelpers::FObjectFinder<UHapticFeedbackEffect_Base> HapticEffect(TEXT("HapticFeedbackEffect_Curve'/Game/VirtualRealityCPP/Blueprints/MotionControllerHaptics.MotionControllerHaptics'"));
@@ -199,6 +202,10 @@ ATP_MotionController::ATP_MotionController()
 		{
 			BeamMaterial = M_Beam.Object;
 		}
+	}
+	if (M_Gloves.Succeeded())
+	{
+			GloveMaterial = M_Gloves.Object;
 	}
 
 	Hand = EControllerHand::Left;
@@ -651,6 +658,14 @@ void ATP_MotionController::OnComponentBeginOverlap(UPrimitiveComponent* Overlapp
 		if (MyOverlapComponent && MyOverlapComponent->IsSimulatingPhysics())
 		{
 			RumbleController(0.8f);
+		}
+	}
+	if (Cast<AVB_GloveActor>(OtherActor) != nullptr)
+	{
+		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if (LSA->GetStatus() == 0)
+		{
+			LSA->SetStatus(1);
 		}
 	}
 }

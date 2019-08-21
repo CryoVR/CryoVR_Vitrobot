@@ -32,7 +32,7 @@ void AVB_LevelScriptActor::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-		UE_LOG(LogTemp, Log, TEXT("==%d=="),Status);
+	//UE_LOG(LogTemp, Log, TEXT("==%d=="),Status);
 	
 }
 

@@ -33,6 +33,8 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UCapsuleComponent* ethaneTipCapsuleComp;
 
+	virtual void Tick(float DeltaTime) override;
+
 protected:
 	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
 

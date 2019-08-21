@@ -13,7 +13,7 @@
 
 AVB_PetridishCoverActor::AVB_PetridishCoverActor() {
 	
-	
+	PrimaryActorTick.bCanEverTick = true;
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_PetridishCover(TEXT("StaticMesh'/Game/Models/GridHolderUMesh.GridHolderUMesh'"));
 	static ConstructorHelpers::FObjectFinder<UMaterialInstanceConstant> MI_GlassMatInst(TEXT("MaterialInstanceConstant'/Game/Models/01GridHolderMat_Inst.01GridHolderMat_Inst'"));
 
@@ -62,13 +62,18 @@ void AVB_PetridishCoverActor::OnHandOverlapBegin(UPrimitiveComponent * Overlappe
 {
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("Petridish_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.3f, 1.0f}, Cast<ATP_MotionController>(OtherActor));
-		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-		if (LSA != nullptr)
+	}
+}
+
+void AVB_PetridishCoverActor::Tick(float DeltaTime)
+{
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+
+	if (m_isGrab == true)
+	{
+		if (LSA->GetStatus() == 11)
 		{
-			if (LSA->GetStatus() == 11)
-			{
-				LSA->SetStatus(12);
-			}
+			LSA->SetStatus(12);
 		}
 	}
 }

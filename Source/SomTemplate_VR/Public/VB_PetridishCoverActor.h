@@ -25,6 +25,8 @@ public:
 	UFUNCTION()
 		void OnHandOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	virtual void Tick(float DeltaTime) override;
+
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UBoxComponent * covercollisionComp;
