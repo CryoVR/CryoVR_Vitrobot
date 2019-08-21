@@ -110,7 +110,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("First step: pick up the dewar.", "", "");
+		SetTextLines("Now you need to pick up the dewar.", "It is located on your right hand side.", "");
 	}
 	if (LSA->GetStatus() == 2)
 	{
@@ -120,7 +120,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Remove the Cap", "", "");
+		SetTextLines("Before pouring liquid nitrogen,", "you need to remove the cap.", "");
 	}
 	if (LSA->GetStatus() == 3)
 	{
