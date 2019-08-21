@@ -11,6 +11,8 @@
 #include "VB_EthaneTipActor.h"
 #include "VB_AirTankActor.h"
 #include "VB_LevelScriptActor.h"
+#include "Runtime/Engine/Classes/Sound/SoundWave.h"
+#include "Components/AudioComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 
 
@@ -25,6 +27,7 @@ AVB_EthaneTankActor::AVB_EthaneTankActor() {
 	bIsSecondKnobHold = false;
 	m_isTipOn = false;
 
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_1(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/decompress.decompress"));
 	ConstructorHelpers::FObjectFinder<UMaterial> M_EthaneTankMat(TEXT("Material'/Game/Models/EthaneTank_MainMat.EthaneTank_MainMat'"));
 	if (M_EthaneTankMat.Succeeded()) {
 		meshComp->SetMaterial(4, M_EthaneTankMat.Object);
@@ -40,7 +43,11 @@ AVB_EthaneTankActor::AVB_EthaneTankActor() {
 	secondKnobCollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTankActor::OnOverlapBegin);
 	ethaneTipPosCollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTankActor::OnTipOverlapBegin);
 
-
+	USoundWave* SoundWave = S_1.Object;
+	Hissing_Sound = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest"));
+	Hissing_Sound->SetupAttachment(meshComp);
+	Hissing_Sound->SetAutoActivate(false);
+	Hissing_Sound->SetSound(SoundWave);
 }
 
 
@@ -74,6 +81,7 @@ void AVB_EthaneTankActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, A
 					if (LSA->GetStatus() == 7)
 					{
 						LSA->SetStatus(8);
+						Hissing_Sound->Play();
 					}
 					
 					if (LSA->GetStatus() == 9)

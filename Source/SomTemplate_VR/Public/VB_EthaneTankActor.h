@@ -11,7 +11,7 @@
  * 
  */
 class UCapsuleComponent;
-
+class UAudioComponent;
 class AVB_EthaneTipActor;
 
 UCLASS()
@@ -49,6 +49,9 @@ protected:
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UCapsuleComponent* ethaneTipPosCollisionComp;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UAudioComponent* Hissing_Sound;
 
 	float m_HandInitialKnobDeltaRotator;
 
