@@ -13,6 +13,7 @@
 
 AVB_NitrogenTankCapActor::AVB_NitrogenTankCapActor()
 {
+	PrimaryActorTick.bCanEverTick = true;
 	BoxComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("BoxComp"));
 	BoxComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_NitrogenTankCapActor::OnOverlapBegin);
@@ -45,15 +46,26 @@ void AVB_NitrogenTankCapActor::OnOverlapBegin(class UPrimitiveComponent* Overlap
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("TankCap_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.33f, 0.8f}, Cast<ATP_MotionController>(OtherActor));
 
-		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-		if (LSA != nullptr)
-		{
-			LSA->SetStatus(3);
-		}
+		
 	}
 }
 
+void AVB_NitrogenTankCapActor::Tick(float DeltaTime)
+{
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+	if (LSA != nullptr)
+	{
+		if (m_isGrab)
+		{	
+			if (LSA->GetStatus() == 2)
+			{
+				LSA->SetStatus(3);
+			}
+			
+		}
 
+	}
+}
 
 
 

@@ -33,7 +33,8 @@ public:
 	//Hand gesture setting
 	UFUNCTION()
 		void OnHandOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-
+	
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 

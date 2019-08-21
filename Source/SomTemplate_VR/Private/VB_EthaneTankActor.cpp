@@ -63,7 +63,6 @@ void AVB_EthaneTankActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, A
 	ATP_MotionController* MotionController = Cast<ATP_MotionController>(OtherActor);
 	if (MotionController != nullptr) {
 		if (Cast<USphereComponent>(OtherComp) == MotionController->GrabShpere) {
-
 			if (OverlappedComp == shapeComp) {
 				bIsFirstKnobTouched = true;
 			}

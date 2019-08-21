@@ -31,6 +31,8 @@ public:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UStaticMeshComponent* tweezer_grid;
 
+	virtual void Tick(float DeltaTime) override;
+
 protected:
 	
 	UPROPERTY(VisibleAnywhere, Category = "Components")

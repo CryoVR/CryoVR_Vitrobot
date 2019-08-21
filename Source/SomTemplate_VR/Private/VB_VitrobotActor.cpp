@@ -31,7 +31,8 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_LEDCover(TEXT("StaticMesh'/Game/Test_Geometry/LED_Cover.LED_Cover'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Plunger(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Plunger.Plunger'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_BottomCover(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/BottomCover.BottomCover'"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_Plunger(TEXT("/Game/Test_Geometry/Test_Textures/PlungerSound.PlungerSound"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_Plunger(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/PlungerSound.PlungerSound"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_WH(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/Workstation_GD.Workstation_GD"));
 	static ConstructorHelpers::FObjectFinder<UMaterial> M_MainMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_1.Screen_Shot_1"));
 	static ConstructorHelpers::FObjectFinder<UMaterial> M_OptionMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_2.Screen_Shot_2"));
 
@@ -176,10 +177,16 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 
 	//Sounds & Materials Setting
 	USoundWave* SoundWave = S_Plunger.Object;
-	PlungerSound = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest"));
+	PlungerSound = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("Audio_Plunger"));
 	PlungerSound->SetupAttachment(meshComp);
 	PlungerSound->SetAutoActivate(false);
 	PlungerSound->SetSound(SoundWave);
+
+	USoundWave* SoundWave1 = S_WH.Object;
+	Holder_Sound = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("Audio_WH"));
+	Holder_Sound->SetupAttachment(meshComp);
+	Holder_Sound->SetAutoActivate(false);
+	Holder_Sound->SetSound(SoundWave1);
 
 	MainMaterial = CreateDefaultSubobject<UMaterial>(TEXT("MainMaterial"));
 	if (M_MainMaterial.Succeeded())
@@ -197,9 +204,21 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 void AVB_VitrobotActor::TurnOnMachine(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (Cast<ATP_MotionController>(OtherActor))
-	{
+	{	
+		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 		m_IsMachineOn = !m_IsMachineOn;	
-		//Screen->SetMaterial(0, DynamicMaterialInst);
+		if (LSA != nullptr)
+		{
+			
+			if (LSA->GetStatus() == 15)
+			{
+				LSA->SetStatus(16);
+			}
+			if (LSA->GetStatus() == 23)
+			{
+				LSA->SetStatus(24);
+			}
+		}
 	}
 }
 //Set if the cover is interactable by rotation vector
@@ -227,9 +246,9 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 		if (LSA != nullptr)
 		{
-			if (LSA->GetStatus() == 15)
+			if (LSA->GetStatus() == 22)
 			{
-				LSA->SetStatus(16);
+				LSA->SetStatus(23);
 			}
 		}
 		//Set the Button ON/OFF
@@ -293,7 +312,6 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 		if (WorkstationHolder->GetComponentLocation().Z < 127.0f)
 		{
 			bIsHolderGoingUp = true;
-			//bIsHolderTouchingBottom = true;
 			bIsButtonOn = false;
 		}
 		else if (WorkstationHolder->GetComponentLocation().Z > 145.6f)
@@ -311,6 +329,14 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 			WorkstationHolder->AddWorldOffset(FVector(0.0f, 0.0f, -0.07f));
 		}
 		
+	}
+	if (bIsButtonOn && WorkstationHolder->GetComponentLocation().Z < 128.0f)
+	{
+		Holder_Sound->Play();
+	}
+	else if (bIsButtonOn && WorkstationHolder->GetComponentLocation().Z > 145.0f)
+	{
+		Holder_Sound->Stop();
 	}
 
 	/*if (bIsDoorOn) {
@@ -344,12 +370,12 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 		InnerHolder_Left->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.125f));
 		InnerHolder_Right->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.125f));
 	}
-	else if (Counter == 870)
+	else if (Counter == 880)
 	{
 		PlungerSound->Play();
 	}
 	else if (Counter >= 920 && Counter < 1320)
-	{	
+	{
 		Plunger->SetRelativeLocation(FVector(-17.0f, 0.0f, 73.0f));
 		Counter++;
 	}
@@ -358,6 +384,15 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 		Plunger->AddLocalOffset(FVector(0.0f, 0.0f, -0.07f));
 		WorkstationHolder->AddLocalOffset(FVector(0.0f, 0.0f, -0.07f));
 		Counter++;
+	}
+	
+	if (Counter == 1300)
+	{
+		Holder_Sound->Play();
+	}
+	if (Counter == 1580)
+	{
+		Holder_Sound->Stop();
 	}
 
 

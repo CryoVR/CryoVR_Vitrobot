@@ -17,7 +17,8 @@
 class UPrimitiveComponent;
 
 AVB_PipetteActor::AVB_PipetteActor()
-{
+{	
+	PrimaryActorTick.bCanEverTick = true;
 	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
 	SphereComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_PipetteActor::OnOverlapBegin);
@@ -30,7 +31,10 @@ AVB_PipetteActor::AVB_PipetteActor()
 	HandcapsuleComp->SetupAttachment(PickupMesh);
 	HandcapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_PipetteActor::OnPipetHandOverlapBegin);
 
+
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Models/Pipet.Pipet'"));
+	static ConstructorHelpers::FObjectFinder<UMaterial> SM_M(TEXT("/Game/Test_Geometry/Test_Textures/defaultMat.defaultMat"));
+
 	if (SM_Pickup.Succeeded()) 
 	{
 		UStaticMesh* Asset = SM_Pickup.Object;
@@ -82,7 +86,7 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 			if (LSA != nullptr)
 			{
-				if (LSA->GetStatus() == 19)
+				if (LSA->GetStatus() == 18)
 				{
 					LSA->SetStatus(20);
 				}
@@ -97,13 +101,7 @@ void AVB_PipetteActor::OnPipetHandOverlapBegin(UPrimitiveComponent * OverlappedC
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("Pipet_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float>{ -3.0f, 1.0f }, Cast<ATP_MotionController>(OtherActor));
 		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-		if (LSA != nullptr)
-		{
-			if (LSA->GetStatus() == 16)
-			{
-				LSA->SetStatus(17);
-			}
-		}
+
 	}
 
 	AVB_PippetHolderActor* holder = Cast<AVB_PippetHolderActor>(OtherActor);
@@ -113,6 +111,18 @@ void AVB_PipetteActor::OnPipetHandOverlapBegin(UPrimitiveComponent * OverlappedC
 	}
 }
 
+void AVB_PipetteActor::Tick(float DeltaTime)
+{
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+
+	if (m_isGrab == true)
+	{
+		if (LSA->GetStatus() == 16)
+		{
+			LSA->SetStatus(17);
+		}
+	}
+}
 
 
 

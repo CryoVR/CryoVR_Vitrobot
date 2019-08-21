@@ -13,7 +13,7 @@
 
 AVB_DewarActor::AVB_DewarActor()
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 	BoxCompCap = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCompCap"));
 	BoxCompCap->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	BoxCompCap->OnComponentBeginOverlap.AddDynamic(this, &AVB_DewarActor::OnOverlapBegin);
@@ -70,21 +70,19 @@ void AVB_DewarActor::OnHandOverlapBegin(UPrimitiveComponent * OverlappedComp, AA
 {
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("Dewar_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {3.0f, 0.0f}, Cast<ATP_MotionController>(OtherActor));
-		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-		if(m_IsFirstTimeTouch)
-		{	
-			//Pick up dewar(Logic)
-			LSA->SetStatus(2);
-			m_IsFirstTimeTouch = false;
-		}
-		int TempStatus = LSA->GetStatus();
-		if (TempStatus >= 20)
-		{
-			m_IsSecondTimeTouch = true;
-		}
-		if (m_IsSecondTimeTouch)
-		{
-		}
+		
 	}
 }
 
+void AVB_DewarActor::Tick(float DeltaTime)
+{
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+
+		if (m_isGrab == true)
+		{
+			if (LSA->GetStatus() == 0)
+			{
+				LSA->SetStatus(2);
+			}
+		}
+}

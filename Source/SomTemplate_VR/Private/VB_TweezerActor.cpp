@@ -15,7 +15,8 @@
 
 // Sets default values
 AVB_TweezerActor::AVB_TweezerActor()
-{
+{	
+	PrimaryActorTick.bCanEverTick = true;
 	capsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComp"));
 	capsuleComp->SetGenerateOverlapEvents(true);
 	capsuleComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
@@ -113,3 +114,19 @@ void AVB_TweezerActor::OnTweezerBeginOverlap(UPrimitiveComponent * OverlappedCom
 	}
 }
 
+void AVB_TweezerActor::Tick(float DeltaTime)
+{
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+
+	if (m_isGrab == true)
+	{
+		if (LSA->GetStatus() == 13)
+		{
+			LSA->SetStatus(14);
+		}
+		if (LSA->GetStatus() == 24)
+		{
+			LSA->SetStatus(25);
+		}
+	}
+}

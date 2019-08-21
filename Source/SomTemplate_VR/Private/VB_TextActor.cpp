@@ -11,7 +11,7 @@
 
 AVB_TextActor::AVB_TextActor()
 {	
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_1(TEXT("/Game/Test_Geometry/Test_Textures/Step02.Step02"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_1(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/Step02.Step02"));
 
 	PrimaryActorTick.bCanEverTick = true;
 

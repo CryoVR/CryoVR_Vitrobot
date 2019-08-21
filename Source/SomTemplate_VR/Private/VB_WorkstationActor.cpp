@@ -135,6 +135,13 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 	if (VitrobotActor != nullptr) {
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
 		GetRootComponent()->AttachToComponent(VitrobotActor->WorkstationHolder, AttachRules, FName("workstationSocket1"));
+		if (LSA != nullptr)
+		{
+			if (LSA->GetStatus() == 21)
+			{
+				LSA->SetStatus(22);
+			}
+		}
 	}
 
 	//Hand gesture setting
@@ -167,18 +174,6 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 		Workstation_P3->SetVisibility(false);
 	}
 
-	/*if (Status == 0)
-	{
-		TempLocation = PickupMesh->GetComponentLocation();
-		Status = 1;
-	}
-	else if (Status != 0)
-	{
-		FVector L_Main = PickupMesh->GetComponentLocation();
-		DeltaLocation = L_Main - TempLocation;
-		Workstation_P0->AddLocalOffset(DeltaLocation);
-	}*/
-	
 }
 
 void AVB_WorkstationActor::setFrozVisible()
@@ -205,6 +200,15 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 		FrozenFX->SetVisibility(false);
 	}
 	
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+
+	if (m_isGrab == true)
+	{
+		if (LSA->GetStatus() == 20)
+		{
+			LSA->SetStatus(21);
+		}
+	}
 }
 
 
