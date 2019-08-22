@@ -211,7 +211,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			SetTextLines("There are two knobs used to dispense the ethane.", "First, rotate the knob counter-clockwise on the right.", "");
 			if (!m_HasPlayed)
 			{
-				//SSound7->Play();  Logic error here, update it later
+				SSound7->Play();
 				m_HasPlayed = false;
 			}
 		}
@@ -224,7 +224,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Now pick up the ethane dispensing tip", "on the left side of the tank.", "");
+		SetTextLines("Now pick up the ethane despensing tip", "on the left side of the tank.", "");
 	}
 	if (LSA->GetStatus() == 6)
 	{
