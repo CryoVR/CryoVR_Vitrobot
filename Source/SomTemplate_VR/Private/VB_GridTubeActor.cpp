@@ -6,6 +6,7 @@
 #include "VB_GridBoxTweezerActor.h"
 #include "Kismet/GameplayStatics.h"
 #include "Public/Engine.h"
+#include "VB_LevelScriptActor.h"
 #include "Components/CapsuleComponent.h"
 #include "VirtualReality/TP_MotionController.h"
 #include "Runtime/Engine/Classes/Materials/Material.h"
@@ -56,6 +57,14 @@ void AVB_GridTubeActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 	{
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
 		GetRootComponent()->AttachToComponent(GridMetalTubeActor->PickupMesh, AttachRules, FName("GridTube_Socket"));
+		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if (LSA != nullptr)
+		{
+			if (LSA->GetStatus() == 31)
+			{
+				LSA->SetStatus(32);
+			}
+		}
 	}
 	
 }
@@ -66,5 +75,13 @@ void AVB_GridTubeActor::OnTweezerOverlapBegin(class UPrimitiveComponent* Overlap
 	if (GBTweezer != nullptr)
 	{
 		GridBox->SetVisibility(true);
+		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if (LSA != nullptr)
+		{
+			if (LSA->GetStatus() == 28)
+			{
+				LSA->SetStatus(29);
+			}
+		}
 	}
 }

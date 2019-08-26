@@ -6,6 +6,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Public/Engine.h"
 #include "Components/BoxComponent.h"
+#include "VB_LevelScriptActor.h"
 #include "VirtualReality/TP_MotionController.h"
 #include "Runtime/Engine/Classes/Materials/Material.h"
 
@@ -35,11 +36,26 @@ void AVB_GridDewarCoverActor::OnOverlapBegin(class UPrimitiveComponent* Overlapp
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
 		GetRootComponent()->AttachToComponent(GridDewarActor->meshComp, AttachRules, FName("Cover_Socket"));
 		//GridDewarActor->SetIsTouchable(false);
+		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if (LSA != nullptr)
+		{
+			if (LSA->GetStatus() == 33)
+			{
+				LSA->SetStatus(34);
+			}
+		}
 		
 	}
 	else if (Cast<ATP_MotionController>(OtherActor) != nullptr)
 	{
-		//GridDewarActor->SetIsTouchable(true);
+		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if (LSA != nullptr)
+		{
+			if (LSA->GetStatus() == 29)
+			{
+				LSA->SetStatus(30);
+			}
+		}
 	}
 }
 void AVB_GridDewarCoverActor::OnOverlapEnd(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex)

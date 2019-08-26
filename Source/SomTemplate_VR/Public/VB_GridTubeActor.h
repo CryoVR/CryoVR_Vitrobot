@@ -31,4 +31,6 @@ protected:
 		UCapsuleComponent* CapsuleComp;
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UCapsuleComponent* CapsuleBodyComp;
+
+	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
 };

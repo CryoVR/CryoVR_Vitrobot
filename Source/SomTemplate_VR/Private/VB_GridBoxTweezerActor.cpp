@@ -8,6 +8,7 @@
 #include "VB_WorkstationActor.h"
 #include "VB_GridTubeActor.h"
 #include "VB_StaticActor.h"
+#include "VB_LevelScriptActor.h"
 #include "VirtualReality/TP_MotionController.h"
 #include "VB_VitrobotActor.h"
 

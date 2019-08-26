@@ -10,6 +10,7 @@
 #include "VB_VitrobotActor.h"
 #include "VB_EthaneTankActor.h"
 #include "VB_EthaneTipActor.h"
+#include "VB_TweezerActor.h"
 #include "VB_GridBoxTweezerActor.h"
 #include "VB_VitrobotActor.h"
 #include "VB_LevelScriptActor.h"
@@ -77,6 +78,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	Workstation_P3->SetGenerateOverlapEvents(false);
 	Workstation_P3->SetSimulatePhysics(false);
 	Workstation_P3->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	Workstation_P3->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnGridBoxOverlapBegin);
 	Workstation_P3->SetVisibility(true);
 	Workstation_P3->SetRelativeLocation(FVector(-3.3521385f, 2.5355682f, 4.9615173f));
 	Workstation_P3->SetRelativeRotation(FRotator(0.0f, 0.0f, 180.0f));
@@ -182,6 +184,21 @@ void AVB_WorkstationActor::setFrozVisible()
 	FrozenFX->SetVisibility(false);
 }
 
+
+void AVB_WorkstationActor::OnGridBoxOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+	if (Cast<AVB_TweezerActor>(OtherActor) != nullptr)
+	{
+		if (LSA != nullptr)
+		{
+			if (LSA->GetStatus() == 25)
+			{
+				LSA->SetStatus(26);
+			}
+		}
+	}
+}
 
 void AVB_WorkstationActor::Tick(float DeltaTime)
 {

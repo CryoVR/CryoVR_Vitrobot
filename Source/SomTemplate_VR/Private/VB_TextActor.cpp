@@ -314,7 +314,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Now attatch the tweezer to the plunger", "", "");
+		SetTextLines("Now attach the tweezer to the plunger", "", "");
 	}
 	if (LSA->GetStatus() == 15)
 	{
