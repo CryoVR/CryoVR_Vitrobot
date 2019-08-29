@@ -33,6 +33,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Plunger(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Plunger.Plunger'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_BottomCover(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/BottomCover.BottomCover'"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_Plunger(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/PlungerSound.PlungerSound"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_Blotter(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/blotter.blotter"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_WH(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/Workstation_GD.Workstation_GD"));
 	static ConstructorHelpers::FObjectFinder<UMaterial> M_MainMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_1.Screen_Shot_1"));
 	static ConstructorHelpers::FObjectFinder<UMaterial> M_OptionMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_2.Screen_Shot_2"));
@@ -188,6 +189,12 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Holder_Sound->SetupAttachment(meshComp);
 	Holder_Sound->SetAutoActivate(false);
 	Holder_Sound->SetSound(SoundWave1);
+
+	USoundWave* SoundWave2 = S_Blotter.Object;
+	Blotter_Sound = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("Audio_Blotter"));
+	Blotter_Sound->SetupAttachment(meshComp);
+	Blotter_Sound->SetAutoActivate(false);
+	Blotter_Sound->SetSound(SoundWave2);
 
 	MainMaterial = CreateDefaultSubobject<UMaterial>(TEXT("MainMaterial"));
 	if (M_MainMaterial.Succeeded())
@@ -366,15 +373,15 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 	}*/
 
 
-	if (Counter >= 180 && Counter <= 300)
+	if (Counter >= 180 && Counter <= 240)
 	{
-		InnerHolder_Left->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.125f));
-		InnerHolder_Right->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.125f));
+		InnerHolder_Left->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.25f));
+		InnerHolder_Right->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.25f));
 	}
-	else if (Counter >= 600 && Counter <= 720)
+	else if (Counter >= 600 && Counter <= 660)
 	{
-		InnerHolder_Left->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.125f));
-		InnerHolder_Right->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.125f));
+		InnerHolder_Left->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.25f));
+		InnerHolder_Right->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.25f));
 	}
 	else if (Counter == 880)
 	{
@@ -404,7 +411,10 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 			LSA->SetStatus(24);
 		}
 	}
-
+	if (Counter == 190 || Counter == 610)
+	{
+		Blotter_Sound->Play();
+	}
 	if (bIsZooming == true)
 	{	
 		Screen->AddLocalOffset(FVector(0.0f, 0.0f, 2.0f*ZoomingDirection));
