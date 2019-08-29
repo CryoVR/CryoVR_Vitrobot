@@ -408,16 +408,22 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 	if (bIsZooming == true)
 	{	
 		Screen->AddLocalOffset(FVector(0.0f, 0.0f, 2.0f*ZoomingDirection));
-		float TempScale = Screen->GetComponentScale().X;
+		float TempScaleX = Screen->GetComponentScale().X;
+		float TempScaleY = Screen->GetComponentScale().Y;
+		float TempScaleZ = Screen->GetComponentScale().Z;
 		if (ZoomingDirection > 0)
 		{
-			TempScale = TempScale * 1.05;
+			TempScaleX = TempScaleX * 1.05;
+			TempScaleY = TempScaleY * 1.05;
+			TempScaleZ = TempScaleZ * 1.05;
 		}
 		else
 		{
-			TempScale = TempScale / 1.05;
+			TempScaleX = TempScaleX / 1.05;
+			TempScaleY = TempScaleY / 1.05;
+			TempScaleZ = TempScaleZ / 1.05;
 		}
-		Screen->SetRelativeScale3D(FVector(TempScale));
+		Screen->SetRelativeScale3D(FVector(TempScaleX, TempScaleY, TempScaleZ));
 		ZoomingTime++;
 	}
 	if (ZoomingTime >= 10)
