@@ -68,4 +68,10 @@ void AVB_GridBoxTweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedCom
 	{
 		tweezer_grid->SetVisibility(false);
 	}
+
+	if (Cast<ATP_MotionController>(OtherActor))
+	{
+		UpdateHandGuestureFunc(true, FName("GridBoxTweezer_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.0f, 0.5f}, Cast<ATP_MotionController>(OtherActor));
+	}
 }
+

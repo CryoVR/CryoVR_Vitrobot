@@ -19,6 +19,9 @@ class SOMTEMPLATE_VR_API AVB_PenActor : public AVB_DynamicActor
 public:
 	AVB_PenActor();
 
+	UFUNCTION()
+		void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
 protected:
 		UPROPERTY(VisibleAnywhere, Category = "Components")
 		UCapsuleComponent* Pointer_Collider;

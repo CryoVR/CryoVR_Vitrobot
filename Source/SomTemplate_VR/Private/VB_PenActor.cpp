@@ -27,4 +27,13 @@ AVB_PenActor::AVB_PenActor()
 		Pointer_Collider->SetCapsuleSize(6.0f, 0.5f);
 		Pointer_Collider->SetRelativeRotation(FRotator(90.0f, 0.0f, 0.0f));
 		Pointer_Collider->SetupAttachment(PickupMesh);
+		Pointer_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_PenActor::OnOverlapBegin);
+}
+
+void AVB_PenActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	if (Cast<ATP_MotionController>(OtherActor))
+	{
+		UpdateHandGuestureFunc(true, FName("Pen_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.8f, 0.5f}, Cast<ATP_MotionController>(OtherActor));
+	}
 }
