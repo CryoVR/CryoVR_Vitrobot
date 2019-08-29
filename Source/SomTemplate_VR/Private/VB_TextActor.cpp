@@ -115,7 +115,7 @@ void AVB_TextActor::ClearTextLines()
 
 void AVB_TextActor::Tick(float DeltaTime)
 {
-	UE_LOG(LogTemp, Log, TEXT("==%d=="), delay);
+	//UE_LOG(LogTemp, Log, TEXT("==%d=="), delay);
 	AVB_LevelScriptActor *LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	if (CurrentStatus != LSA->GetStatus())
 	{

@@ -206,7 +206,7 @@ void AVB_VitrobotActor::TurnOnMachine(class UPrimitiveComponent* OverlappedComp,
 {
 	if (Cast<AVB_PenActor>(OtherActor))
 	{	
-		m_IsMachineOn = true;	
+		m_IsMachineOn = !m_IsMachineOn;	
 	}
 }
 void AVB_VitrobotActor::TouchScreen(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
@@ -246,7 +246,7 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 		//Set the Button ON/OFF
 		if (OverlappedComp == TestButton_Collider)
 		{	
-			bIsButtonOn = true;
+			bIsButtonOn = !bIsButtonOn;
 		}
 		if (OverlappedComp == Door_Collider)
 		{

@@ -52,6 +52,9 @@ public:
 	UFUNCTION()
 	void TurnOnMachine(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	UFUNCTION()
+	void TouchScreen(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
 
 	UFUNCTION()
 	void PlungerDelay();
@@ -119,8 +122,11 @@ private:
 	bool bPlungerStatus;
 	bool bIsDoorOn;
 	bool bIsDoorGoingOpen;
+	bool bIsZooming;
 
 	int LevelStatus = 0;
 	int Status = 1;
 	int Counter = 0;
+	int ZoomingTime = 0;
+	int ZoomingDirection = 1;
 };
