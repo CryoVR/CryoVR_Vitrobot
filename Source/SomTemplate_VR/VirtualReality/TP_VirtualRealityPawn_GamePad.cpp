@@ -49,6 +49,7 @@ ATP_VirtualRealityPawn_GamePad::ATP_VirtualRealityPawn_GamePad()
 	// SomWorks :D // Setup Components
 	CameraBase->SetupAttachment(RootComponent);
 	VRCamera->SetupAttachment(CameraBase);
+	VRCamera->SetFieldOfView(10.0);
 	
 	TraceDirection->SetupAttachment(VRCamera);
 	TraceDirection->SetRelativeRotation(FRotator(-10.0f, 0.0f, 0.0f));

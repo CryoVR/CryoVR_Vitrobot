@@ -25,6 +25,8 @@ public:
 
 	virtual void BeginPlay() override;
 
+	//virtual void Tick(float DeltaTime) override;
+
 	//Set whether the object is pickable or not
 	void setPickable(bool newPickable);
 	bool getPickable();

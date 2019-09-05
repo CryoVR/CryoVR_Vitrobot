@@ -37,6 +37,8 @@ public:
 	// Resets HMD orientation and position in VR
 	void OnResetVR();
 
+	void SetCameraView(float F);
+
 	void GrabActor_Left();
 	void ReleaseActor_Left();
 

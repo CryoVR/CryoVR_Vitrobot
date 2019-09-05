@@ -10,6 +10,7 @@
  * 
  */
 class UCapsuleComponent;
+class APawn;
 
 UCLASS()
 class SOMTEMPLATE_VR_API AVB_PenActor : public AVB_DynamicActor
@@ -25,4 +26,7 @@ public:
 protected:
 		UPROPERTY(VisibleAnywhere, Category = "Components")
 		UCapsuleComponent* Pointer_Collider;
+
+		UPROPERTY(VisibleAnywhere, Category = "Components")
+		APawn* MyPawn;
 };
