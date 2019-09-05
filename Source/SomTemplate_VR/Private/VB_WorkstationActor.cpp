@@ -75,7 +75,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	
 	Workstation_P3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Workstation_P3"));
 	Workstation_P3->SetupAttachment(PickupMesh);
-	Workstation_P3->SetGenerateOverlapEvents(false);
+	Workstation_P3->SetGenerateOverlapEvents(true);
 	Workstation_P3->SetSimulatePhysics(false);
 	Workstation_P3->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	Workstation_P3->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnGridBoxOverlapBegin);
@@ -119,6 +119,12 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 
 void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {	
+	AVB_GridBoxTweezerActor *GBTweezer = Cast<AVB_GridBoxTweezerActor>(OtherActor);
+	if (GBTweezer != nullptr && GBTweezer->m_isTweezerFrozen)
+	{
+		Workstation_P3->SetVisibility(false);
+	}
+
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	if (Cast<AVB_DewarActor>(OtherActor) != nullptr)
 	{
@@ -171,12 +177,6 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 		}
 	}
 
-	AVB_GridBoxTweezerActor *GBTweezer = Cast<AVB_GridBoxTweezerActor>(OtherActor);
-	if (GBTweezer != nullptr)
-	{
-		Workstation_P3->SetVisibility(false);
-	}
-
 }
 
 void AVB_WorkstationActor::setFrozVisible()
@@ -198,6 +198,7 @@ void AVB_WorkstationActor::OnGridBoxOverlapBegin(class UPrimitiveComponent* Over
 			}
 		}
 	}
+
 }
 
 void AVB_WorkstationActor::Tick(float DeltaTime)

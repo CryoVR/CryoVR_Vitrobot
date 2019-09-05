@@ -14,6 +14,8 @@
 
 AVB_GridBoxTweezerActor::AVB_GridBoxTweezerActor()
 {
+	m_isTweezerFrozen = false;
+
 	capsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComp"));
 	capsuleComp->SetGenerateOverlapEvents(true);
 	capsuleComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
@@ -58,16 +60,18 @@ AVB_GridBoxTweezerActor::AVB_GridBoxTweezerActor()
 void AVB_GridBoxTweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
 	AVB_WorkstationActor *WorkstationActor = Cast<AVB_WorkstationActor>(OtherActor);
-	if (WorkstationActor != nullptr)
+
+	if (WorkstationActor != nullptr && m_isTweezerFrozen)
 	{
 		tweezer_grid->SetVisibility(true);
 		UE_LOG(LogTemp, Log, TEXT("hey"));
 	}
 	AVB_GridTubeActor *GridTubeActor = Cast<AVB_GridTubeActor>(OtherActor);
-	if (GridTubeActor != nullptr)
+	if (GridTubeActor != nullptr && m_isTweezerFrozen)
 	{
 		tweezer_grid->SetVisibility(false);
 	}
+
 
 	if (Cast<ATP_MotionController>(OtherActor))
 	{

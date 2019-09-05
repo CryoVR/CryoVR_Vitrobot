@@ -7,6 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "VB_DewarActor.h"
+#include "VB_GridBoxTweezerActor.h"
 
 AVB_FreezingDewarActor::AVB_FreezingDewarActor()
 {
@@ -36,6 +37,7 @@ AVB_FreezingDewarActor::AVB_FreezingDewarActor()
 	shapeComp->SetRelativeLocation(FVector(0.0f, 0.0f, 14.90f));
 	shapeComp->SetRelativeScale3D(FVector(0.5f, 0.5f, 0.25f));
 	shapeComp->SetupAttachment(meshComp);
+	shapeComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_FreezingDewarActor::OnGBTweezerOverlapBegin);
 
 	static ConstructorHelpers::FObjectFinder<UParticleSystem> Dewar_Effect(TEXT("ParticleSystem'/Game/Particles/WaterSplash_P.WaterSplash_P'"));
 	if (Dewar_Effect.Succeeded())
@@ -57,5 +59,14 @@ void AVB_FreezingDewarActor::OnDewarOverlapBegin(UPrimitiveComponent * Overlappe
 	if (DewarActor != nullptr)
 	{
 		P_Frozen->SetVisibility(true);
+	}
+}
+
+void AVB_FreezingDewarActor::OnGBTweezerOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	AVB_GridBoxTweezerActor* GBTweezerActor = Cast<AVB_GridBoxTweezerActor>(OtherActor);
+	if (GBTweezerActor != nullptr)
+	{
+		GBTweezerActor->m_isTweezerFrozen = true;
 	}
 }
