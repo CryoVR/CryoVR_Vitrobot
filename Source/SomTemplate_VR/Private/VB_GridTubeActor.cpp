@@ -67,6 +67,10 @@ void AVB_GridTubeActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 		}
 	}
 	
+	if (Cast<ATP_MotionController>(OtherActor)) {
+		UpdateHandGuestureFunc(true, FName("Gridtube_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.0f, 0.5f}, Cast<ATP_MotionController>(OtherActor));
+
+	}
 }
 
 void AVB_GridTubeActor::OnTweezerOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

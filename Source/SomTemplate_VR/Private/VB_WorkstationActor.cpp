@@ -89,7 +89,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 
 
 	PickupMesh->SetGenerateOverlapEvents(true);
-
+	
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComp"));
 	BoxComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	BoxComp->SetGenerateOverlapEvents(true); 
