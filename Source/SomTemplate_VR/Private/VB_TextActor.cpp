@@ -234,7 +234,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Then insert ethane tip into the workstaion.", "", "");
+		SetTextLines("Then insert ethane tip into the workstation.", "", "");
 	}
 	if (LSA->GetStatus() == 7)
 	{
@@ -244,7 +244,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Loacte the mini knob on the back", "of the tank.", "Touch the mini knob to turn on.");
+		SetTextLines("Locate the mini knob on the back", "of the tank.", "Touch the mini knob to turn on.");
 	}
 	if (LSA->GetStatus() == 8)
 	{
@@ -254,7 +254,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Keep filling until the ehane cup is", "100% full!", "Then reset tip to the ethane tank.");
+		SetTextLines("Keep filling until the ethane cup is", "100% full!", "Then reset tip to the ethane tank.");
 	}
 	if (LSA->GetStatus() == 9)
 	{
@@ -264,7 +264,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Touch the mini knob to turn off", "", "");
+		SetTextLines("Touch the mini knob to turn off.", "", "");
 	}
 	if (LSA->GetStatus() == 10)
 	{
@@ -274,7 +274,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Rotate the big knob clockwisely", "", "");
+		SetTextLines("Rotate the big knob clock-wisely.", "", "");
 	}
 	if (LSA->GetStatus() == 11)
 	{
@@ -344,7 +344,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Insert pipette into the sampletube", "Then you can see the tip attached", "");
+		SetTextLines("Insert pipette into the sample tube", "Then you can see the tip attached", "");
 	}
 	if (LSA->GetStatus() == 19)
 	{
@@ -495,5 +495,65 @@ void AVB_TextActor::Tick(float DeltaTime)
 		}
 		ClearTextLines();
 		SetTextLines("Now you have completed all the critical steps in Vitrobot training", "Thanks for experiencing our Vitrobot training module,", "Hope to see you next time!");
+	}
+	if (LSA->GetStatus() == 28)
+	{
+		if (!m_HasPlayed)
+		{
+
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Great!", "Now drop the grid box into the conical tube.", "Note that the tube is located in the smaller liquid nitrogen dewar.");
+	}
+	if (LSA->GetStatus() == 29)
+	{
+		if (!m_HasPlayed)
+		{
+
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("There is a grid box storage dewar on your right-side ground.", "Remove the cap", "");
+	}
+	if (LSA->GetStatus() == 30)
+	{
+		if (!m_HasPlayed)
+		{
+
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Pick up a metal tube from inside the storage dewar.", "", "");
+	}
+	if (LSA->GetStatus() == 31)
+	{
+		if (!m_HasPlayed)
+		{
+
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Now put the plastic tube into the metal tube.", "", "");
+	}
+	if (LSA->GetStatus() == 32)
+	{
+		if (!m_HasPlayed)
+		{
+
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Then put the metal tube back to the dewar.", "", "");
+	}
+	if (LSA->GetStatus() == 33)
+	{
+		if (!m_HasPlayed)
+		{
+
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("After finishing all steps above,", " put the cap back on the large storage dewar.", "");
 	}
 }

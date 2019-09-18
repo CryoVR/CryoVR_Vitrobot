@@ -44,7 +44,7 @@ AVB_GridBoxTweezerActor::AVB_GridBoxTweezerActor()
 	}
 	PickupMesh->SetGenerateOverlapEvents(false);
 	PickupMesh->SetRelativeScale3D(FVector(2.0f));
-
+	
 	tweezer_grid = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Tweezer_grid"));
 	tweezer_grid->SetGenerateOverlapEvents(false);
 	tweezer_grid->SetCollisionEnabled(ECollisionEnabled::NoCollision);
