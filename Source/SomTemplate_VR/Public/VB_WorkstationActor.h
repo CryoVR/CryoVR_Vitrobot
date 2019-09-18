@@ -8,6 +8,7 @@
 
 class UBoxComponent;
 class UCapsuleComponent;
+class UParticleSystemComponent;
 /**
  * 
  */

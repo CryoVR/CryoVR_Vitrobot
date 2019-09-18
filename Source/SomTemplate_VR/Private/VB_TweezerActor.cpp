@@ -8,6 +8,7 @@
 #include "VB_PetridishActor.h"
 #include "VB_PetridishCoverActor.h"
 #include "VB_StaticActor.h"
+#include "VB_WorkstationActor.h"
 #include "VirtualReality/TP_MotionController.h"
 #include "VB_LevelScriptActor.h"
 #include "VB_VitrobotActor.h"
@@ -62,7 +63,8 @@ AVB_TweezerActor::AVB_TweezerActor()
 }
 
 void AVB_TweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
-{
+{	
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	AVB_PetridishActor* petridishActor = Cast<AVB_PetridishActor>(OtherActor);
 	if (petridishActor != nullptr && petridishActor->getState()) {
 		if (petridishActor->GetGrid() == OtherComp->GetAttachParent()) {
@@ -81,7 +83,6 @@ void AVB_TweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AAct
 			}
 		}
 	}
-
 }
 
 void AVB_TweezerActor::OnTweezerBeginOverlap(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
@@ -95,6 +96,11 @@ void AVB_TweezerActor::OnTweezerBeginOverlap(UPrimitiveComponent * OverlappedCom
 			{
 				LSA->SetStatus(13);
 			}
+			if (LSA->GetStatus() == 24)
+			{
+				LSA->SetStatus(25);
+			}
+
 		}
 	}
 	AVB_VitrobotActor* VitrobotActor = Cast<AVB_VitrobotActor>(OtherActor);
@@ -120,10 +126,6 @@ void AVB_TweezerActor::Tick(float DeltaTime)
 
 	if (m_isGrab == true)
 	{
-		if (LSA->GetStatus() == 13)
-		{
-			LSA->SetStatus(14);
-		}
 		if (LSA->GetStatus() == 24)
 		{
 			LSA->SetStatus(25);

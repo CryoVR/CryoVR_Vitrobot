@@ -33,5 +33,7 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Particles")
 		UParticleSystemComponent* P_Frozen;
+
+	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
 	
 };

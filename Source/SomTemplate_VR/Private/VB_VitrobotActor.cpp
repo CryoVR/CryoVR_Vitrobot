@@ -26,8 +26,10 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_MainMesh(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Vitrobot.Vitrobot'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_WorkstationHolder(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_Holder.Workstation_Holder'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_InnerHolder(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Holder.Holder'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_InnerHolder_L(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/HolderArm_Left.HolderArm_Left'"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_InnerHolder_R(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/HolderArm_Right.HolderArm_Right'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_InnerHolder_LU(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/blotter_up.blotter_up'"));
+	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_InnerHolder_RU(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/blotter_up.blotter_up'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_InnerHolder_LD(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/blotter_down.blotter_down'"));
+	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_InnerHolder_RD(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/blotter_down.blotter_down'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Door(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Door.Door'"));
 	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_LEDCover(TEXT("StaticMesh'/Game/Test_Geometry/LED_Cover.LED_Cover'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Plunger(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Plunger.Plunger'"));
@@ -77,19 +79,33 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 		InnerHolder->SetStaticMesh(SM_InnerHolder.Object);
 	}
 	bIsHolderGoingUp = true;
-	InnerHolder_Left = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inner_Holder_L"));
-	InnerHolder_Left->SetupAttachment(InnerHolder);
-	InnerHolder_Left->SetRelativeLocation(FVector(0.0f, 0.0f, -7.82f));
-	InnerHolder_Left->SetRelativeRotation(FRotator(0.0f, 0.0f, 5.0f));
-	if (SM_InnerHolder_L.Succeeded()) {
-		InnerHolder_Left->SetStaticMesh(SM_InnerHolder_L.Object);
+	InnerHolder_LeftU = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inner_Holder_LU"));
+	InnerHolder_LeftU->SetupAttachment(InnerHolder);
+	InnerHolder_LeftU->SetRelativeLocation(FVector(0.0f, -1.37f, -7.2f));
+	InnerHolder_LeftU->SetRelativeRotation(FRotator(180.0f, 0.0f, -5.0f));
+	if (SM_InnerHolder_LU.Succeeded()) {
+		InnerHolder_LeftU->SetStaticMesh(SM_InnerHolder_LU.Object);
+		InnerHolder_LeftD = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inner_Holder_LD"));
+		InnerHolder_LeftD->SetupAttachment(InnerHolder_LeftU);
+		InnerHolder_LeftD->SetRelativeLocation(FVector(0.0f, 1.88f, -6.02f));
+		InnerHolder_LeftD->SetRelativeRotation(FRotator(0.0f, 0.0f, 5.0f));
+		if (SM_InnerHolder_LD.Succeeded()) {
+			InnerHolder_LeftD->SetStaticMesh(SM_InnerHolder_LD.Object);
+		}
 	}
-	InnerHolder_Right = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inner_Holder_R"));
-	InnerHolder_Right->SetupAttachment(InnerHolder);
-	InnerHolder_Right->SetRelativeLocation(FVector(0.0f, 0.0f, -7.82f));
-	InnerHolder_Right->SetRelativeRotation(FRotator(0.0f, 0.0f, -5.0f));
-	if (SM_InnerHolder_R.Succeeded()) {
-		InnerHolder_Right->SetStaticMesh(SM_InnerHolder_R.Object);
+	InnerHolder_RightU = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inner_Holder_RU"));
+	InnerHolder_RightU->SetupAttachment(InnerHolder);
+	InnerHolder_RightU->SetRelativeLocation(FVector(0.0f, 1.37f, -7.2f));
+	InnerHolder_RightU->SetRelativeRotation(FRotator(0.0f, 0.0f, -5.0f));
+	if (SM_InnerHolder_LU.Succeeded()) {
+		InnerHolder_RightU->SetStaticMesh(SM_InnerHolder_LU.Object);
+		InnerHolder_RightD = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inner_Holder_RD"));
+		InnerHolder_RightD->SetupAttachment(InnerHolder_RightU);
+		InnerHolder_RightD->SetRelativeLocation(FVector(0.0f, 1.88f, -6.02f));
+		InnerHolder_RightD->SetRelativeRotation(FRotator(0.0f, 0.0f, 5.0f));
+		if (SM_InnerHolder_LD.Succeeded()) {
+			InnerHolder_RightD->SetStaticMesh(SM_InnerHolder_LD.Object);
+		}
 	}
 
 	//#3 Door
@@ -375,13 +391,17 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 
 	if (Counter >= 180 && Counter <= 240)
 	{
-		InnerHolder_Left->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.25f));
-		InnerHolder_Right->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.25f));
+		InnerHolder_LeftU->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.33f));
+		InnerHolder_LeftD->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.083f));
+		InnerHolder_RightU->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.33f));
+		InnerHolder_RightD->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.083f));
 	}
 	else if (Counter >= 600 && Counter <= 660)
 	{
-		InnerHolder_Left->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.25f));
-		InnerHolder_Right->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.25f));
+		InnerHolder_LeftU->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.33f));
+		InnerHolder_LeftD->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.083f));
+		InnerHolder_RightU->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.33f));
+		InnerHolder_RightD->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.083f));
 	}
 	else if (Counter == 880)
 	{

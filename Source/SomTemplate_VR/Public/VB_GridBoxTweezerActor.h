@@ -26,6 +26,9 @@ public:
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	UFUNCTION()
+		void OnPointerOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
 	
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
@@ -37,4 +40,7 @@ protected:
 		UCapsuleComponent* capsuleComp;
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UCapsuleComponent* tweezerMainCapsuleComp;
+
+	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
+
 };

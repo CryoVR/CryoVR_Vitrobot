@@ -41,14 +41,7 @@ void AVB_GridMetalTubeActor::OnOverlapBegin(class UPrimitiveComponent* Overlappe
 	{	
 			FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
 			GetRootComponent()->AttachToComponent(GridDewarActor->meshComp, AttachRules, FName("MetalTube_Socket"));
-			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-			if (LSA != nullptr)
-			{
-				if (LSA->GetStatus() == 32)
-				{
-					LSA->SetStatus(33);
-				}
-			}
+
 		
 	}
 }
@@ -58,12 +51,5 @@ void AVB_GridMetalTubeActor::OnHandOverlapBegin(UPrimitiveComponent * Overlapped
 	if (Cast<ATP_MotionController>(OtherActor) != nullptr)
 	{
 		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-		if (LSA != nullptr)
-		{
-			if (LSA->GetStatus() == 30)
-			{
-				LSA->SetStatus(31);
-			}
-		}
 	}
 }

@@ -31,13 +31,13 @@ void AVB_GloveActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	if (Cast<ATP_MotionController>(OtherActor) != nullptr)
 	{
-		if (LSA != nullptr)
-		{
-			if (LSA->GetStatus() == 0)
-			{
-				LSA->SetStatus(1);
-			}
-		}
+		//if (LSA != nullptr)
+		//{
+		//	if (LSA->GetStatus() == 0)
+		//	{
+		//		LSA->SetStatus(24);
+		//	}
+		//}
 		Destroy();
 	}
 }

@@ -7,6 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "VB_DewarActor.h"
+#include "VB_LevelScriptActor.h"
 #include "VB_GridBoxTweezerActor.h"
 
 AVB_FreezingDewarActor::AVB_FreezingDewarActor()
@@ -54,11 +55,16 @@ AVB_FreezingDewarActor::AVB_FreezingDewarActor()
 }
 
 void AVB_FreezingDewarActor::OnDewarOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
-{
+{	
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	AVB_DewarActor* DewarActor = Cast<AVB_DewarActor>(OtherActor);
 	if (DewarActor != nullptr)
 	{
 		P_Frozen->SetVisibility(true);
+		if (LSA->GetStatus() == 26)
+		{
+			LSA->SetStatus(27);
+		}
 	}
 }
 

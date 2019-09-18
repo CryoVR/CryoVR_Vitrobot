@@ -73,11 +73,16 @@ protected:
 	UStaticMeshComponent* InnerHolder;
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
-	UStaticMeshComponent* InnerHolder_Left;
+	UStaticMeshComponent* InnerHolder_LeftU;
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
-	UStaticMeshComponent* InnerHolder_Right;
+	UStaticMeshComponent* InnerHolder_RightU;
 
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UStaticMeshComponent* InnerHolder_LeftD;
+
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UStaticMeshComponent* InnerHolder_RightD;
 	
 	//UPROPERTY(VisibleAnyWhere, Category = "Components")
 	//UStaticMeshComponent* Door;

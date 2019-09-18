@@ -7,6 +7,7 @@
 #include "UObject/ConstructorHelpers.h"
 #include "VB_WorkstationActor.h"
 #include "VB_GridTubeActor.h"
+#include "VB_FreezingDewarActor.h"
 #include "VB_StaticActor.h"
 #include "VB_LevelScriptActor.h"
 #include "VirtualReality/TP_MotionController.h"
@@ -32,7 +33,7 @@ AVB_GridBoxTweezerActor::AVB_GridBoxTweezerActor()
 	tweezerMainCapsuleComp->SetCapsuleSize(0.4f, 5.7f);
 	tweezerMainCapsuleComp->SetRelativeLocation(FVector(0.0f, 0.0f, -5.19f));
 	tweezerMainCapsuleComp->SetupAttachment(PickupMesh);
-	//tweezerMainCapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_TweezerActor::OnTweezerBeginOverlap);
+	tweezerMainCapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_GridBoxTweezerActor::OnPointerOverlapBegin);
 
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Tweezer(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Tweezer.Tweezer'"));
@@ -58,24 +59,48 @@ AVB_GridBoxTweezerActor::AVB_GridBoxTweezerActor()
 }
 
 void AVB_GridBoxTweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
-{
-	AVB_WorkstationActor *WorkstationActor = Cast<AVB_WorkstationActor>(OtherActor);
-
-	if (WorkstationActor != nullptr && m_isTweezerFrozen)
+{	
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+	
+	AVB_FreezingDewarActor* FreezeDewar = Cast<AVB_FreezingDewarActor>(OtherActor);
+	if (FreezeDewar != nullptr)
 	{
-		tweezer_grid->SetVisibility(true);
-		UE_LOG(LogTemp, Log, TEXT("hey"));
+		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+		GetRootComponent()->AttachToComponent(FreezeDewar->meshComp, AttachRules, FName("Tweezer_Socket"));
+		if (LSA->GetStatus() == 27)
+		{
+			LSA->SetStatus(28);
+		}
 	}
-	AVB_GridTubeActor *GridTubeActor = Cast<AVB_GridTubeActor>(OtherActor);
-	if (GridTubeActor != nullptr && m_isTweezerFrozen)
-	{
-		tweezer_grid->SetVisibility(false);
-	}
-
 
 	if (Cast<ATP_MotionController>(OtherActor))
 	{
 		UpdateHandGuestureFunc(true, FName("GridBoxTweezer_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.0f, 0.5f}, Cast<ATP_MotionController>(OtherActor));
+	}
+}
+
+void AVB_GridBoxTweezerActor::OnPointerOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	AVB_WorkstationActor *WorkstationActor = Cast<AVB_WorkstationActor>(OtherActor);
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+
+	if (WorkstationActor != nullptr && m_isTweezerFrozen)
+	{
+		tweezer_grid->SetVisibility(true);
+		if (LSA->GetStatus() == 30)
+		{
+			LSA->SetStatus(31);
+		}
+	}
+
+	AVB_GridTubeActor *GridTubeActor = Cast<AVB_GridTubeActor>(OtherActor);
+	if (GridTubeActor != nullptr && m_isTweezerFrozen)
+	{
+		tweezer_grid->SetVisibility(false);
+		if (LSA->GetStatus() == 31)
+		{
+			LSA->SetStatus(32);
+		}
 	}
 }
 

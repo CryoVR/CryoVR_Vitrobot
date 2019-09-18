@@ -142,7 +142,7 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 	AVB_VitrobotActor* VitrobotActor = Cast<AVB_VitrobotActor>(OtherActor);
 	if (VitrobotActor != nullptr) {
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
-		GetRootComponent()->AttachToComponent(VitrobotActor->WorkstationHolder, AttachRules, FName("workstationSocket1"));
+		GetRootComponent()->AttachToComponent(VitrobotActor->WorkstationHolder, AttachRules, FName("Socket"));
 		if (LSA != nullptr)
 		{
 			if (LSA->GetStatus() == 21)

@@ -59,6 +59,8 @@ public:
 
 	UFUNCTION()
 	void TeleportActor(class ATP_MotionController* MotionController);
+
+	int Score = 0;
 	
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VRTemplate|Variables", meta = (AllowPrivateAccess = "true"))

@@ -354,7 +354,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Use the pipette to touch the grid", "at the bottom of tweezer", "through the holes of virtrobot.");
+		SetTextLines("Use the pipette to touch the grid", "at the bottom of tweezer", "through the side hole of virtrobot.");
 	}
 	if (LSA->GetStatus() == 20)
 	{
@@ -424,7 +424,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("And grab the grid box tweezer.", "", "");
+		SetTextLines("Okay", "Now look at the silver-colored freeze dewar on your right-hand side,", "Pull liquid nitrogen into that to freeze it");
 	}
 	if (LSA->GetStatus() == 27)
 	{
@@ -434,6 +434,66 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Pick up the grid box.", "", "");
+		SetTextLines("Now pick up the gird box tweezer.", "Put it in the freeze dewar and wait for 5 seconds.", "Note that in the real world it may take about 30 seconds");
+	}
+	if (LSA->GetStatus() == 28)
+	{
+		if (!m_HasPlayed)
+		{
+
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Great!", "Now we can pick up the plastic tube in the storage dewar", "The storage dewar is located on the ground.");
+	}
+	if (LSA->GetStatus() == 29)
+	{
+		if (!m_HasPlayed)
+		{
+
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Then put the plastic tube into the freeze dewar", "to keep it's tempreture", "");
+	}
+	if (LSA->GetStatus() == 30)
+	{
+		if (!m_HasPlayed)
+		{
+
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Let's pick up the grid box by using the grid box tweezer", "The grid box is located in the workstation.", "");
+	}
+	if (LSA->GetStatus() == 31)
+	{
+		if (!m_HasPlayed)
+		{
+
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Now we can put the grid box into the plastic tube", "", "");
+	}
+	if (LSA->GetStatus() == 32)
+	{
+		if (!m_HasPlayed)
+		{
+
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("We have reached the last step", "Let's put the plastic tube back to storage dewar.", "The cap the dewar with its cover");
+	}
+	if (LSA->GetStatus() == 33)
+	{
+		if (!m_HasPlayed)
+		{
+
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Now you have completed all the critical steps in Vitrobot training", "Thanks for experiencing our Vitrobot training module,", "Hope to see you next time!");
 	}
 }

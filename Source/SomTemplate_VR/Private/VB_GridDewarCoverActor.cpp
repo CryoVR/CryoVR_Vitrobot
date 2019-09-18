@@ -21,7 +21,7 @@ AVB_GridDewarCoverActor::AVB_GridDewarCoverActor()
 		BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComp"));
 		BoxComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 		BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_GridDewarCoverActor::OnOverlapBegin);
-		BoxComp->OnComponentEndOverlap.AddDynamic(this, &AVB_GridDewarCoverActor::OnOverlapEnd);
+		//BoxComp->OnComponentEndOverlap.AddDynamic(this, &AVB_GridDewarCoverActor::OnOverlapEnd);
 		BoxComp->SetupAttachment(PickupMesh);
 		BoxComp->SetRelativeLocation(FVector(0.0f, 0.0f, -0.4f));
 		Cast<UBoxComponent>(BoxComp)->SetBoxExtent(FVector(6.0f, 6.0f, 1.0f));
@@ -39,26 +39,12 @@ void AVB_GridDewarCoverActor::OnOverlapBegin(class UPrimitiveComponent* Overlapp
 		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 		if (LSA != nullptr)
 		{
-			if (LSA->GetStatus() == 33)
+			if (LSA->GetStatus() == 32)
 			{
-				LSA->SetStatus(34);
+				LSA->SetStatus(33);
 			}
 		}
 		
 	}
-	else if (Cast<ATP_MotionController>(OtherActor) != nullptr)
-	{
-		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-		if (LSA != nullptr)
-		{
-			if (LSA->GetStatus() == 29)
-			{
-				LSA->SetStatus(30);
-			}
-		}
-	}
-}
-void AVB_GridDewarCoverActor::OnOverlapEnd(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex)
-{
 
 }

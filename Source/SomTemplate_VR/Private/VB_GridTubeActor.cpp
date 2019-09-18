@@ -6,6 +6,7 @@
 #include "VB_GridBoxTweezerActor.h"
 #include "Kismet/GameplayStatics.h"
 #include "Public/Engine.h"
+#include "VB_FreezingDewarActor.h"
 #include "VB_LevelScriptActor.h"
 #include "Components/CapsuleComponent.h"
 #include "VirtualReality/TP_MotionController.h"
@@ -51,18 +52,37 @@ AVB_GridTubeActor::AVB_GridTubeActor()
 }
 
 void AVB_GridTubeActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	AVB_GridMetalTubeActor *GridMetalTubeActor = Cast<AVB_GridMetalTubeActor>(OtherActor);
-	if (GridMetalTubeActor != nullptr)
-	{
-		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
-		GetRootComponent()->AttachToComponent(GridMetalTubeActor->PickupMesh, AttachRules, FName("GridTube_Socket"));
-		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+{	
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+
+	if (Cast<ATP_MotionController>(OtherActor)) {
+		UpdateHandGuestureFunc(true, FName("Tweezer_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.0f, 0.5f}, Cast<ATP_MotionController>(OtherActor));
 		if (LSA != nullptr)
 		{
-			if (LSA->GetStatus() == 31)
+			if (LSA->GetStatus() == 28)
 			{
-				LSA->SetStatus(32);
+				LSA->SetStatus(29);
+			}
+		}
+	
+	}
+	AVB_GridMetalTubeActor* GMT = Cast<AVB_GridMetalTubeActor>(OtherActor);
+	if (GMT != nullptr)
+	{
+		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+		GetRootComponent()->AttachToComponent(GMT->PickupMesh, AttachRules, FName("GridTube_Socket"));
+	}
+	AVB_FreezingDewarActor *FDActor = Cast<AVB_FreezingDewarActor>(OtherActor);
+	if (FDActor != nullptr)
+	{
+		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+		GetRootComponent()->AttachToComponent(FDActor->meshComp, AttachRules, FName("Tube_Socket"));
+		
+		if (LSA != nullptr)
+		{
+			if (LSA->GetStatus() == 29)
+			{
+				LSA->SetStatus(30);
 			}
 		}
 	}
@@ -81,9 +101,9 @@ void AVB_GridTubeActor::OnTweezerOverlapBegin(class UPrimitiveComponent* Overlap
 		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 		if (LSA != nullptr)
 		{
-			if (LSA->GetStatus() == 28)
+			if (LSA->GetStatus() == 31)
 			{
-				LSA->SetStatus(29);
+				LSA->SetStatus(32);
 			}
 		}
 	}
