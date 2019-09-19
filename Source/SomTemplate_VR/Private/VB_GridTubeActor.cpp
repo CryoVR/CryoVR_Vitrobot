@@ -98,7 +98,7 @@ void AVB_GridTubeActor::OnTweezerOverlapBegin(class UPrimitiveComponent* Overlap
 	AVB_GridBoxTweezerActor *GBTweezer = Cast<AVB_GridBoxTweezerActor>(OtherActor);
 	if (GBTweezer != nullptr)
 	{
-		if (GBTweezer->m_isTweezerFrozen)
+		if (GBTweezer->m_isTweezerGridShow)
 		{
 			GridBox->SetVisibility(true);
 		}

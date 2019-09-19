@@ -23,6 +23,10 @@ public:
 
 	bool m_isTweezerFrozen;
 
+	bool m_isTweezerGridShow;
+
+	
+
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 

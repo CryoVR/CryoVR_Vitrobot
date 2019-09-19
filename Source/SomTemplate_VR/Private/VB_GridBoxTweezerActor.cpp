@@ -16,6 +16,7 @@
 AVB_GridBoxTweezerActor::AVB_GridBoxTweezerActor()
 {
 	m_isTweezerFrozen = false;
+	m_isTweezerGridShow = false;
 
 	capsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComp"));
 	capsuleComp->SetGenerateOverlapEvents(true);
@@ -58,6 +59,7 @@ AVB_GridBoxTweezerActor::AVB_GridBoxTweezerActor()
 	}
 }
 
+
 void AVB_GridBoxTweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {	
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
@@ -87,6 +89,7 @@ void AVB_GridBoxTweezerActor::OnPointerOverlapBegin(UPrimitiveComponent * Overla
 	if (WorkstationActor != nullptr && m_isTweezerFrozen)
 	{
 		tweezer_grid->SetVisibility(true);
+		m_isTweezerGridShow = true;
 		if (LSA->GetStatus() == 30)
 		{
 			LSA->SetStatus(31);
