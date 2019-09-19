@@ -273,3 +273,23 @@ void ATP_VirtualRealityPawn_Motion::TeleportActor(ATP_MotionController* MotionCo
 	bIsTeleporting = false;
 	GetWorldTimerManager().ClearTimer(FadeTimerHandle);
 }
+
+void ATP_VirtualRealityPawn_Motion::SetScore(int i)
+{	
+	Score = i;
+}
+
+int ATP_VirtualRealityPawn_Motion::GetScore()
+{
+	return Score;
+}
+
+void ATP_VirtualRealityPawn_Motion::SetErrors(int i)
+{
+	Errors = i;
+}
+
+int ATP_VirtualRealityPawn_Motion::GetErrors()
+{
+	return Errors;
+}

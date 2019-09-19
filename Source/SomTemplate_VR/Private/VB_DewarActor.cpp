@@ -39,6 +39,15 @@ AVB_DewarActor::AVB_DewarActor()
 		FrozenFX->SetupAttachment(PickupMesh);
 		FrozenFX->SetWorldLocation(FVector(0.0f, 0.0f, 38.0f));
 	}
+	
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> P_Effect1(TEXT("ParticleSystem'/Game/Particles/WaterFall.WaterFall'"));
+	if (P_Effect1.Succeeded())
+	{
+		Waterfall = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("WaterEffect"));
+		Waterfall->SetTemplate(P_Effect1.Object);
+		Waterfall->SetupAttachment(PickupMesh);
+		Waterfall->SetWorldLocation(FVector(0.0f, 0.0f, 38.0f));
+	}
 
 	HandcapsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("DewarCapsuleComp"));
 	HandcapsuleComp->SetGenerateOverlapEvents(true);
@@ -55,6 +64,7 @@ void AVB_DewarActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, c
 	if (Cast<AVB_NitrogenTankCapActor>(OtherActor) != nullptr)
 	{
 		FrozenFX->SetActive(false);
+		Waterfall->SetActive(false);
 	}
 }
 
@@ -63,6 +73,7 @@ void AVB_DewarActor::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, AAc
 	if (Cast<AVB_NitrogenTankCapActor>(OtherActor) != nullptr)
 	{
 		FrozenFX->SetActive(true);
+		Waterfall->SetActive(true);
 	}
 }
 

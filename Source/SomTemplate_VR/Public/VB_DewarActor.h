@@ -44,6 +44,8 @@ protected:
 	
 	UPROPERTY(VisibleAnywhere, Category = "ParticleEffect")
 		UParticleSystemComponent* FrozenFX;
+	UPROPERTY(VisibleAnywhere, Category = "ParticleEffect")
+		UParticleSystemComponent* Waterfall;
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UCapsuleComponent* HandcapsuleComp;
 

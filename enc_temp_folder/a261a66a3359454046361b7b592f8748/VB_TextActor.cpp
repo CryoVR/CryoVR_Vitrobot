@@ -23,16 +23,16 @@ AVB_TextActor::AVB_TextActor()
 	PrimaryActorTick.bCanEverTick = true;
 
 	TextComp1 = CreateDefaultSubobject<UTextRenderComponent>(TEXT("TextLine1"));
-	//TextComp1->SetupAttachment(RootComponent);
-	//TextComp1->SetRelativeLocation(FVector(0.0f, 0.0f, 1.0f));
-	//TextComp1->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
+	TextComp1->SetupAttachment(RootComponent);
+	TextComp1->SetRelativeLocation(FVector(0.0f, 0.0f, 1.0f));
+	TextComp1->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
 	TextComp1->SetText(FText::FromString(TEXT("Testline1")));
 	TextComp1->SetRelativeScale3D(FVector(0.8f));
 	TextComp1->SetWorldSize(5);
 	TextComp1->SetTextRenderColor(FColor::Black);
 
 	TextComp2 = CreateDefaultSubobject<UTextRenderComponent>(TEXT("TextLine2"));
-	TextComp2->SetupAttachment(TextComp1);
+	TextComp2->SetupAttachment(RootComponent);
 	TextComp2->SetRelativeLocation(FVector(0.0f, 0.0f, 2.0f));
 	TextComp2->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
 	TextComp2->SetText(FText::FromString(TEXT("Textline2")));
@@ -41,7 +41,7 @@ AVB_TextActor::AVB_TextActor()
 	TextComp2->SetTextRenderColor(FColor::Black);
 
 	TextComp3 = CreateDefaultSubobject<UTextRenderComponent>(TEXT("TextLine3"));
-	TextComp3->SetupAttachment(TextComp1);
+	TextComp3->SetupAttachment(RootComponent);
 	TextComp3->SetRelativeLocation(FVector(0.0f, 0.0f, 3.0f));
 	TextComp3->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
 	TextComp3->SetText(FText::FromString(TEXT("Textline3")));

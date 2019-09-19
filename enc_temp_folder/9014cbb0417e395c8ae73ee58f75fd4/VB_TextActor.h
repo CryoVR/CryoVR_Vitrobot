@@ -20,13 +20,13 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(EditAnywhere, Category = "Components")
 	UTextRenderComponent* TextComp1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(EditAnywhere, Category = "Components")
 	UTextRenderComponent* TextComp2;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(EditAnywhere, Category = "Components")
 	UTextRenderComponent* TextComp3;
 
 	UFUNCTION()

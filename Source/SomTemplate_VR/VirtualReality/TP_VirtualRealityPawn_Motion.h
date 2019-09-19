@@ -60,7 +60,20 @@ public:
 	UFUNCTION()
 	void TeleportActor(class ATP_MotionController* MotionController);
 
+	UFUNCTION()
+		void SetScore(int i);
+	UFUNCTION()
+		int GetScore();
+	UFUNCTION()
+		void SetErrors(int i);
+	UFUNCTION()
+		int GetErrors();
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	int Score = 0;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	int Errors = 0;
 	
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VRTemplate|Variables", meta = (AllowPrivateAccess = "true"))
