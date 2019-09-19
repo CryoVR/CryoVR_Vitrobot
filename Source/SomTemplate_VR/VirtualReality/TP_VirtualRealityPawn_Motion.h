@@ -61,20 +61,24 @@ public:
 	void TeleportActor(class ATP_MotionController* MotionController);
 
 	UFUNCTION()
-		void SetScore(int i);
+		void SetScore(float i);
 	UFUNCTION()
-		int GetScore();
+		float GetScore();
 	UFUNCTION()
 		void SetErrors(int i);
 	UFUNCTION()
 		int GetErrors();
+	UFUNCTION()
+		void SetisFinished(bool i);
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	int Score = 0;
+	float Score = 1.0f;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	int Errors = 0;
+	int Errors = 33;
 	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+		bool isFinished = false;
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VRTemplate|Variables", meta = (AllowPrivateAccess = "true"))
 	class ATP_MotionController* LeftController;

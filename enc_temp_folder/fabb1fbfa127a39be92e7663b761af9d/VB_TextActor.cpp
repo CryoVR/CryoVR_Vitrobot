@@ -5,6 +5,7 @@
 #include "Runtime/Engine/Classes/Components/TextRenderComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Runtime/Engine/Classes/Sound/SoundWave.h"
+#include "VirtualReality/TP_VirtualRealityPawn_Motion.h"
 #include "Components/AudioComponent.h"
 #include "VB_LevelScriptActor.h"
 #include "Kismet/GameplayStatics.h"
@@ -23,16 +24,16 @@ AVB_TextActor::AVB_TextActor()
 	PrimaryActorTick.bCanEverTick = true;
 
 	TextComp1 = CreateDefaultSubobject<UTextRenderComponent>(TEXT("TextLine1"));
-	TextComp1->SetupAttachment(RootComponent);
-	TextComp1->SetRelativeLocation(FVector(0.0f, 0.0f, 1.0f));
-	TextComp1->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
+	//TextComp1->SetupAttachment(RootComponent);
+	//TextComp1->SetRelativeLocation(FVector(0.0f, 0.0f, 1.0f));
+	//TextComp1->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
 	TextComp1->SetText(FText::FromString(TEXT("Testline1")));
 	TextComp1->SetRelativeScale3D(FVector(0.8f));
 	TextComp1->SetWorldSize(5);
 	TextComp1->SetTextRenderColor(FColor::Black);
 
 	TextComp2 = CreateDefaultSubobject<UTextRenderComponent>(TEXT("TextLine2"));
-	TextComp2->SetupAttachment(RootComponent);
+	TextComp2->SetupAttachment(TextComp1);
 	TextComp2->SetRelativeLocation(FVector(0.0f, 0.0f, 2.0f));
 	TextComp2->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
 	TextComp2->SetText(FText::FromString(TEXT("Textline2")));
@@ -41,7 +42,7 @@ AVB_TextActor::AVB_TextActor()
 	TextComp2->SetTextRenderColor(FColor::Black);
 
 	TextComp3 = CreateDefaultSubobject<UTextRenderComponent>(TEXT("TextLine3"));
-	TextComp3->SetupAttachment(RootComponent);
+	TextComp3->SetupAttachment(TextComp1);
 	TextComp3->SetRelativeLocation(FVector(0.0f, 0.0f, 3.0f));
 	TextComp3->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
 	TextComp3->SetText(FText::FromString(TEXT("Textline3")));
@@ -96,6 +97,8 @@ AVB_TextActor::AVB_TextActor()
 	SSound7->SetupAttachment(TextComp1);
 	SSound7->SetAutoActivate(false);
 	SSound7->SetSound(SoundWave7);
+
+
 }
 
 
@@ -114,13 +117,18 @@ void AVB_TextActor::ClearTextLines()
 }
 
 void AVB_TextActor::Tick(float DeltaTime)
-{
+{	
 	//UE_LOG(LogTemp, Log, TEXT("==%d=="), delay);
 	AVB_LevelScriptActor *LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+	ATP_VirtualRealityPawn_Motion *VRP = Cast<ATP_VirtualRealityPawn_Motion>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	if (CurrentStatus != LSA->GetStatus())
 	{
 		SSoundSuccess->Play();
 		m_HasPlayed = false;
+		float currentscore = VRP->GetScore()+3.0f;
+		VRP->SetScore(currentscore);
+		int currenterror = VRP->GetErrors() - 1;
+		VRP->SetErrors(currenterror);
 		CurrentStatus = LSA->GetStatus();
 	}
 	if (LSA->GetStatus() == 0)
@@ -548,6 +556,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	}
 	if (LSA->GetStatus() == 33)
 	{
+		VRP->SetisFinished(true);
 		if (!m_HasPlayed)
 		{
 

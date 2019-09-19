@@ -29,6 +29,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	UTextRenderComponent* TextComp3;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Boolean")
+	bool IsShow;
+
 	UFUNCTION()
 	void SetTextLines(FString string1, FString string2, FString string3);
 

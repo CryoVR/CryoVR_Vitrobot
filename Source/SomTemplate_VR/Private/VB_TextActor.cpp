@@ -5,6 +5,7 @@
 #include "Runtime/Engine/Classes/Components/TextRenderComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Runtime/Engine/Classes/Sound/SoundWave.h"
+#include "VirtualReality/TP_VirtualRealityPawn_Motion.h"
 #include "Components/AudioComponent.h"
 #include "VB_LevelScriptActor.h"
 #include "Kismet/GameplayStatics.h"
@@ -96,6 +97,8 @@ AVB_TextActor::AVB_TextActor()
 	SSound7->SetupAttachment(TextComp1);
 	SSound7->SetAutoActivate(false);
 	SSound7->SetSound(SoundWave7);
+
+
 }
 
 
@@ -114,13 +117,18 @@ void AVB_TextActor::ClearTextLines()
 }
 
 void AVB_TextActor::Tick(float DeltaTime)
-{
+{	
 	//UE_LOG(LogTemp, Log, TEXT("==%d=="), delay);
 	AVB_LevelScriptActor *LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+	ATP_VirtualRealityPawn_Motion *VRP = Cast<ATP_VirtualRealityPawn_Motion>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	if (CurrentStatus != LSA->GetStatus())
 	{
 		SSoundSuccess->Play();
 		m_HasPlayed = false;
+		float currentscore = VRP->GetScore()+3.0f;
+		VRP->SetScore(currentscore);
+		int currenterror = VRP->GetErrors() - 1;
+		VRP->SetErrors(currenterror);
 		CurrentStatus = LSA->GetStatus();
 	}
 	if (LSA->GetStatus() == 0)
@@ -487,7 +495,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 		SetTextLines("We have reached the last step", "Let's put the plastic tube back to storage dewar.", "The cap the dewar with its cover");
 	}
 	if (LSA->GetStatus() == 33)
-	{
+	{	
+		VRP->SetisFinished(true);
 		if (!m_HasPlayed)
 		{
 
@@ -496,64 +505,5 @@ void AVB_TextActor::Tick(float DeltaTime)
 		ClearTextLines();
 		SetTextLines("Now you have completed all the critical steps in Vitrobot training", "Thanks for experiencing our Vitrobot training module,", "Hope to see you next time!");
 	}
-	if (LSA->GetStatus() == 28)
-	{
-		if (!m_HasPlayed)
-		{
-
-			m_HasPlayed = true;
-		}
-		ClearTextLines();
-		SetTextLines("Great!", "Now drop the grid box into the conical tube.", "Note that the tube is located in the smaller liquid nitrogen dewar.");
-	}
-	if (LSA->GetStatus() == 29)
-	{
-		if (!m_HasPlayed)
-		{
-
-			m_HasPlayed = true;
-		}
-		ClearTextLines();
-		SetTextLines("There is a grid box storage dewar on your right-side ground.", "Remove the cap", "");
-	}
-	if (LSA->GetStatus() == 30)
-	{
-		if (!m_HasPlayed)
-		{
-
-			m_HasPlayed = true;
-		}
-		ClearTextLines();
-		SetTextLines("Pick up a metal tube from inside the storage dewar.", "", "");
-	}
-	if (LSA->GetStatus() == 31)
-	{
-		if (!m_HasPlayed)
-		{
-
-			m_HasPlayed = true;
-		}
-		ClearTextLines();
-		SetTextLines("Now put the plastic tube into the metal tube.", "", "");
-	}
-	if (LSA->GetStatus() == 32)
-	{
-		if (!m_HasPlayed)
-		{
-
-			m_HasPlayed = true;
-		}
-		ClearTextLines();
-		SetTextLines("Then put the metal tube back to the dewar.", "", "");
-	}
-	if (LSA->GetStatus() == 33)
-	{
-		if (!m_HasPlayed)
-		{
-
-			m_HasPlayed = true;
-		}
-		ClearTextLines();
-		SetTextLines("After finishing all steps above,", " put the cap back on the large storage dewar.", "");
-	}
+	
 }
