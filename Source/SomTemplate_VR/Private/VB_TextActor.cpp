@@ -20,6 +20,37 @@ AVB_TextActor::AVB_TextActor()
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_5(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/Step05.Step05"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_6(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/Step06.Step06"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_7(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/Step07.Step07"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_8(TEXT("/Game/Sounds/6__pick_up_ethane_tip.6__pick_up_ethane_tip"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_9(TEXT("/Game/Sounds/7__insert_in_workstation.7__insert_in_workstation"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_10(TEXT("/Game/Sounds/8_touch_small_knob.8_touch_small_knob"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_11(TEXT("/Game/Sounds/9_reset_tip.9_reset_tip"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_12(TEXT("/Game/Sounds/10__touch_miniknob_turn_off.10__touch_miniknob_turn_off"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_13(TEXT("/Game/Sounds/11__large_knob__turn_off.11__large_knob__turn_off"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_14(TEXT("/Game/Sounds/12_petri_dsih_open.12_petri_dsih_open"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_15(TEXT("/Game/Sounds/13_use_tweezer_pick_gird_up.13_use_tweezer_pick_gird_up"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_16(TEXT("/Game/Sounds/14__lid_petridish_cover.14__lid_petridish_cover"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_17(TEXT("/Game/Sounds/15__attach_tweezer_to_plunger.15__attach_tweezer_to_plunger"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_18(TEXT("/Game/Sounds/16__raise_plunger_by_screen.16__raise_plunger_by_screen"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_19(TEXT("/Game/Sounds/17_pick_up_pippete.17_pick_up_pippete"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_20(TEXT("/Game/Sounds/18_insert_in_sample_tube.18_insert_in_sample_tube"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_21(TEXT("/Game/Sounds/19__open_side_sample_port.19__open_side_sample_port"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_22(TEXT("/Game/Sounds/20_add_sample.20_add_sample"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_23(TEXT("/Game/Sounds/21_workstation_into_vitrobot.21_workstation_into_vitrobot"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_24(TEXT("/Game/Sounds/22_touch_button_rise_workstation.22_touch_button_rise_workstation"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_25(TEXT("/Game/Sounds/23_start_freezing_process.23_start_freezing_process"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_26(TEXT("/Game/Sounds/24_detach_the_tweezer.24_detach_the_tweezer"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_27(TEXT("/Game/Sounds/25__insert_grid_into_gridbox.25__insert_grid_into_gridbox"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_28(TEXT("/Game/Sounds/26__pick_up_grid_box_tweezer.26__pick_up_grid_box_tweezer"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_29(TEXT("/Game/Sounds/27_pick_up_grid_box.27_pick_up_grid_box"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_30(TEXT("/Game/Sounds/28_put_it_in_plastic_tube.28_put_it_in_plastic_tube"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_31(TEXT("/Game/Sounds/29__remove_cap_of_large_grid_storage_box.29__remove_cap_of_large_grid_storage_box"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_32(TEXT("/Game/Sounds/30_Take_out_a_large_storage_tube_from_the_dewar.30_Take_out_a_large_storage_tube_from_the_dewar"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_33(TEXT("/Game/Sounds/31_plastic_tube_into_the_metal_tube.31_plastic_tube_into_the_metal_tube"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_34(TEXT("/Game/Sounds/32_metal_tube_back_to_dewar.32_metal_tube_back_to_dewar"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_35(TEXT("/Game/Sounds/33_Remember_to_cap_the_large_storage_dewar.33_Remember_to_cap_the_large_storage_dewar"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_36(TEXT("/Game/Sounds/34_say_goodbye_.34_say_goodbye_"));
+
+
 
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -98,7 +129,179 @@ AVB_TextActor::AVB_TextActor()
 	SSound7->SetAutoActivate(false);
 	SSound7->SetSound(SoundWave7);
 
+	USoundWave* SoundWave8 = S_8.Object;
+	SSound8 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest8"));
+	SSound8->SetupAttachment(TextComp1);
+	SSound8->SetAutoActivate(false);
+	SSound8->SetSound(SoundWave8);
 
+	USoundWave* SoundWave9 = S_9.Object;
+	SSound9 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest9"));
+	SSound9->SetupAttachment(TextComp1);
+	SSound9->SetAutoActivate(false);
+	SSound9->SetSound(SoundWave9);
+
+	USoundWave* SoundWave10 = S_10.Object;
+	SSound10 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest10"));
+	SSound10->SetupAttachment(TextComp1);
+	SSound10->SetAutoActivate(false);
+	SSound10->SetSound(SoundWave10);
+
+	USoundWave* SoundWave11 = S_11.Object;
+	SSound11 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest11"));
+	SSound11->SetupAttachment(TextComp1);
+	SSound11->SetAutoActivate(false);
+	SSound11->SetSound(SoundWave11);
+
+	USoundWave* SoundWave12 = S_12.Object;
+	SSound12 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest12"));
+	SSound12->SetupAttachment(TextComp1);
+	SSound12->SetAutoActivate(false);
+	SSound12->SetSound(SoundWave12);
+
+	USoundWave* SoundWave13 = S_13.Object;
+	SSound13 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest13"));
+	SSound13->SetupAttachment(TextComp1);
+	SSound13->SetAutoActivate(false);
+	SSound13->SetSound(SoundWave13);
+
+	USoundWave* SoundWave14 = S_14.Object;
+	SSound14 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest14"));
+	SSound14->SetupAttachment(TextComp1);
+	SSound14->SetAutoActivate(false);
+	SSound14->SetSound(SoundWave14);
+
+	USoundWave* SoundWave15 = S_15.Object;
+	SSound15 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest15"));
+	SSound15->SetupAttachment(TextComp1);
+	SSound15->SetAutoActivate(false);
+	SSound15->SetSound(SoundWave15);
+
+	USoundWave* SoundWave16 = S_16.Object;
+	SSound16 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest16"));
+	SSound16->SetupAttachment(TextComp1);
+	SSound16->SetAutoActivate(false);
+	SSound16->SetSound(SoundWave16);
+
+	USoundWave* SoundWave17 = S_17.Object;
+	SSound17 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest17"));
+	SSound17->SetupAttachment(TextComp1);
+	SSound17->SetAutoActivate(false);
+	SSound17->SetSound(SoundWave17);
+
+	USoundWave* SoundWave18 = S_18.Object;
+	SSound18 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest18"));
+	SSound18->SetupAttachment(TextComp1);
+	SSound18->SetAutoActivate(false);
+	SSound18->SetSound(SoundWave18);
+
+	USoundWave* SoundWave19 = S_19.Object;
+	SSound19 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest19"));
+	SSound19->SetupAttachment(TextComp1);
+	SSound19->SetAutoActivate(false);
+	SSound19->SetSound(SoundWave19);
+
+	USoundWave* SoundWave20 = S_20.Object;
+	SSound20 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest20"));
+	SSound20->SetupAttachment(TextComp1);
+	SSound20->SetAutoActivate(false);
+	SSound20->SetSound(SoundWave20);
+
+	USoundWave* SoundWave21 = S_21.Object;
+	SSound21 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest21"));
+	SSound21->SetupAttachment(TextComp1);
+	SSound21->SetAutoActivate(false);
+	SSound21->SetSound(SoundWave21);
+
+	USoundWave* SoundWave22 = S_22.Object;
+	SSound22 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest22"));
+	SSound22->SetupAttachment(TextComp1);
+	SSound22->SetAutoActivate(false);
+	SSound22->SetSound(SoundWave22);
+
+	USoundWave* SoundWave23 = S_23.Object;
+	SSound23 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest23"));
+	SSound23->SetupAttachment(TextComp1);
+	SSound23->SetAutoActivate(false);
+	SSound23->SetSound(SoundWave23);
+
+	USoundWave* SoundWave24 = S_24.Object;
+	SSound24 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest24"));
+	SSound24->SetupAttachment(TextComp1);
+	SSound24->SetAutoActivate(false);
+	SSound24->SetSound(SoundWave24);
+
+	USoundWave* SoundWave25 = S_25.Object;
+	SSound25 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest25"));
+	SSound25->SetupAttachment(TextComp1);
+	SSound25->SetAutoActivate(false);
+	SSound25->SetSound(SoundWave25);
+
+	USoundWave* SoundWave26 = S_26.Object;
+	SSound26 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest26"));
+	SSound26->SetupAttachment(TextComp1);
+	SSound26->SetAutoActivate(false);
+	SSound26->SetSound(SoundWave26);
+
+	USoundWave* SoundWave27 = S_27.Object;
+	SSound27 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest27"));
+	SSound27->SetupAttachment(TextComp1);
+	SSound27->SetAutoActivate(false);
+	SSound27->SetSound(SoundWave27);
+
+	USoundWave* SoundWave28 = S_28.Object;
+	SSound28 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest28"));
+	SSound28->SetupAttachment(TextComp1);
+	SSound28->SetAutoActivate(false);
+	SSound28->SetSound(SoundWave28);
+
+	USoundWave* SoundWave29 = S_29.Object;
+	SSound29 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest29"));
+	SSound29->SetupAttachment(TextComp1);
+	SSound29->SetAutoActivate(false);
+	SSound29->SetSound(SoundWave29);
+
+	USoundWave* SoundWave30 = S_30.Object;
+	SSound30 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest30"));
+	SSound30->SetupAttachment(TextComp1);
+	SSound30->SetAutoActivate(false);
+	SSound30->SetSound(SoundWave30);
+
+	USoundWave* SoundWave31 = S_31.Object;
+	SSound31 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest31"));
+	SSound31->SetupAttachment(TextComp1);
+	SSound31->SetAutoActivate(false);
+	SSound31->SetSound(SoundWave31);
+
+	USoundWave* SoundWave32 = S_32.Object;
+	SSound32 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest32"));
+	SSound32->SetupAttachment(TextComp1);
+	SSound32->SetAutoActivate(false);
+	SSound32->SetSound(SoundWave32);
+
+	USoundWave* SoundWave33 = S_33.Object;
+	SSound33 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest33"));
+	SSound33->SetupAttachment(TextComp1);
+	SSound33->SetAutoActivate(false);
+	SSound33->SetSound(SoundWave33);
+
+	USoundWave* SoundWave34 = S_34.Object;
+	SSound34 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest34"));
+	SSound34->SetupAttachment(TextComp1);
+	SSound34->SetAutoActivate(false);
+	SSound34->SetSound(SoundWave34);
+
+	USoundWave* SoundWave35 = S_35.Object;
+	SSound35 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest35"));
+	SSound35->SetupAttachment(TextComp1);
+	SSound35->SetAutoActivate(false);
+	SSound35->SetSound(SoundWave35);
+
+	USoundWave* SoundWave36 = S_36.Object;
+	SSound36 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest36"));
+	SSound36->SetupAttachment(TextComp1);
+	SSound36->SetAutoActivate(false);
+	SSound36->SetSound(SoundWave36);
 }
 
 
@@ -228,7 +431,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound8->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -238,7 +442,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound9->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -248,7 +453,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound10->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -258,7 +464,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound11->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -268,7 +475,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound12->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -278,7 +486,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound13->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -288,17 +497,27 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound14->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
 		SetTextLines("Now locate the petridish", "Remove the cover of petridish.", "");
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	if (LSA->GetStatus() == 12)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound15->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -308,7 +527,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound16->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -318,7 +538,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound17->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -328,7 +549,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound18->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -338,7 +560,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound19->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -348,7 +571,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound20->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -358,7 +582,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound22->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -368,7 +593,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound23->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -378,17 +604,27 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			//SSound24->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
 		SetTextLines("And put it on the holder of vitrobot", "", "");
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	if (LSA->GetStatus() == 22)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound24->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -399,6 +635,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 		if (!m_HasPlayed)
 		{
 			 
+			SSoundSuccess->Play();
+			SSound25->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -408,7 +646,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound26->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -419,6 +658,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 		if (!m_HasPlayed)
 		{
 			 
+			SSoundSuccess->Play();
+			SSound27->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -428,7 +669,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound28->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -438,17 +680,19 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+			SSoundSuccess->Play();
+			SSound29->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Now pick up the grid box tweezer.", "Put it in the freeze dewar and wait for 5 seconds.", "Note that in the real world it may take about 30 seconds");
+		SetTextLines("Now pick up the gird box tweezer.", "Put it in the freeze dewar and wait for 5 seconds.", "Note that in the real world it may take about 30 seconds");
 	}
 	if (LSA->GetStatus() == 28)
 	{
 		if (!m_HasPlayed)
 		{
-
+			SSoundSuccess->Play();
+			SSound30->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -458,7 +702,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-
+			SSoundSuccess->Play();
+			SSound31->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -468,7 +713,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-
+			SSoundSuccess->Play();
+			SSound32->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -478,7 +724,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-
+			SSoundSuccess->Play();
+			SSound33->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -488,7 +735,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-
+			SSoundSuccess->Play();
+			SSound35->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -499,7 +747,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 		VRP->SetisFinished(true);
 		if (!m_HasPlayed)
 		{
-
+			SSoundSuccess->Play();
+			SSound36->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
