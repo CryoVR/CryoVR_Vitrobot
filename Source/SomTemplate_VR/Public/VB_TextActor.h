@@ -61,9 +61,67 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UAudioComponent* SSound6;
-
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UAudioComponent* SSound7;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound8;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound9;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound10;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound11;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound12;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound13;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound14;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound15;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound16;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound17;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound18;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound19;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound20;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound21;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound22;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound23;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound24;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound25;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound26;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound27;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound28;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound29;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound30;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound31;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound32;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound33;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound34;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound35;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound36;
+
 
 	int delay = 0;
 
