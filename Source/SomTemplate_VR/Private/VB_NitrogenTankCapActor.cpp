@@ -14,11 +14,11 @@
 AVB_NitrogenTankCapActor::AVB_NitrogenTankCapActor()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	BoxComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("BoxComp"));
-	BoxComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_NitrogenTankCapActor::OnOverlapBegin);
-	BoxComp->SetRelativeLocation(FVector(0.0f, 0.0f, 1.9f));
-	BoxComp->SetRelativeScale3D(FVector(0.08f, 0.14f, 0.09f));
+	CapsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComp"));
+	CapsuleComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	CapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_NitrogenTankCapActor::OnOverlapBegin);
+	CapsuleComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
+	CapsuleComp->SetRelativeScale3D(FVector(0.08f, 0.14f, 0.09f));
 
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_DewarCap(TEXT("StaticMesh'/Game/Models/NitrogenTankCapMesh.NitrogenTankCapMesh'"));
@@ -26,7 +26,7 @@ AVB_NitrogenTankCapActor::AVB_NitrogenTankCapActor()
 	{
 		UStaticMesh* Asset = SM_DewarCap.Object;
 		PickupMesh->SetStaticMesh(Asset);
-		BoxComp->SetupAttachment(PickupMesh);
+		CapsuleComp->SetupAttachment(PickupMesh);
 
 	}
 }

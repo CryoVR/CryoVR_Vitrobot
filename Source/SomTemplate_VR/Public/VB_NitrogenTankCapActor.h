@@ -27,7 +27,7 @@ public:
 protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UCapsuleComponent* BoxComp;
+	UCapsuleComponent* CapsuleComp;
 
 	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
 	
