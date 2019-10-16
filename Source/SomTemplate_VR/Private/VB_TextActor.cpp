@@ -38,16 +38,16 @@ AVB_TextActor::AVB_TextActor()
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_23(TEXT("/Game/Sounds/21_workstation_into_vitrobot.21_workstation_into_vitrobot"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_24(TEXT("/Game/Sounds/22_touch_button_rise_workstation.22_touch_button_rise_workstation"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_25(TEXT("/Game/Sounds/23_start_freezing_process.23_start_freezing_process"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_26(TEXT("/Game/Sounds/24_detach_the_tweezer.24_detach_the_tweezer"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_27(TEXT("/Game/Sounds/25__insert_grid_into_gridbox.25__insert_grid_into_gridbox"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_28(TEXT("/Game/Sounds/26__pick_up_grid_box_tweezer.26__pick_up_grid_box_tweezer"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_29(TEXT("/Game/Sounds/27_pick_up_grid_box.27_pick_up_grid_box"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_30(TEXT("/Game/Sounds/28_put_it_in_plastic_tube.28_put_it_in_plastic_tube"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_31(TEXT("/Game/Sounds/29__remove_cap_of_large_grid_storage_box.29__remove_cap_of_large_grid_storage_box"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_32(TEXT("/Game/Sounds/30_Take_out_a_large_storage_tube_from_the_dewar.30_Take_out_a_large_storage_tube_from_the_dewar"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_33(TEXT("/Game/Sounds/31_plastic_tube_into_the_metal_tube.31_plastic_tube_into_the_metal_tube"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_34(TEXT("/Game/Sounds/32_metal_tube_back_to_dewar.32_metal_tube_back_to_dewar"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_35(TEXT("/Game/Sounds/33_Remember_to_cap_the_large_storage_dewar.33_Remember_to_cap_the_large_storage_dewar"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_26(TEXT("/Game/Sounds/N_24.N_24"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_27(TEXT("/Game/Sounds/N_25.N_25"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_28(TEXT("/Game/Sounds/N_26.N_26"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_29(TEXT("/Game/Sounds/N_27.N_27"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_30(TEXT("/Game/Sounds/N_28.N_28"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_31(TEXT("/Game/Sounds/N_29.N_29"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_32(TEXT("/Game/Sounds/N_30.N_30"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_33(TEXT("/Game/Sounds/N_31.N_31"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_34(TEXT("/Game/Sounds/N_32.N_32"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_35(TEXT("/Game/Sounds/N_32.N_32"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_36(TEXT("/Game/Sounds/34_say_goodbye_.34_say_goodbye_"));
 
 
@@ -658,7 +658,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Okay", "Now look at the silver-colored freeze dewar on your right-hand side,", "Pull liquid nitrogen into that to freeze it");
+		SetTextLines("Okay", "Now look at the silver-colored freeze dewar on your right-hand side,", "pour liquid nitrogen into that to freeze it");
 	}
 	if (LSA->GetStatus() == 27)
 	{
@@ -669,7 +669,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Now pick up the gird box tweezer.", "Put it in the freeze dewar and wait for 5 seconds.", "Note that in the real world it may take about 30 seconds");
+		SetTextLines("Now pick up the grid box tweezer.", "Put it in the freeze dewar and wait for 5 seconds.", "Note that in the real world it may take about 30 seconds");
 	}
 	if (LSA->GetStatus() == 28)
 	{
@@ -691,7 +691,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Then put the plastic tube into the freeze dewar", "to keep it's tempreture", "");
+		SetTextLines("Then put the plastic tube into the freeze dewar", "to keep it's temprature", "");
 	}
 	if (LSA->GetStatus() == 30)
 	{
@@ -724,7 +724,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("We have reached the last step", "Let's put the plastic tube back to storage dewar.", "The cap the dewar with its cover");
+		SetTextLines("We have reached the last step", "Let's put the plastic tube back to storage dewar.", "Then cap the dewar with its cover");
 	}
 	if (LSA->GetStatus() == 33)
 	{	
