@@ -504,6 +504,14 @@ void AVB_TextActor::Tick(float DeltaTime)
 		ClearTextLines();
 		SetTextLines("Now locate the petridish", "Remove the cover of petridish.", "");
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	if (LSA->GetStatus() == 12)
 	{
 		if (!m_HasPlayed)
@@ -603,6 +611,14 @@ void AVB_TextActor::Tick(float DeltaTime)
 		ClearTextLines();
 		SetTextLines("And put it on the holder of vitrobot", "", "");
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	if (LSA->GetStatus() == 22)
 	{
 		if (!m_HasPlayed)

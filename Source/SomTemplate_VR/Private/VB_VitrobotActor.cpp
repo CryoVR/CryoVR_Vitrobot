@@ -37,8 +37,8 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_Plunger(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/PlungerSound.PlungerSound"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_Blotter(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/blotter.blotter"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_WH(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/Workstation_GD.Workstation_GD"));
-	static ConstructorHelpers::FObjectFinder<UMaterial> M_MainMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_2.Screen_Shot_2"));
-	static ConstructorHelpers::FObjectFinder<UMaterial> M_OptionMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_1.Screen_Shot_1"));
+	static ConstructorHelpers::FObjectFinder<UMaterial> M_MainMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_1.Screen_Shot_1"));
+	static ConstructorHelpers::FObjectFinder<UMaterial> M_OptionMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_2.Screen_Shot_2"));
 
 	if (SM_MainMesh.Succeeded()) {
 		meshComp->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
@@ -435,7 +435,7 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 	{
 		Blotter_Sound->Play();
 	}
-	/*if (bIsZooming == true)
+	if (bIsZooming == true)
 	{	
 		Screen->AddLocalOffset(FVector(0.0f, 0.0f, 2.0f*ZoomingDirection));
 		float TempScaleX = Screen->GetComponentScale().X;
@@ -461,5 +461,5 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 		ZoomingTime = 0;
 		bIsZooming = false;
 		ZoomingDirection = ZoomingDirection * -1;
-	}*/
+	}
 }
