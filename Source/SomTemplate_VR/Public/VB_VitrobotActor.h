@@ -37,7 +37,7 @@ public:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	UStaticMeshComponent* Plunger;
 
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UStaticMeshComponent* Screen;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
