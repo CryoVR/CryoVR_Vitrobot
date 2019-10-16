@@ -211,32 +211,12 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 	}
 	
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-	if (LSA->GetStatus() >= 10 && LSA->GetStatus() <= 19)
-	{
-		PickupMesh->SetSimulatePhysics(false);
-	}
 
 	if (m_isGrab == true)
 	{
 		if (LSA->GetStatus() == 20)
 		{
 			LSA->SetStatus(21);
-		}
-	}
-
-	if(is_OnTable == true)
-	{
-		if (LSA->GetStatus() == 36)
-		{
-			LSA->SetStatus(1);
-		}
-	}
-
-	if (is_PutBack == true)
-	{
-		if (LSA->GetStatus() == 37)
-		{
-			LSA->SetStatus(33);
 		}
 	}
 }

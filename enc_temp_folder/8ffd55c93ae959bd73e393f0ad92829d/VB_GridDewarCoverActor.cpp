@@ -41,7 +41,7 @@ void AVB_GridDewarCoverActor::OnOverlapBegin(class UPrimitiveComponent* Overlapp
 		{
 			if (LSA->GetStatus() == 32)
 			{
-				LSA->SetStatus(37);
+				LSA->SetStatus(33);
 			}
 		}
 		

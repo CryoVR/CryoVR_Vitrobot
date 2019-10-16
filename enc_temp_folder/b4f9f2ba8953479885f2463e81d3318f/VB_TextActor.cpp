@@ -738,48 +738,5 @@ void AVB_TextActor::Tick(float DeltaTime)
 		ClearTextLines();
 		SetTextLines("Now you have completed all the critical steps in Vitrobot training", "Thanks for experiencing our Vitrobot training module,", "Hope to see you next time!");
 	}
-	if (LSA->GetStatus() == 34)
-	{
-		if (!m_HasPlayed)
-		{
-			SSoundSuccess->Play();
-			SSound35->Play();
-			m_HasPlayed = true;
-		}
-		ClearTextLines();
-		SetTextLines("We have reached the last step", "Let's put the plastic tube back to storage dewar.", "Then cap the dewar with its cover");
-	}
-	if (LSA->GetStatus() == 35)
-	{
-		if (!m_HasPlayed)
-		{
-			SSoundSuccess->Play();
-			SSound35->Play();
-			m_HasPlayed = true;
-		}
-		ClearTextLines();
-		SetTextLines("We have reached the last step", "Let's put the plastic tube back to storage dewar.", "Then cap the dewar with its cover");
-	}
-	if (LSA->GetStatus() == 36)
-	{
-		if (!m_HasPlayed)
-		{
-			SSoundSuccess->Play();
-			SSound35->Play();
-			m_HasPlayed = true;
-		}
-		ClearTextLines();
-		SetTextLines("We have reached the last step", "Let's put the plastic tube back to storage dewar.", "Then cap the dewar with its cover");
-	}
-	if (LSA->GetStatus() == 37)
-	{
-		if (!m_HasPlayed)
-		{
-			SSoundSuccess->Play();
-			SSound35->Play();
-			m_HasPlayed = true;
-		}
-		ClearTextLines();
-		SetTextLines("We have reached the last step", "Let's put the plastic tube back to storage dewar.", "Then cap the dewar with its cover");
-	}
+	
 }

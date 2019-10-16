@@ -38,12 +38,8 @@ public:
 
 	/*UFUNCTION()
 		void OnTipOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);*/
-	
-	UPROPERTY(BlueprintReadWrite, Category = "Components")
-	bool is_OnTable;
-	
-	UPROPERTY(BlueprintReadWrite, Category = "Components")
-	bool is_PutBack;
+
+
 	
 	
 protected:

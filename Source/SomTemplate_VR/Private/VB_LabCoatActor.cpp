@@ -33,9 +33,9 @@ void AVB_LabCoatActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AAct
 	{
 		if (LSA != nullptr)
 		{
-			if (LSA->GetStatus() == 1)
+			if (LSA->GetStatus() == 34)
 			{
-				LSA->SetStatus(24);
+				LSA->SetStatus(35);
 			}
 		}
 		Destroy();
