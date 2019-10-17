@@ -211,7 +211,7 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 	}
 	
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-	if (LSA->GetStatus() >= 10 && LSA->GetStatus() <= 19)
+	if (LSA->GetStatus() >= 2 && LSA->GetStatus() <= 19)
 	{
 		PickupMesh->SetSimulatePhysics(false);
 	}

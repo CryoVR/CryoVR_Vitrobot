@@ -747,7 +747,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("We have reached the last step", "Let's put the plastic tube back to storage dewar.", "Then cap the dewar with its cover");
+		SetTextLines("Then we need to wear the safty coat.", "It's located on your back side", "Touch the coat to equip it.");
 	}
 	if (LSA->GetStatus() == 35)
 	{
@@ -758,7 +758,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("We have reached the last step", "Let's put the plastic tube back to storage dewar.", "Then cap the dewar with its cover");
+		SetTextLines("Now put on the goggles.", "They will also prevent you from some dangerous conditions", "Again, safety first!");
 	}
 	if (LSA->GetStatus() == 36)
 	{
@@ -769,7 +769,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("We have reached the last step", "Let's put the plastic tube back to storage dewar.", "Then cap the dewar with its cover");
+		SetTextLines("Now we need to pickup the workstation", "It is in the hood", "move it to the table for future operation");
 	}
 	if (LSA->GetStatus() == 37)
 	{
@@ -780,6 +780,6 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("We have reached the last step", "Let's put the plastic tube back to storage dewar.", "Then cap the dewar with its cover");
+		SetTextLines("Ok.", "Let's put the workstation back to the hood", "");
 	}
 }
