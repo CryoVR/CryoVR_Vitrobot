@@ -49,6 +49,11 @@ AVB_TextActor::AVB_TextActor()
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_34(TEXT("/Game/Sounds/N_32.N_32"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_35(TEXT("/Game/Sounds/N_32.N_32"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_36(TEXT("/Game/Sounds/34_say_goodbye_.34_say_goodbye_"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_37(TEXT("/Game/Sounds/Goggles.Goggles"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_38(TEXT("/Game/Sounds/Coat.Coat"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_39(TEXT("/Game/Sounds/N_39.N_39"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_40(TEXT("/Game/Sounds/N_40.N_40"));
+
 
 
 
@@ -302,6 +307,30 @@ AVB_TextActor::AVB_TextActor()
 	SSound36->SetupAttachment(TextComp1);
 	SSound36->SetAutoActivate(false);
 	SSound36->SetSound(SoundWave36);
+
+	USoundWave* SoundWave37 = S_37.Object;
+	SSound37 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest37"));
+	SSound37->SetupAttachment(TextComp1);
+	SSound37->SetAutoActivate(false);
+	SSound37->SetSound(SoundWave37);
+
+	USoundWave* SoundWave38 = S_38.Object;
+	SSound38 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest38"));
+	SSound38->SetupAttachment(TextComp1);
+	SSound38->SetAutoActivate(false);
+	SSound38->SetSound(SoundWave38);
+
+	USoundWave* SoundWave39 = S_39.Object;
+	SSound39 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest39"));
+	SSound39->SetupAttachment(TextComp1);
+	SSound39->SetAutoActivate(false);
+	SSound39->SetSound(SoundWave39);
+
+	USoundWave* SoundWave40 = S_40.Object;
+	SSound40 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest40"));
+	SSound40->SetupAttachment(TextComp1);
+	SSound40->SetAutoActivate(false);
+	SSound40->SetSound(SoundWave40);
 }
 
 
@@ -743,7 +772,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 		if (!m_HasPlayed)
 		{
 			SSoundSuccess->Play();
-			SSound35->Play();
+			SSound38->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -754,7 +783,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 		if (!m_HasPlayed)
 		{
 			SSoundSuccess->Play();
-			SSound35->Play();
+			SSound37->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -765,7 +794,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 		if (!m_HasPlayed)
 		{
 			SSoundSuccess->Play();
-			SSound35->Play();
+			SSound39->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -776,7 +805,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 		if (!m_HasPlayed)
 		{
 			SSoundSuccess->Play();
-			SSound35->Play();
+			SSound40->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();

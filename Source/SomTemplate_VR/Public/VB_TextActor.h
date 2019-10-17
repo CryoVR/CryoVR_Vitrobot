@@ -121,6 +121,14 @@ private:
 		UAudioComponent* SSound35;
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UAudioComponent* SSound36;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound37;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound38;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound39;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound40;
 
 
 	int delay = 0;
