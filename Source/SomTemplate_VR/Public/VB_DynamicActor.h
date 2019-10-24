@@ -38,7 +38,7 @@ public:
 
 	//Reset Actor to original position and state
 	UFUNCTION()
-	void ResetActorState();
+	virtual void ResetActorState();
 
 	//Indicate whether this object is picked up #default, false
 	bool m_isGrab;
