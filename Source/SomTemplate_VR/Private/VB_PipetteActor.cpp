@@ -73,7 +73,7 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 			{
 				if (LSA->GetStatus() == 17)
 				{
-					LSA->SetStatus(19);
+					LSA->SetStatus(18);
 				}
 			}
 		}

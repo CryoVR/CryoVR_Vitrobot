@@ -68,6 +68,11 @@ void AVB_NitrogenTankCapActor::Tick(float DeltaTime)
 }
 
 
+void AVB_NitrogenTankCapActor::ResetActorState() {
+	SetActorTransform(m_OriginalTransform);
+	PickupMesh->SetSimulatePhysics(true);
+}
+
 
 
 

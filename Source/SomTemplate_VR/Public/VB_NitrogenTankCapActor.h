@@ -24,6 +24,8 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
+	virtual void ResetActorState() override;
+
 protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
