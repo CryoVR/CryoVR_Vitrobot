@@ -21,7 +21,7 @@ AVB_CleanPetridishCoverActor::AVB_CleanPetridishCoverActor()
 	}
 
 	PickupMesh->SetSimulatePhysics(true);
-	PickupMesh->SetGenerateOverlapEvents(false);
+	PickupMesh->SetGenerateOverlapEvents(true);
 
 	covercollisionComp = CreateDefaultSubobject<UBoxComponent>(TEXT("boxComp"));
 	covercollisionComp->SetupAttachment(PickupMesh);
