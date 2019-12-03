@@ -28,7 +28,6 @@ void AVB_CleanDewarActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, A
 {
 	AVB_CleanTableCompActor* CleanTableCompActor = Cast<AVB_CleanTableCompActor>(OtherActor);
 	if (CleanTableCompActor != nullptr) {
-		bISCleanDewarOnTable = true;
-		UE_LOG(LogTemp, Log, TEXT("=======================DewarONTable!!!!!!!!!==========================="));
+		bIsOnTable = true;
 	}
 }

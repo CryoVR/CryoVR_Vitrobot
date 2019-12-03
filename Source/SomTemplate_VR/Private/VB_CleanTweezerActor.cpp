@@ -27,7 +27,7 @@ void AVB_CleanTweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp,
 {
 	AVB_CleanTableCompActor* CleanTableCompActor = Cast<AVB_CleanTableCompActor>(OtherActor);
 	if (CleanTableCompActor != nullptr) {
-		bISCleanTweezerOnTable = true;
-		UE_LOG(LogTemp, Log, TEXT("=======================SmallTweezerONTable!!!!!!!!!==========================="));
+		bIsOnTable = true;
+		
 	}
 }

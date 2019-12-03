@@ -28,7 +28,7 @@ void AVB_CleanPipetteActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp,
 {
 	AVB_CleanTableCompActor* CleanTableCompActor = Cast<AVB_CleanTableCompActor>(OtherActor);
 	if (CleanTableCompActor != nullptr) {
-		bISCleanPipetteOnTable = true;
-		UE_LOG(LogTemp, Log, TEXT("=======================PipetteONTable!!!!!!!!!==========================="));
+		bIsOnTable = true;
+		
 	}
 }

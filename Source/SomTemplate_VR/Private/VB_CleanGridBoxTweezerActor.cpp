@@ -16,7 +16,7 @@
 
 AVB_CleanGridBoxTweezerActor::AVB_CleanGridBoxTweezerActor()
 {
-	bISCleanGridBoxTweezerOnTable = false;
+	bIsOnTable = false;
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_CleanGridTweezer(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Tweezer.Tweezer'"));
 	if (SM_CleanGridTweezer.Succeeded()) {
@@ -31,7 +31,6 @@ void AVB_CleanGridBoxTweezerActor::OnOverlapBegin(UPrimitiveComponent * Overlapp
 {
 	AVB_CleanTableCompActor* CleanTableCompActor = Cast<AVB_CleanTableCompActor>(OtherActor);
 	if (CleanTableCompActor != nullptr) {
-		bISCleanGridBoxTweezerOnTable = true;
-		UE_LOG(LogTemp, Log, TEXT("=======================GridBoxTweezerONTable!!!!!!!!!==========================="));
+		bIsOnTable = true;
 	}
 }

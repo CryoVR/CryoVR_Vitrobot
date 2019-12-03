@@ -13,7 +13,7 @@
 
 AVB_CleanFreezingDewarActor::AVB_CleanFreezingDewarActor()
 {
-	bISCleanFDewarOnTable = false;
+	bIsOnTable = false;
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_CleanFDewar(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/FreezeDewar.FreezeDewar'"));
 	if (SM_CleanFDewar.Succeeded()) {
@@ -27,7 +27,6 @@ void AVB_CleanFreezingDewarActor::OnOverlapBegin(UPrimitiveComponent * Overlappe
 {
 	AVB_CleanTableCompActor* CleanTableCompActor = Cast<AVB_CleanTableCompActor>(OtherActor);
 	if (CleanTableCompActor != nullptr) {
-		bISCleanFDewarOnTable = true;
-		UE_LOG(LogTemp, Log, TEXT("=======================FDewarONTable!!!!!!!!!==========================="));
+		bIsOnTable = true;
 	}
 }

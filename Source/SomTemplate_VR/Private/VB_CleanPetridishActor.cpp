@@ -11,7 +11,7 @@
 AVB_CleanPetridishActor::AVB_CleanPetridishActor()
 {
 
-	bISCleanPetridishOnTable = false;
+	bIsOnTable = false;
 
 	boxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("PetridishComp"));
 	boxComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
@@ -33,7 +33,6 @@ void AVB_CleanPetridishActor::OnOverlapBegin(UPrimitiveComponent * OverlappedCom
 {
 	AVB_CleanTableCompActor* CleanTableCompActor = Cast<AVB_CleanTableCompActor>(OtherActor);
 	if (CleanTableCompActor != nullptr) {
-		bISCleanPetridishOnTable = true;
-		UE_LOG(LogTemp, Log, TEXT("=======================PetridishONTable!!!!!!!!!==========================="));
+		bIsOnTable = true;
 	}
 }

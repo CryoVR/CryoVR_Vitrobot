@@ -14,7 +14,7 @@
 
 AVB_CleanLabGoggleActor::AVB_CleanLabGoggleActor()
 {
-	bISGoggleOnTable = false;
+	bIsOnTable = false;
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Goggle(TEXT("StaticMesh'/Game/Test_Geometry/glass.glass'"));
 	if (SM_Goggle.Succeeded())
@@ -37,7 +37,6 @@ void AVB_CleanLabGoggleActor::OnOverlapBegin(UPrimitiveComponent * OverlappedCom
 {
 	AVB_CleanTableCompActor* CleanTableCompActor = Cast<AVB_CleanTableCompActor>(OtherActor);
 	if (CleanTableCompActor != nullptr) {
-		bISGoggleOnTable = true;
-		UE_LOG(LogTemp, Log, TEXT("=======================GoggleONTable!!!!!!!!!==========================="));
+		bIsOnTable = true;
 	}
 }
