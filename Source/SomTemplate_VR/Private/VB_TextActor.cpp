@@ -811,15 +811,4 @@ void AVB_TextActor::Tick(float DeltaTime)
 		ClearTextLines();
 		SetTextLines("Ok.", "Let's put the workstation back to the hood", "");
 	}
-	if (LSA->GetStatus() == 38)
-	{
-		if (!m_HasPlayed)
-		{
-			SSoundSuccess->Play();
-			SSound40->Play();
-			m_HasPlayed = true;
-		}
-		ClearTextLines();
-		SetTextLines("Now we need to put all the devices back to the cart.", "Keep the lab environment clean!", "");
-	}
 }
