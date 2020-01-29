@@ -81,7 +81,6 @@ void AVB_DewarActor::OnHandOverlapBegin(UPrimitiveComponent * OverlappedComp, AA
 {
 	if (Cast<ATP_MotionController>(OtherActor)) {
 		UpdateHandGuestureFunc(true, FName("Dewar_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {3.0f, 0.0f}, Cast<ATP_MotionController>(OtherActor));
-		
 	}
 }
 
