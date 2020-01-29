@@ -663,10 +663,10 @@ void ATP_MotionController::OnComponentBeginOverlap(UPrimitiveComponent* Overlapp
 	if (Cast<AVB_GloveActor>(OtherActor) != nullptr)
 	{
 		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-		if (LSA->GetStatus() == 0)
-		{
-			LSA->SetStatus(34);
-		}
+		//if (LSA->GetStatus() == 0)
+		//{
+		//	LSA->SetStatus(34);
+		//}
 	}
 }
 
