@@ -14,6 +14,7 @@
 #include "VB_GridBoxTweezerActor.h"
 #include "VB_VitrobotActor.h"
 #include "VB_LevelScriptActor.h"
+#include "VirtualReality/TP_MotionController.h"
 
 AVB_GloveActor::AVB_GloveActor()
 {
@@ -31,13 +32,13 @@ void AVB_GloveActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	if (Cast<ATP_MotionController>(OtherActor) != nullptr)
 	{
-		//if (LSA != nullptr)
-		//{
-		//	if (LSA->GetStatus() == 0)
-		//	{
-		//		LSA->SetStatus(24);
-		//	}
-		//}
+		if (LSA != nullptr)
+		{
+			if (LSA->GetStatus() == 0)
+			{
+				LSA->SetStatus(34);
+			}
+		}
 		Destroy();
 	}
 }

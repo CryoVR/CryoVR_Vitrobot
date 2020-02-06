@@ -18,7 +18,7 @@ public:
 	// Sets default values for this actor's properties
 	AVB_StaticActor();
 	
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	UStaticMeshComponent* meshComp;
 
 protected:

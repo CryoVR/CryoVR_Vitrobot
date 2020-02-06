@@ -23,10 +23,10 @@ public:
 		int GetStatus();
 	UPROPERTY(EditAnywhere)
 		AActor* ACT;
+	UPROPERTY(BlueprintReadWrite)
+		int Status;
 
 
-private:
-	int Status;
 
 protected:
 	virtual void BeginPlay() override;
