@@ -21,6 +21,15 @@ AVB_CleanDewarActor::AVB_CleanDewarActor()
 		PickupMesh->SetStaticMesh(Asset);
 
 	}
+
+	HandcapsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("DewarCapsuleComp"));
+	HandcapsuleComp->SetGenerateOverlapEvents(true);
+	HandcapsuleComp->SetGenerateOverlapEvents(ECollisionEnabled::QueryOnly);
+	HandcapsuleComp->SetCapsuleSize(2.5f, 10.0f);
+	HandcapsuleComp->SetRelativeLocation(FVector(-10.0f, 0.0f, 20.0f));
+	HandcapsuleComp->SetupAttachment(PickupMesh);
+	HandcapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_CleanDewarActor::OnHandOverlapBegin);
+
 	PickupMesh->OnComponentBeginOverlap.AddDynamic(this, &AVB_CleanDewarActor::OnOverlapBegin);
 }
 
@@ -29,5 +38,13 @@ void AVB_CleanDewarActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, A
 	AVB_CleanTableCompActor* CleanTableCompActor = Cast<AVB_CleanTableCompActor>(OtherActor);
 	if (CleanTableCompActor != nullptr) {
 		bIsOnTable = true;
+	}
+}
+
+void AVB_CleanDewarActor::OnHandOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	if (Cast<ATP_MotionController>(OtherActor)) {
+		UE_LOG(LogTemp, Log, TEXT("=======================clean_GESTURE!!!!!!==========================="));
+		UpdateHandGuestureFunc(true, FName("Dewar_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {3.0f, 0.0f}, Cast<ATP_MotionController>(OtherActor));
 	}
 }

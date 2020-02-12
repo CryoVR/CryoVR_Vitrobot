@@ -9,6 +9,9 @@
 /**
  * 
  */
+
+class UCapsuleComponent;
+
 UCLASS()
 class SOMTEMPLATE_VR_API AVB_CleanPipetteActor : public AVB_DynamicActor
 {
@@ -22,5 +25,11 @@ public:
 
 	UFUNCTION()
 		void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+		void OnPipetHandOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	
+protected:
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UCapsuleComponent* HandcapsuleComp;
 };

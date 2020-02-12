@@ -9,6 +9,8 @@
 /**
  * 
  */
+
+class UCapsuleComponent;
 UCLASS()
 class SOMTEMPLATE_VR_API AVB_CleanTweezerActor : public AVB_DynamicActor
 {
@@ -22,4 +24,12 @@ public:
 
 	UFUNCTION()
 		void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+		void OnTweezerBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+protected:
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UCapsuleComponent* tweezerMainCapsuleComp;
+
 };

@@ -28,6 +28,7 @@ AVB_CleanPetridishCoverActor::AVB_CleanPetridishCoverActor()
 	covercollisionComp->SetBoxExtent(FVector(4.5f, 4.5f, 1.0f));
 	covercollisionComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.5f));
 	covercollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_CleanPetridishCoverActor::OnOverlapBegin);
+	covercollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_CleanPetridishCoverActor::OnHandOverlapBegin);
 
 }
 
@@ -39,5 +40,12 @@ void AVB_CleanPetridishCoverActor::OnOverlapBegin(UPrimitiveComponent * Overlapp
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
 		PickupMesh->SetSimulatePhysics(false);
 		GetRootComponent()->AttachToComponent(OtherActor->GetRootComponent(), AttachRules, FName("UpperCoverSocket"));
+	}
+}
+
+void AVB_CleanPetridishCoverActor::OnHandOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	if (Cast<ATP_MotionController>(OtherActor)) {
+		UpdateHandGuestureFunc(true, FName("Petridish_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.3f, 1.0f}, Cast<ATP_MotionController>(OtherActor));
 	}
 }

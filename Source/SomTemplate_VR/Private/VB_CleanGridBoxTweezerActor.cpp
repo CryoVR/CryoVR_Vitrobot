@@ -25,6 +25,14 @@ AVB_CleanGridBoxTweezerActor::AVB_CleanGridBoxTweezerActor()
 	PickupMesh->SetRelativeScale3D(FVector(2.0f, 2.0f, 2.0f));
 	PickupMesh->OnComponentBeginOverlap.AddDynamic(this, &AVB_CleanGridBoxTweezerActor::OnOverlapBegin);
 
+
+	tweezerMainCapsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("MainComp"));
+	tweezerMainCapsuleComp->SetGenerateOverlapEvents(true);
+	tweezerMainCapsuleComp->SetGenerateOverlapEvents(ECollisionEnabled::QueryOnly);
+	tweezerMainCapsuleComp->SetCapsuleSize(0.4f, 5.7f);
+	tweezerMainCapsuleComp->SetRelativeLocation(FVector(0.0f, 0.0f, -5.19f));
+	tweezerMainCapsuleComp->SetupAttachment(PickupMesh);
+	tweezerMainCapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_CleanGridBoxTweezerActor::OnPointerOverlapBegin);
 }
 
 void AVB_CleanGridBoxTweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
@@ -32,5 +40,13 @@ void AVB_CleanGridBoxTweezerActor::OnOverlapBegin(UPrimitiveComponent * Overlapp
 	AVB_CleanTableCompActor* CleanTableCompActor = Cast<AVB_CleanTableCompActor>(OtherActor);
 	if (CleanTableCompActor != nullptr) {
 		bIsOnTable = true;
+	}
+}
+
+void AVB_CleanGridBoxTweezerActor::OnPointerOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	if (Cast<ATP_MotionController>(OtherActor))
+	{
+		UpdateHandGuestureFunc(true, FName("GridBoxTweezer_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.0f, 0.5f}, Cast<ATP_MotionController>(OtherActor));
 	}
 }
