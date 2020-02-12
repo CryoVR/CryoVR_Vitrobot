@@ -24,7 +24,7 @@ public:
 	UPROPERTY(EditAnywhere)
 		AActor* ACT;
 	UPROPERTY(BlueprintReadWrite)
-		int Status;
+		int Status = 40;
 
 
 

@@ -353,7 +353,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	//UE_LOG(LogTemp, Log, TEXT("==%d=="), delay);
 	AVB_LevelScriptActor *LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	ATP_VirtualRealityPawn_Motion *VRP = Cast<ATP_VirtualRealityPawn_Motion>(GetWorld()->GetFirstPlayerController()->GetPawn());
-	if (CurrentStatus != LSA->GetStatus())
+	if (CurrentStatus != LSA->GetStatus() && LSA != nullptr)
 	{
 		SSoundSuccess->Play();
 		m_HasPlayed = false;
