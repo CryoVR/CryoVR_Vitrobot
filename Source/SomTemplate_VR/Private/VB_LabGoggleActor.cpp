@@ -34,13 +34,10 @@ void AVB_LabGoggleActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AA
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	if (Cast<ATP_VirtualRealityPawn_Motion>(OtherActor) != nullptr)
 	{
-		if (LSA != nullptr)
-		{
-			if (LSA->GetStatus() == 35)
-			{
-				LSA->SetStatus(36);
-			}
-		}
-		Destroy();
+		Is_Weard = true;
+
+		PickupMesh->SetVisibility(false);
+		PickupMesh->SetGenerateOverlapEvents(false);
+		BoxComp->SetGenerateOverlapEvents(false);
 	}
 }

@@ -32,4 +32,7 @@ public:
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UCapsuleComponent* HandcapsuleComp;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UStaticMeshComponent* CapComp;
 };

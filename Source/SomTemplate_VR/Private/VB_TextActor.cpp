@@ -86,6 +86,9 @@ AVB_TextActor::AVB_TextActor()
 	TextComp3->SetWorldSize(5);
 	TextComp3->SetTextRenderColor(FColor::Black);
 
+	WhiteBoard = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("White"));
+	BlackBoard = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Black"));
+
 	USoundWave* SoundWaveSuccess = S_Success.Object;
 	SSoundSuccess = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTestSuccess"));
 	SSoundSuccess->SetupAttachment(TextComp1);

@@ -15,6 +15,7 @@
 AVB_CleanDewarActor::AVB_CleanDewarActor()
 {
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Dewar(TEXT("StaticMesh'/Game/Models/DewarMesh.DewarMesh'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Cap(TEXT("StaticMesh'/Game/Models/NitrogenTankCapMesh.NitrogenTankCapMesh'"));
 	if (SM_Dewar.Succeeded())
 	{
 		UStaticMesh* Asset = SM_Dewar.Object;
@@ -22,6 +23,13 @@ AVB_CleanDewarActor::AVB_CleanDewarActor()
 
 	}
 
+	if (SM_Cap.Succeeded())
+	{	
+		CapComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Cap"));
+		UStaticMesh* Asset1 = SM_Cap.Object;
+		CapComp->SetStaticMesh(Asset1);
+		CapComp->SetupAttachment(PickupMesh);
+	}
 	HandcapsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("DewarCapsuleComp"));
 	HandcapsuleComp->SetGenerateOverlapEvents(true);
 	HandcapsuleComp->SetGenerateOverlapEvents(ECollisionEnabled::QueryOnly);

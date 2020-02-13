@@ -42,6 +42,12 @@ public:
 
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UStaticMeshComponent* WhiteBoard;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UStaticMeshComponent* BlackBoard;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UAudioComponent* SSoundSuccess;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")

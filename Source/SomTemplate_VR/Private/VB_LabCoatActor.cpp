@@ -31,13 +31,10 @@ void AVB_LabCoatActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AAct
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	if (Cast<ATP_MotionController>(OtherActor) != nullptr)
 	{
-		if (LSA != nullptr)
-		{
-			if (LSA->GetStatus() == 34)
-			{
-				LSA->SetStatus(35);
-			}
-		}
-		Destroy();
+		Is_Weard_Coat = true;
+
+		meshComp->SetVisibility(false);
+		meshComp->SetGenerateOverlapEvents(false);
+		shapeComp->SetGenerateOverlapEvents(false);
 	}
 }

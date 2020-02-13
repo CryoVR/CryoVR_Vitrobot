@@ -48,14 +48,8 @@ void AVB_CleanDewarCapActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp
 	{
 		FName DewarSocket = "CapSocket";
 		PickupMesh->SetSimulatePhysics(false);
-		FAttachmentTransformRules AttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, true);
+		FAttachmentTransformRules AttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, true);
 		GetRootComponent()->AttachToComponent(OtherActor->GetRootComponent(), AttachmentTransformRules, DewarSocket);
-	}
-
-	if (Cast<ATP_MotionController>(OtherActor)) {
-		UpdateHandGuestureFunc(true, FName("TankCap_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.33f, 0.8f}, Cast<ATP_MotionController>(OtherActor));
-
-
 	}
 }
 
