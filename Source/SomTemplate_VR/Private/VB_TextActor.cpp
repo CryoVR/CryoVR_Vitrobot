@@ -11,7 +11,7 @@
 #include "Kismet/GameplayStatics.h"
 
 AVB_TextActor::AVB_TextActor()
-{	
+{
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_Success(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/FinishTask.FinishTask"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_1(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/Step01.Step01"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_2(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/Step02.Step02"));
@@ -68,6 +68,13 @@ AVB_TextActor::AVB_TextActor()
 	TextComp1->SetWorldSize(5);
 	TextComp1->SetTextRenderColor(FColor::Black);
 
+	WhiteBoard = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Whiteboard"));
+	WhiteBoard->SetupAttachment(TextComp1);
+
+	BlackBoard = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Blackboard"));
+	BlackBoard->SetupAttachment(TextComp1);
+
+
 	TextComp2 = CreateDefaultSubobject<UTextRenderComponent>(TEXT("TextLine2"));
 	TextComp2->SetupAttachment(TextComp1);
 	TextComp2->SetRelativeLocation(FVector(0.0f, 0.0f, 2.0f));
@@ -85,9 +92,6 @@ AVB_TextActor::AVB_TextActor()
 	TextComp3->SetRelativeScale3D(FVector(0.8f));
 	TextComp3->SetWorldSize(5);
 	TextComp3->SetTextRenderColor(FColor::Black);
-
-	WhiteBoard = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("White"));
-	BlackBoard = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Black"));
 
 	USoundWave* SoundWaveSuccess = S_Success.Object;
 	SSoundSuccess = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTestSuccess"));
@@ -352,7 +356,7 @@ void AVB_TextActor::ClearTextLines()
 }
 
 void AVB_TextActor::Tick(float DeltaTime)
-{	
+{
 	//UE_LOG(LogTemp, Log, TEXT("==%d=="), delay);
 	AVB_LevelScriptActor *LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	ATP_VirtualRealityPawn_Motion *VRP = Cast<ATP_VirtualRealityPawn_Motion>(GetWorld()->GetFirstPlayerController()->GetPawn());
@@ -360,7 +364,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		SSoundSuccess->Play();
 		m_HasPlayed = false;
-		float currentscore = VRP->GetScore()+3.0f;
+		float currentscore = VRP->GetScore() + 3.0f;
 		VRP->SetScore(currentscore);
 		int currenterror = VRP->GetErrors() - 1;
 		VRP->SetErrors(currenterror);
@@ -384,7 +388,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = false;
 			delay++;
 		}
-		else if(delay > 1000)
+		else if (delay > 1000)
 		{
 			ClearTextLines();
 			SetTextLines("At the beginning,", "you need to put on the gloves.", "Safety first!");
@@ -404,18 +408,18 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Now you need to pick up the dewar.", "It is located on your right hand side.", "");
+		SetTextLines("Now pick up the dewar.", "", "");
 	}
 	if (LSA->GetStatus() == 2)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+
 			SSound4->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Before pouring liquid nitrogen,", "you need to remove the cap.", "");
+		SetTextLines("Uncap the liquid nitrogen dewar", "", "");
 	}
 	if (LSA->GetStatus() == 3)
 	{
@@ -426,16 +430,16 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Pour liquid nitrogen into workstation.", "After adding nitrogen, lid the cap of dewar.", "");
+		SetTextLines("Then, pour liquid nitrogen into workstation.", "After adding nitrogen, recap the dewar.", "");
 	}
 
 	if (LSA->GetStatus() == 4)
 	{
-			 
+
 		if (delay < 2000)
 		{
 			ClearTextLines();
-			SetTextLines("Now the workstation is cold enough.", "And then add the ethane to the workstation.", "You will see the green ethane tank on the left.");
+			SetTextLines("Now the workstation is cooled down.", "It's time to add ethane to the workstation.", "The green ethane tank is on the left.");
 			delay++;
 			if (!m_HasPlayed)
 			{
@@ -443,7 +447,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 				m_HasPlayed = true;
 			}
 		}
-		else if (delay == 2000) 
+		else if (delay == 2000)
 		{
 			m_HasPlayed = false;
 			delay++;
@@ -451,7 +455,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 		else
 		{
 			ClearTextLines();
-			SetTextLines("There are two knobs used to dispense the ethane.", "First, rotate the knob counter-clockwise on the right.", "");
+			SetTextLines("There are two knobs used to dispense the ethane.", "First, rotate the large knob counter-clockwise.", "");
 			if (!m_HasPlayed)
 			{
 				//SSound7->Play();  Logic error here, update it later
@@ -479,7 +483,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Then insert ethane tip into the workstation.", "", "");
+		SetTextLines("Place the ethane dispensing tip into the center cup of workstation.", "", "");
 	}
 	if (LSA->GetStatus() == 7)
 	{
@@ -490,7 +494,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Locate the mini knob on the back", "of the tank.", "Touch the mini knob to turn on.");
+		SetTextLines("Now, turn the small knob located on", "the backside of the tank to start dispensing.", "Ethane is flammable - be careful!");
 	}
 	if (LSA->GetStatus() == 8)
 	{
@@ -501,7 +505,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Keep filling until the ethane cup is", "100% full!", "Then reset tip to the ethane tank.");
+		SetTextLines("Keep filling until the ethane cup is", "100% full!", "Then, put the ethane dispensing tip back.");
 	}
 	if (LSA->GetStatus() == 9)
 	{
@@ -512,7 +516,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Touch the mini knob to turn off.", "", "");
+		SetTextLines("Turn the small knob on the", "ethane tank to stop dispensing.", "");
 	}
 	if (LSA->GetStatus() == 10)
 	{
@@ -523,7 +527,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Rotate the big knob clock-wisely.", "", "");
+		SetTextLines("Now turn off the ethan tank completely ", "by turning the big knob clockwise.", "");
 	}
 	if (LSA->GetStatus() == 11)
 	{
@@ -534,7 +538,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Now locate the petridish", "Remove the cover of petridish.", "");
+		SetTextLines("Now, locate the petridish on the desk", " and remove the cover.", "");
 	}
 	if (LSA->GetStatus() == 12)
 	{
@@ -545,7 +549,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("You can see the grid", "Locate the tweezer,", "and grab it");
+		SetTextLines("You can see the grid in the petri dish!", "Grab the tweezers", "on the desk.");
 	}
 	if (LSA->GetStatus() == 13)
 	{
@@ -556,7 +560,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Now use the tweezer to pick the grid up", "After you get the grid.", "Don't forget to lid the petridish!");
+		SetTextLines("Pick up the grid with the", "tweezers, and", "don't forget to cover the petri dish!");
 	}
 	if (LSA->GetStatus() == 14)
 	{
@@ -567,7 +571,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Now attach the tweezer to the plunger", "", "");
+		SetTextLines("Attach the tweezers to the plunger", "", "");
 	}
 	if (LSA->GetStatus() == 15)
 	{
@@ -578,7 +582,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Touch the point on the screen", "to rise the plunger.", "");
+		SetTextLines("Use the stylus to press the button that says ", " 'START PROCEDURE' on the Vitrobot screen", "to raise the plunger.");
 	}
 	if (LSA->GetStatus() == 16)
 	{
@@ -589,7 +593,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Right now locate the pipette", "and pick it up", "");
+		SetTextLines("Now, pick up your pipette!", "", "");
 	}
 	if (LSA->GetStatus() == 17)
 	{
@@ -600,8 +604,21 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Insert pipette into the sample tube", "Then you can see the tip attached", "");
+		SetTextLines("Use the pipette to pick up your", "sample from the ", "yellow tube rack on the left.");
 	}
+
+	if (LSA->GetStatus() == 19)
+	{
+		if (!m_HasPlayed)
+		{
+			SSoundSuccess->Play();
+			SSound21->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Open the side port on the", "right side of the Vitrobot", "");
+	}
+
 	if (LSA->GetStatus() == 19)
 	{
 		if (!m_HasPlayed)
@@ -611,7 +628,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Use the pipette to touch the grid", "at the bottom of tweezer", "through the side hole of virtrobot.");
+		SetTextLines("Use the pipette to touch the grid", "at the bottom of tweezers", "through the side port.");
 	}
 	if (LSA->GetStatus() == 20)
 	{
@@ -622,7 +639,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Now grab the workstation", "", "");
+		SetTextLines("Grab the workstation", "", "");
 	}
 	if (LSA->GetStatus() == 21)
 	{
@@ -633,7 +650,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("And put it on the holder of vitrobot", "", "");
+		SetTextLines("and put it on the workstation platform.", "", "");
 	}
 	if (LSA->GetStatus() == 22)
 	{
@@ -644,20 +661,20 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Press the button to rise the workstation.", "", "");
+		SetTextLines("Use the stylus to press 'CONTINUE'", "on the Vitrobot screen", "to start blotting and plunging!");
 	}
-	if (LSA->GetStatus() == 23)
-	{
-		if (!m_HasPlayed)
-		{
-			 
-			SSoundSuccess->Play();
-			SSound25->Play();
-			m_HasPlayed = true;
-		}
-		ClearTextLines();
-		SetTextLines("Press the button for the operation", "", "");
-	}
+	//if (LSA->GetStatus() == 23)
+	//{
+	//	if (!m_HasPlayed)
+	//	{
+	//		 
+	//		SSoundSuccess->Play();
+	//		SSound25->Play();
+	//		m_HasPlayed = true;
+	//	}
+	//	ClearTextLines();
+	//	SetTextLines("Press the button for the operation", "", "");
+	//}
 	if (LSA->GetStatus() == 24)
 	{
 		if (!m_HasPlayed)
@@ -673,13 +690,13 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			 
+
 			SSoundSuccess->Play();
 			SSound27->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Now insert the grid into the grid box.", "", "");
+		SetTextLines("Carefully insert the grid into the blue grid box", "that's already in the workstation.", "");
 	}
 	if (LSA->GetStatus() == 26)
 	{
@@ -690,7 +707,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Okay", "Now look at the silver-colored freeze dewar on your right-hand side,", "pour liquid nitrogen into that to freeze it");
+		SetTextLines("Okay,", "fill the temporary storage dewar with", "with liquid nitrogen to cool it down.");
 	}
 	if (LSA->GetStatus() == 27)
 	{
@@ -701,7 +718,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Now pick up the grid box tweezer.", "Put it in the freeze dewar and wait for 5 seconds.", "Note that in the real world it may take about 30 seconds");
+		SetTextLines("Pick up the large grid box tweezers", "and put them in the temporary storage dewar for cooldown.", "");
 	}
 	if (LSA->GetStatus() == 28)
 	{
@@ -712,7 +729,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Great!", "Now we can pick up the plastic tube in the storage dewar", "The storage dewar is located on the ground.");
+		SetTextLines("Great! Now let's use the large liquid nitrogen storage dewar on the floor to your right.", "Uncap it and take out the plastic tube.", "The tube is used for storing grid boxes!");
 	}
 	if (LSA->GetStatus() == 29)
 	{
@@ -723,7 +740,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Then put the plastic tube into the freeze dewar", "to keep it's temprature", "");
+		SetTextLines("Quickly transfer the plastic tube into", "the temporary storage dewar.", "");
 	}
 	if (LSA->GetStatus() == 30)
 	{
@@ -734,7 +751,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Let's pick up the grid box by using the grid box tweezer", "The grid box is located in the workstation.", "");
+		SetTextLines("Pick up your grid box from the workstation", "using the large, cooled down tweezers.", "");
 	}
 	if (LSA->GetStatus() == 31)
 	{
@@ -745,7 +762,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Now we can put the grid box into the plastic tube", "", "");
+		SetTextLines("and quickly put it into the plastic tube ", "that's in the temporary storage dewar", "");
 	}
 	if (LSA->GetStatus() == 32)
 	{
@@ -756,10 +773,10 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("We have reached the last step", "Let's put the plastic tube back to storage dewar.", "Then cap the dewar with its cover");
+		SetTextLines("We have reached the last step!", "Put the plastic tube back into the large storage dewar", "and recap it!");
 	}
 	if (LSA->GetStatus() == 33)
-	{	
+	{
 		VRP->SetisFinished(true);
 		if (!m_HasPlayed)
 		{
@@ -768,7 +785,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Now you have completed all the critical steps in Vitrobot training", "Thanks for experiencing our Vitrobot training module,", "Hope to see you next time!");
+		SetTextLines("Thank you for finishing the Vitrobot training!", "", "Keep practicing!");
 	}
 	if (LSA->GetStatus() == 34)
 	{
@@ -801,7 +818,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Now we need to pickup the workstation", "It is in the hood", "move it to the table for future operation");
+		SetTextLines("Pick up the workstation", "which is in the hood", "and put it on your desk!");
 	}
 	if (LSA->GetStatus() == 37)
 	{
@@ -812,6 +829,6 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Ok.", "Let's put the workstation back to the hood", "");
+		SetTextLines("Ok.", "Put the workstation back into the hood", "");
 	}
 }

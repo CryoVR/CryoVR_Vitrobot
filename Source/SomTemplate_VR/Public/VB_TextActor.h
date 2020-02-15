@@ -51,7 +51,7 @@ private:
 		UAudioComponent* SSoundSuccess;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UAudioComponent* SSound1;
+		UAudioComponent* SSound1;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UAudioComponent* SSound2;
