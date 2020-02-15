@@ -18,20 +18,20 @@ class SOMTEMPLATE_VR_API AVB_AirTankActor : public AVB_StaticActor
 {
 	GENERATED_BODY()
 
-protected:
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
+public:
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 		UStaticMeshComponent* firstKnob;
 
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 		UStaticMeshComponent* secondKnob;
 
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 		UStaticMeshComponent* firstPointer;
 
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 		UStaticMeshComponent* secondPointer;
 
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 		UCapsuleComponent* secondKnobCollisionComp;
 
 public:

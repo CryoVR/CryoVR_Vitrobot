@@ -403,7 +403,7 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 		InnerHolder_RightU->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.33f));
 		InnerHolder_RightD->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.083f));
 	}
-	else if (Counter == 100)
+	else if (Counter == 1200)
 	{
 		PlungerSound->Play();
 	}
