@@ -25,7 +25,7 @@ public:
 
 
 protected:
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 		UStaticMeshComponent* petridish_grid;
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")

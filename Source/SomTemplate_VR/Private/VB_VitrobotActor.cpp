@@ -321,7 +321,7 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-	//UE_LOG(LogTemp, Log, TEXT("==%f=="), WorkstationHolder->GetComponentLocation().Z);
+	UE_LOG(LogTemp, Log, TEXT("==%d=="), Counter);
 	float PlungerPosition = Plunger->GetComponentLocation().Z;
 	if(PlungerPosition > 209.0f)
 	{
@@ -345,6 +345,7 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 				if (LSA->GetStatus() == 22)
 				{
 					LSA->SetStatus(23);
+					m_IsMachineOn = true;
 				}
 			}
 		}
@@ -368,25 +369,7 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 		Holder_Sound->Stop();
 	}
 
-	/*if (bIsDoorOn) {
-		if (Door->GetComponentRotation().Yaw < -0.5f) 
-		{
-			bIsDoorGoingOpen = true;
-			bIsDoorOn = false;
-		}
-		else if (Door->GetComponentRotation().Yaw > 91.0f) 
-		{
-			bIsDoorGoingOpen = false;
-			bIsDoorOn = false;
-		}
 
-		if (bIsDoorGoingOpen) {
-			Door->AddWorldRotation(FRotator(0.0f, 1.0f, 0.0f));
-		}
-		else if (!bIsDoorGoingOpen) {
-			Door->AddWorldRotation(FRotator(0.0f, -1.0f, 0.0f));
-		}
-	}*/
 
 
 	if (Counter >= 180 && Counter <= 240)
@@ -403,9 +386,10 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 		InnerHolder_RightU->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.33f));
 		InnerHolder_RightD->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.083f));
 	}
-	else if (Counter == 1200)
+	else if (Counter == 900)
 	{
 		PlungerSound->Play();
+		Counter++;
 	}
 	else if (Counter >= 920 && Counter < 1320)
 	{

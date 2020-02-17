@@ -34,7 +34,7 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UBoxComponent* Plunger_Collider;
 
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UStaticMeshComponent* Plunger;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
