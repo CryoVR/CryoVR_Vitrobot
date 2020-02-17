@@ -25,7 +25,7 @@ public:
 	UFUNCTION()
 	void MoveWorkstationHolder(float F);
 
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UPROPERTY(BlueprintReadwrite, Category = "Components")
 	UStaticMeshComponent* WorkstationHolder;
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
@@ -39,6 +39,12 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UStaticMeshComponent* Screen;
+
+	UPROPERTY(BlueprintReadwrite, Category = "Components")
+		UBoxComponent* TestButton_Collider;
+
+	UPROPERTY(BlueprintReadwrite, Category = "Components")
+		UBoxComponent* PowerButton_Collider;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UAudioComponent* PlungerSound;
@@ -100,11 +106,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UBoxComponent* Door_Collider;
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UBoxComponent* TestButton_Collider;
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UBoxComponent* PowerButton_Collider;
 
 	UPROPERTY(EditAnywhere, Category = "Components")
 	class UMaterial* MainMaterial;

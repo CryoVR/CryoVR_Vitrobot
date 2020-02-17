@@ -106,6 +106,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "VRTemplate")
 	void UpdateHandAnimation();
 
+	UFUNCTION(BlueprintCallable, Category = "VRTemplate|Grabbing")
+	bool GetIsGrabActor();
+
 	void SetTeleportRotation(FRotator& NewTeleportRotation);
 
 private: // SomWorks :D // Variables Initialization //

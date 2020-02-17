@@ -729,3 +729,7 @@ void ATP_MotionController::SetTeleportRotation(FRotator& NewTeleportRotation)
 	TeleportRotation = NewTeleportRotation;
 }
 
+bool ATP_MotionController::GetIsGrabActor()
+{
+	return bWantsToGrip;
+}

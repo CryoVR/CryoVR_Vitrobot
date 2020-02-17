@@ -321,7 +321,7 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-	UE_LOG(LogTemp, Log, TEXT("==%d=="), Counter);
+	//UE_LOG(LogTemp, Log, TEXT("==%d=="), Counter);
 	float PlungerPosition = Plunger->GetComponentLocation().Z;
 	if(PlungerPosition > 209.0f)
 	{

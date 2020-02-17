@@ -24,11 +24,21 @@ public:
 	//Set as default
 	AVB_WorkstationActor();
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UStaticMeshComponent* Workstation_P3;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UStaticMeshComponent* Workstation_P2;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+		UBoxComponent* BoxComp;
+
+
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+		UStaticMeshComponent* Workstation_P0;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+		UStaticMeshComponent* Workstation_P1;
 
 	//Declare overlap begin function
 	UFUNCTION()
@@ -51,17 +61,11 @@ public:
 	
 protected:
 	
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UBoxComponent* BoxComp;
+
 
 	UPROPERTY(VisibleAnywhere, Category = "Particles")
 	UParticleSystemComponent* FrozenFX;
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UStaticMeshComponent* Workstation_P0;
-
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UStaticMeshComponent* Workstation_P1;
 
 
 
