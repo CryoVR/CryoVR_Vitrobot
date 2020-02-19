@@ -48,7 +48,7 @@ protected:
 	AVB_EthaneTipActor* ethaneTip;
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
-		UCapsuleComponent* ethaneTipPosCollisionComp;
+	UCapsuleComponent* ethaneTipPosCollisionComp;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UAudioComponent* Hissing_Sound;

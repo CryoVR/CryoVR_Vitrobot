@@ -80,7 +80,6 @@ void AVB_EthaneTankActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, A
 				{
 					if (LSA->GetStatus() == 7)
 					{
-						LSA->SetStatus(8);
 						Hissing_Sound->Play();
 					}
 					

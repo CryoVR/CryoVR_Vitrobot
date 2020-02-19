@@ -57,6 +57,12 @@ public:
 	
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	bool is_PutBack;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+	float Ethane_Progress;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+	bool Is_EthaneAdding;
 	
 	
 protected:

@@ -35,12 +35,12 @@ AVB_TextActor::AVB_TextActor()
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_20(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v19.v19"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_21(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v20.v20"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_22(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v21.v21"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_23(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v22.v22"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_23(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/vFix22.vFix22"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_24(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v24.v24"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_25(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v25.v25"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_26(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v26.v26"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_27(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v27.v27"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_28(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v28.v28"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_28(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v27_5.v27_5"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_29(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v28.v28"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_30(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v29.v29"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_31(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v30.v30"));
@@ -403,6 +403,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound39->Stop();
 			SSoundSuccess->Play();
 			SSound3->Play();
 			m_HasPlayed = true;
@@ -414,7 +415,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-
+			SSound3->Stop();
 			SSound4->Play();
 			m_HasPlayed = true;
 		}
@@ -442,7 +443,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 			SetTextLines("Now the workstation is cooled down.", "It's time to add ethane to the workstation.", "The green ethane tank is on the left.");
 			delay++;
 			if (!m_HasPlayed)
-			{
+			{	
+				SSound4->Stop();
 				SSound6->Play();
 				m_HasPlayed = true;
 			}
@@ -466,7 +468,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	if (LSA->GetStatus() == 5)
 	{
 		if (!m_HasPlayed)
-		{
+		{	
+			SSound6->Stop();
 			SSoundSuccess->Play();
 			SSound8->Play();
 			m_HasPlayed = true;
@@ -477,7 +480,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	if (LSA->GetStatus() == 6)
 	{
 		if (!m_HasPlayed)
-		{
+		{	
+			SSound8->Stop();
 			SSoundSuccess->Play();
 			SSound9->Play();
 			m_HasPlayed = true;
@@ -489,6 +493,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound9->Stop();
 			SSoundSuccess->Play();
 			SSound10->Play();
 			m_HasPlayed = true;
@@ -499,7 +504,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	if (LSA->GetStatus() == 8)
 	{
 		if (!m_HasPlayed)
-		{
+		{	
+			SSound10->Stop();
 			SSoundSuccess->Play();
 			SSound11->Play();
 			m_HasPlayed = true;
@@ -511,6 +517,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound11->Stop();
 			SSoundSuccess->Play();
 			SSound12->Play();
 			m_HasPlayed = true;
@@ -522,6 +529,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound12->Stop();
 			SSoundSuccess->Play();
 			SSound13->Play();
 			m_HasPlayed = true;
@@ -533,6 +541,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound13->Stop();
 			SSoundSuccess->Play();
 			SSound14->Play();
 			m_HasPlayed = true;
@@ -544,6 +553,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound14->Stop();
 			SSoundSuccess->Play();
 			SSound15->Play();
 			m_HasPlayed = true;
@@ -555,6 +565,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound15->Stop();
 			SSoundSuccess->Play();
 			SSound16->Play();
 			m_HasPlayed = true;
@@ -566,6 +577,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound16->Stop();
 			SSoundSuccess->Play();
 			SSound17->Play();
 			m_HasPlayed = true;
@@ -577,6 +589,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound17->Stop();
 			SSoundSuccess->Play();
 			SSound18->Play();
 			m_HasPlayed = true;
@@ -588,6 +601,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound18->Stop();
 			SSoundSuccess->Play();
 			SSound19->Play();
 			m_HasPlayed = true;
@@ -599,6 +613,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound19->Stop();
 			SSoundSuccess->Play();
 			SSound20->Play();
 			m_HasPlayed = true;
@@ -607,10 +622,11 @@ void AVB_TextActor::Tick(float DeltaTime)
 		SetTextLines("Use the pipette to pick up your", "sample from the ", "yellow tube rack on the left.");
 	}
 
-	if (LSA->GetStatus() == 19)
+	if (LSA->GetStatus() == 18)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound20->Stop();
 			SSoundSuccess->Play();
 			SSound21->Play();
 			m_HasPlayed = true;
@@ -623,6 +639,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound21->Stop();
 			SSoundSuccess->Play();
 			SSound22->Play();
 			m_HasPlayed = true;
@@ -634,6 +651,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound22->Stop();
 			SSoundSuccess->Play();
 			SSound23->Play();
 			m_HasPlayed = true;
@@ -645,6 +663,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound23->Stop();
 			SSoundSuccess->Play();
 			//SSound24->Play();
 			m_HasPlayed = true;
@@ -679,6 +698,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound24->Stop();
 			SSoundSuccess->Play();
 			SSound26->Play();
 			m_HasPlayed = true;
@@ -690,7 +710,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-
+			SSound26->Stop();
 			SSoundSuccess->Play();
 			SSound27->Play();
 			m_HasPlayed = true;
@@ -702,6 +722,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound27->Stop();
 			SSoundSuccess->Play();
 			SSound28->Play();
 			m_HasPlayed = true;
@@ -713,6 +734,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound28->Stop();
 			SSoundSuccess->Play();
 			SSound29->Play();
 			m_HasPlayed = true;
@@ -724,6 +746,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound29->Stop();
 			SSoundSuccess->Play();
 			SSound30->Play();
 			m_HasPlayed = true;
@@ -735,6 +758,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound30->Stop();
 			SSoundSuccess->Play();
 			SSound31->Play();
 			m_HasPlayed = true;
@@ -746,6 +770,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound31->Stop();
 			SSoundSuccess->Play();
 			SSound32->Play();
 			m_HasPlayed = true;
@@ -757,6 +782,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound32->Stop();
 			SSoundSuccess->Play();
 			SSound33->Play();
 			m_HasPlayed = true;
@@ -768,6 +794,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound33->Stop();
 			SSoundSuccess->Play();
 			SSound35->Play();
 			m_HasPlayed = true;
@@ -780,6 +807,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 		VRP->SetisFinished(true);
 		if (!m_HasPlayed)
 		{
+			SSound35->Stop();
 			SSoundSuccess->Play();
 			SSound36->Play();
 			m_HasPlayed = true;

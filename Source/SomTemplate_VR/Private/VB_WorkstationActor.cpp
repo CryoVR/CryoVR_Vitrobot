@@ -172,6 +172,7 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 				if (LSA->GetStatus() == 6)
 				{
 					LSA->SetStatus(7);
+					Is_EthaneAdding = true;
 				}
 			}
 		}
@@ -205,12 +206,30 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	bool m_IsVisable = Water_Mesh->IsVisible();
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	if ((Water_Mesh->GetComponentLocation().Z - PickupMesh->GetComponentLocation().Z)> 4.84f && m_IsVisable) {
 		Water_Mesh->AddLocalOffset(FVector(0.0f, 0.0f, -0.000025f));
 		
 	}
+
+	if (Ethane_Progress >= 200)
+	{
+		Is_EthaneAdding = false;
+		if (LSA->GetStatus() == 7)
+		{
+			LSA->SetStatus(8);
+		}
+	}
+
+	if (Is_EthaneAdding == true)
+	{
+		Ethane_Progress++;
+
+	}
+
+
 	
-	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+	
 	if (LSA->GetStatus() >= 2 && LSA->GetStatus() <= 19)
 	{
 		PickupMesh->SetSimulatePhysics(false);

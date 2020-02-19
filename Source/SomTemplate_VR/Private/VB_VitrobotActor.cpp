@@ -37,6 +37,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_Plunger(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/PlungerSound.PlungerSound"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_Blotter(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/blotter.blotter"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_WH(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/Workstation_GD.Workstation_GD"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_BS(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/BeepSound.BeepSound"));
 	static ConstructorHelpers::FObjectFinder<UMaterial> M_MainMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_2.Screen_Shot_2"));
 	static ConstructorHelpers::FObjectFinder<UMaterial> M_OptionMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_1.Screen_Shot_1"));
 
@@ -165,7 +166,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	PowerButton_Collider->SetupAttachment(Screen);
 	PowerButton_Collider->SetRelativeLocation(FVector(-24.4023972f, 5.3110352f, 74.2524109f));
 	Cast<UBoxComponent>(PowerButton_Collider)->SetBoxExtent(FVector(3.0f, 3.0f, 3.0f));
-	PowerButton_Collider->SetHiddenInGame(false);
+	PowerButton_Collider->SetHiddenInGame(true);
 	PowerButton_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::TurnOnMachine);
 
 	//Test button on the LED screen
@@ -174,7 +175,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	TestButton_Collider->SetupAttachment(Screen);
 	TestButton_Collider->SetRelativeLocation(FVector(-27.5f, -6.827611f, 76.4f));
 	Cast<UBoxComponent>(TestButton_Collider)->SetBoxExtent(FVector(3.0f, 1.0f, 3.0f));
-	TestButton_Collider->SetHiddenInGame(false);
+	TestButton_Collider->SetHiddenInGame(true);
 	TestButton_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::OnOverlapBegin);
 	bIsHolderTouchingBottom = true;
 
@@ -212,6 +213,13 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Blotter_Sound->SetAutoActivate(false);
 	Blotter_Sound->SetSound(SoundWave2);
 
+	USoundWave * SoundWave3 = S_BS.Object;
+	Button_Sound = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("ButtonSound"));
+	Button_Sound->SetupAttachment(meshComp);
+	Button_Sound->SetAutoActivate(false);
+	Button_Sound->SetSound(SoundWave3);
+
+
 	MainMaterial = CreateDefaultSubobject<UMaterial>(TEXT("MainMaterial"));
 	if (M_MainMaterial.Succeeded())
 	{
@@ -230,6 +238,7 @@ void AVB_VitrobotActor::TurnOnMachine(class UPrimitiveComponent* OverlappedComp,
 	if (Cast<AVB_PenActor>(OtherActor))
 	{	
 		m_IsMachineOn = true;	
+		Button_Sound->Play();
 	}
 }
 void AVB_VitrobotActor::TouchScreen(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
@@ -265,7 +274,7 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 
 	if (Cast<AVB_PenActor>(OtherActor) != nullptr)	
 	{		
-		
+		Button_Sound->Play();
 		//Set the Button ON/OFF
 		if (OverlappedComp == TestButton_Collider)
 		{	
