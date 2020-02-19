@@ -134,7 +134,7 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 		{
 			if (LSA->GetStatus() == 3)
 			{
-				LSA->SetStatus(4);
+				Is_CoolingDown = true;
 			}
 		}
 	}
@@ -211,8 +211,21 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 		Water_Mesh->AddLocalOffset(FVector(0.0f, 0.0f, -0.000025f));
 		
 	}
+	
+	if(Is_CoolingDown == true)
+	{
+		CoolDownTime ++;
+	}
 
-	if (Ethane_Progress >= 200)
+	if(CoolDownTime >= 500)
+	{
+		if(LSA->GetStatus() == 3)
+		{
+			LSA->SetStatus(4);
+		}
+	}	
+
+	if (Ethane_Progress >= 500)
 	{
 		Is_EthaneAdding = false;
 		if (LSA->GetStatus() == 7)

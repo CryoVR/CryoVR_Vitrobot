@@ -37,9 +37,6 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UStaticMeshComponent* Plunger;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Components")
-	UStaticMeshComponent* Screen;
-
 	UPROPERTY(BlueprintReadwrite, Category = "Components")
 		UBoxComponent* TestButton_Collider;
 
@@ -78,6 +75,8 @@ public:
 
 protected:
 	
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UStaticMeshComponent* Screen;
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	UStaticMeshComponent* InnerHolder;

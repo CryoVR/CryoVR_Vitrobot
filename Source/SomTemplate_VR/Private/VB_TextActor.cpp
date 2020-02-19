@@ -425,7 +425,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	if (LSA->GetStatus() == 3)
 	{
 		if (!m_HasPlayed)
-		{
+		{	
+			SSound4->Stop();
 			delay = 1001;
 			SSound5->Play();
 			m_HasPlayed = true;
@@ -444,7 +445,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			delay++;
 			if (!m_HasPlayed)
 			{	
-				SSound4->Stop();
+				SSound5->Stop();
 				SSound6->Play();
 				m_HasPlayed = true;
 			}

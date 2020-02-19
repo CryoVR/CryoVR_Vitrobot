@@ -48,7 +48,15 @@ AVB_GridDewarActor::AVB_GridDewarActor()
 void AVB_GridDewarActor::OnCapOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
 	if (Cast<ATP_MotionController>(OtherActor) != nullptr)
-	{
+	{	if(GridDewarCap->GetComponentRotation().Pitch < 50.0f)
+		{
+			GridDewarCap->SetRelativeRotation(FRotator(140.0f, 0.0f, 0.0f));
+		}
+		else
+		{
+			GridDewarCap->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
+		}
+		
 	}
 }
 

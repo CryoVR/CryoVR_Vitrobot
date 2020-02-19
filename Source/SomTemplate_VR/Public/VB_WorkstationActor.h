@@ -63,6 +63,13 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	bool Is_EthaneAdding;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+	bool Is_CoolingDown;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+	float CoolDownTime;
+
 	
 	
 protected:

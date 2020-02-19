@@ -133,4 +133,9 @@ void AVB_TweezerActor::Tick(float DeltaTime)
 			LSA->SetStatus(25);
 		}
 	}
+
+	if(LSA->GetStatus() == 26)
+	{
+		tweezer_grid->SetVisibility(false);
+	}
 }

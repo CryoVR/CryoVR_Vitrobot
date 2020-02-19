@@ -39,7 +39,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_WH(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/Workstation_GD.Workstation_GD"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_BS(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/BeepSound.BeepSound"));
 	static ConstructorHelpers::FObjectFinder<UMaterial> M_MainMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_2.Screen_Shot_2"));
-	static ConstructorHelpers::FObjectFinder<UMaterial> M_OptionMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_1.Screen_Shot_1"));
+	static ConstructorHelpers::FObjectFinder<UMaterial> M_OptionMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screenshot3.Screenshot3"));
 
 	if (SM_MainMesh.Succeeded()) {
 		meshComp->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
@@ -234,11 +234,16 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 }
 		
 void AVB_VitrobotActor::TurnOnMachine(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
+{	
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	if (Cast<AVB_PenActor>(OtherActor))
 	{	
-		m_IsMachineOn = true;	
-		Button_Sound->Play();
+		if (LSA->GetStatus() == 15)
+		{
+			m_IsMachineOn = true;
+			Button_Sound->Play();
+		}
+
 	}
 }
 void AVB_VitrobotActor::TouchScreen(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
@@ -274,16 +279,21 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 
 	if (Cast<AVB_PenActor>(OtherActor) != nullptr)	
 	{		
-		Button_Sound->Play();
-		//Set the Button ON/OFF
-		if (OverlappedComp == TestButton_Collider)
-		{	
-			bIsButtonOn = true;
-		}
-		if (OverlappedComp == Door_Collider)
+		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if (LSA->GetStatus() == 22)
 		{
-			bIsDoorOn = !bIsDoorOn;
+			Button_Sound->Play();
+			//Set the Button ON/OFF
+			if (OverlappedComp == TestButton_Collider)
+			{
+				bIsButtonOn = true;
+			}
+			if (OverlappedComp == Door_Collider)
+			{
+				bIsDoorOn = !bIsDoorOn;
+			}
 		}
+		
 	}
 }
 
