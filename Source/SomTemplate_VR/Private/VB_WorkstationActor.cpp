@@ -172,7 +172,7 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 				if (LSA->GetStatus() == 6)
 				{
 					LSA->SetStatus(7);
-					Is_EthaneAdding = true;
+					//Is_EthaneAdding = true;
 				}
 			}
 		}
@@ -200,6 +200,11 @@ void AVB_WorkstationActor::OnGridBoxOverlapBegin(class UPrimitiveComponent* Over
 		}
 	}
 
+}
+
+float AVB_WorkstationActor::GetEthaneProgress()
+{
+	return Ethane_Progress;
 }
 
 void AVB_WorkstationActor::Tick(float DeltaTime)
@@ -237,7 +242,6 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 	if (Is_EthaneAdding == true)
 	{
 		Ethane_Progress++;
-
 	}
 
 

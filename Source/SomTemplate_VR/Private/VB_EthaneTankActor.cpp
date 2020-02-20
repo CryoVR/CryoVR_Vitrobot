@@ -10,6 +10,7 @@
 #include "VirtualReality/TP_MotionController.h"
 #include "VB_EthaneTipActor.h"
 #include "VB_AirTankActor.h"
+#include "VB_WorkstationActor.h"
 #include "VB_LevelScriptActor.h"
 #include "Runtime/Engine/Classes/Sound/SoundWave.h"
 #include "Components/AudioComponent.h"
@@ -81,6 +82,7 @@ void AVB_EthaneTankActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, A
 					if (LSA->GetStatus() == 7)
 					{
 						Hissing_Sound->Play();
+						//LSA->SetStatus(8);
 					}
 					
 					if (LSA->GetStatus() == 9)

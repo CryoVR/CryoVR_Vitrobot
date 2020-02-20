@@ -47,6 +47,9 @@ public:
 	UFUNCTION()
 		void OnGridBoxOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	UFUNCTION()
+		float GetEthaneProgress();
+
 	virtual void Tick(float DeltaTime) override;
 
 	/*UFUNCTION()

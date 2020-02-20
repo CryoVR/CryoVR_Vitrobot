@@ -35,6 +35,9 @@ public:
 	UPROPERTY(VisibleAnyWhere, Category = "Particles")
 		UParticleSystemComponent* particle;
 
+	UPROPERTY(BlueprintReadWrite, Category = "Variables")
+		bool Is_Second_Open;
+
 	virtual void Pickup_Implementation(class USceneComponent* AttachTo);
 
 	virtual void Drop_Implementation();
