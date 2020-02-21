@@ -34,13 +34,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
 		UCapsuleComponent* secondKnobCollisionComp;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Variables")
-		bool m_isSecondKnobOn;
-
 public:
 	bool m_isFirstKnobOn;
 
-
+	bool m_isSecondKnobOn;
 
 	AVB_AirTankActor();
 

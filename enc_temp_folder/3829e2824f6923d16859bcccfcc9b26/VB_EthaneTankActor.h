@@ -43,8 +43,6 @@ public:
 	virtual void Drop_Implementation();
 
 	bool m_isTipOn;
-
-
 	
 
 protected:
