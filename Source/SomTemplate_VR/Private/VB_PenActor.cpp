@@ -9,6 +9,7 @@
 #include "Runtime/Engine/Classes/GameFramework/Controller.h"
 #include "VirtualReality/TP_VirtualRealityPawn_Motion.h"
 #include "VB_LevelScriptActor.h"
+#include "VB_VitrobotActor.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "Public/Engine.h"
 
