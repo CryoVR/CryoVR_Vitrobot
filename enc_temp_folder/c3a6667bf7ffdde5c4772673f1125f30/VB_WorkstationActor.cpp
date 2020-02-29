@@ -236,7 +236,6 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 		if (LSA->GetStatus() == 7)
 		{
 			LSA->SetStatus(8);
-			Workstation_P1->SetVisibility(false);
 		}
 	}
 
@@ -245,15 +244,7 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 		Ethane_Progress++;
 	}
 
-	if(LSA->GetStatus() == 24)
-	{
-		BoxComp->SetGenerateOverlapEvents(false);
-	}
 
-	if (LSA->GetStatus() == 25)
-	{
-		BoxComp->SetGenerateOverlapEvents(true);
-	}
 	
 	
 	if (LSA->GetStatus() >= 2 && LSA->GetStatus() <= 19)

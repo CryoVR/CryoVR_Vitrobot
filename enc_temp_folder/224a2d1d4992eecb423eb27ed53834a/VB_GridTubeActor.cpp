@@ -68,28 +68,20 @@ void AVB_GridTubeActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 	}
 	AVB_GridMetalTubeActor* GMT = Cast<AVB_GridMetalTubeActor>(OtherActor);
 	if (GMT != nullptr)
-	{	
-		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-		if (LSA != nullptr)
-		{
-			if (LSA->GetStatus() == 28 || LSA->GetStatus() == 32)
-			{
-				FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
-				GetRootComponent()->AttachToComponent(GMT->PickupMesh, AttachRules, FName("GridTube_Socket"));
-			}
-		}
-		
+	{
+		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+		GetRootComponent()->AttachToComponent(GMT->PickupMesh, AttachRules, FName("GridTube_Socket"));
 	}
 	AVB_FreezingDewarActor *FDActor = Cast<AVB_FreezingDewarActor>(OtherActor);
 	if (FDActor != nullptr)
 	{
+		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+		GetRootComponent()->AttachToComponent(FDActor->meshComp, AttachRules, FName("Tube_Socket"));
 		
 		if (LSA != nullptr)
 		{
 			if (LSA->GetStatus() == 29)
-			{	
-				FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
-				GetRootComponent()->AttachToComponent(FDActor->meshComp, AttachRules, FName("Tube_Socket"));
+			{
 				LSA->SetStatus(30);
 			}
 		}

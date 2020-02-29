@@ -67,11 +67,10 @@ void AVB_GridBoxTweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedCom
 	AVB_FreezingDewarActor* FreezeDewar = Cast<AVB_FreezingDewarActor>(OtherActor);
 	if (FreezeDewar != nullptr)
 	{
-		
+		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+		GetRootComponent()->AttachToComponent(FreezeDewar->meshComp, AttachRules, FName("Tweezer_Socket"));
 		if (LSA->GetStatus() == 27)
 		{
-			FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
-			GetRootComponent()->AttachToComponent(FreezeDewar->meshComp, AttachRules, FName("Tweezer_Socket"));
 			LSA->SetStatus(28);
 		}
 	}
