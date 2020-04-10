@@ -1,4 +1,5 @@
-﻿# SomTemplate_VR
+Please check VRCPP_Template branch to download the workable version. Now the file is too big to transfer to the master branch...
+# SomTemplate_VR
 UE4 VR Template Convert Full C++ Project.
 
 - Support Unreal Engine 4 Version : 4.18, 4.19, 4.20, 4.21, 4.22
