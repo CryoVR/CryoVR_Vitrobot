@@ -1,4 +1,5 @@
 ﻿# This project is based on SomTemplate_VR
+If you have any interest in our project, please visit https://www.purdue.edu/cryovr/ to get more information and resource!
 UE4 VR Template Convert Full C++ Project.
 
 - Support Unreal Engine 4 Version : 4.18, 4.19, 4.20, 4.21, 4.22
