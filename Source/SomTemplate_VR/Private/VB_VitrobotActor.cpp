@@ -23,7 +23,7 @@
 
 AVB_VitrobotActor::AVB_VitrobotActor() {
 	PrimaryActorTick.bCanEverTick = true;
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_MainMesh(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Vitrobot.Vitrobot'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_MainMesh(TEXT("StaticMesh'/Game/Test_Geometry/New_Vitrobot/vitrobot_seperate_polySurface3.vitrobot_seperate_polySurface3'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_WorkstationHolder(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_Holder.Workstation_Holder'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_InnerHolder(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Holder.Holder'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_InnerHolder_LU(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/blotter_up.blotter_up'"));
@@ -39,7 +39,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_WH(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/Workstation_GD.Workstation_GD"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_BS(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/BeepSound.BeepSound"));
 	static ConstructorHelpers::FObjectFinder<UMaterial> M_MainMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_2.Screen_Shot_2"));
-	static ConstructorHelpers::FObjectFinder<UMaterial> M_OptionMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screenshot3.Screenshot3"));
+	static ConstructorHelpers::FObjectFinder<UMaterial> M_OptionMaterial(TEXT("/Game/Test_Geometry/Test_Textures/Screen_Shot_1.Screen_Shot_1"));
 
 	if (SM_MainMesh.Succeeded()) {
 		meshComp->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
@@ -84,6 +84,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	InnerHolder_LeftU->SetupAttachment(InnerHolder);
 	InnerHolder_LeftU->SetRelativeLocation(FVector(0.0f, -1.37f, -7.2f));
 	InnerHolder_LeftU->SetRelativeRotation(FRotator(180.0f, 0.0f, -5.0f));
+	InnerHolder_LeftU->SetRelativeScale3D(FVector(1.0f, -1.0f, 1.0f));
 	if (SM_InnerHolder_LU.Succeeded()) {
 		InnerHolder_LeftU->SetStaticMesh(SM_InnerHolder_LU.Object);
 		InnerHolder_LeftD = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inner_Holder_LD"));
@@ -164,17 +165,27 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	PowerButton_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("PowerButton_Collider"));
 	PowerButton_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	PowerButton_Collider->SetupAttachment(Screen);
-	PowerButton_Collider->SetRelativeLocation(FVector(-24.4023972f, 5.3110352f, 74.2524109f));
+	PowerButton_Collider->SetRelativeLocation(FVector(31.950323f, 11.4523125f, 0.0f));
+	PowerButton_Collider->SetRelativeRotation(FRotator(-90.0f, 0.0f, 0.0f));
 	Cast<UBoxComponent>(PowerButton_Collider)->SetBoxExtent(FVector(3.0f, 3.0f, 3.0f));
 	PowerButton_Collider->SetHiddenInGame(true);
 	PowerButton_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::TurnOnMachine);
+
+	Pen_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Pen_Collider"));
+	Pen_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+	Pen_Collider->SetupAttachment(meshComp);
+	Pen_Collider->SetRelativeLocation(FVector(-7.0f, 14.0f, 8.0f));
+	Pen_Collider->SetRelativeRotation(FRotator(-90.0f, 0.0f, 0.0f));
+	Cast<UBoxComponent>(Pen_Collider)->SetBoxExtent(FVector(3.0f, 3.0f, 3.0f));
+	PowerButton_Collider->SetHiddenInGame(true);
 
 	//Test button on the LED screen
 	TestButton_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("TestButton_Collider"));
 	TestButton_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	TestButton_Collider->SetupAttachment(Screen);
-	TestButton_Collider->SetRelativeLocation(FVector(-27.5f, -6.827611f, 76.4f));
-	Cast<UBoxComponent>(TestButton_Collider)->SetBoxExtent(FVector(3.0f, 1.0f, 3.0f));
+	TestButton_Collider->SetRelativeLocation(FVector(31.9503384f, 5.0256658f, 0.0f));
+	TestButton_Collider->SetRelativeRotation(FRotator(-90.0f, 0.0f, 0.0f));
+	Cast<UBoxComponent>(TestButton_Collider)->SetBoxExtent(FVector(3.0f, 3.0f, 3.0f));
 	TestButton_Collider->SetHiddenInGame(true);
 	TestButton_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::OnOverlapBegin);
 	bIsHolderTouchingBottom = true;
@@ -238,7 +249,7 @@ void AVB_VitrobotActor::TurnOnMachine(class UPrimitiveComponent* OverlappedComp,
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	if (Cast<AVB_PenActor>(OtherActor))
 	{	
-		if (LSA->GetStatus() == 15)
+		if (LSA->GetStatus() <= 15 && bIsButtonOn == false)
 		{
 			m_IsMachineOn = true;
 			Button_Sound->Play();
@@ -280,7 +291,7 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 	if (Cast<AVB_PenActor>(OtherActor) != nullptr)	
 	{		
 		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-		if (LSA->GetStatus() == 22)
+		if (LSA->GetStatus() <= 22 && m_IsMachineOn == false)
 		{
 			Button_Sound->Play();
 			//Set the Button ON/OFF
@@ -393,14 +404,14 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 
 	if (Counter >= 180 && Counter <= 240)
 	{
-		InnerHolder_LeftU->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.33f));
+		InnerHolder_LeftU->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.33f));
 		InnerHolder_LeftD->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.083f));
 		InnerHolder_RightU->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.33f));
 		InnerHolder_RightD->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.083f));
 	}
 	else if (Counter >= 600 && Counter <= 660)
 	{
-		InnerHolder_LeftU->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.33f));
+		InnerHolder_LeftU->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.33f));
 		InnerHolder_LeftD->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.083f));
 		InnerHolder_RightU->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.33f));
 		InnerHolder_RightD->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.083f));

@@ -25,7 +25,7 @@ AVB_CleanPetridishActor::AVB_CleanPetridishActor()
 	}
 	
 
-	
+	PickupMesh->OnComponentBeginOverlap.AddDynamic(this, &AVB_CleanPetridishActor::OnOverlapBegin);
 	boxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_CleanPetridishActor::OnOverlapBegin);
 }
 

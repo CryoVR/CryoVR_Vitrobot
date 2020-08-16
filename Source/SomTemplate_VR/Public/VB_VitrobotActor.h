@@ -37,11 +37,14 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UStaticMeshComponent* Plunger;
 
-	UPROPERTY(BlueprintReadwrite, Category = "Components")
-		UBoxComponent* TestButton_Collider;
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+	UBoxComponent* TestButton_Collider;
 
-	UPROPERTY(BlueprintReadwrite, Category = "Components")
-		UBoxComponent* PowerButton_Collider;
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+	UBoxComponent* Pen_Collider;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+	UBoxComponent* PowerButton_Collider;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UAudioComponent* PlungerSound;

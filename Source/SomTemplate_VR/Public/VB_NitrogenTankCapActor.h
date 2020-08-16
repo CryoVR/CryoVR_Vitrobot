@@ -26,14 +26,17 @@ public:
 
 	virtual void ResetActorState() override;
 
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UCapsuleComponent* CapsuleComp;
+
 protected:
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UCapsuleComponent* CapsuleComp;
+
 
 	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
 	
-
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+	bool Is_Attached;
 	
 
 };

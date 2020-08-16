@@ -27,6 +27,9 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UBoxComponent* BoxCompCap;
 
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UCapsuleComponent* HandcapsuleComp;
+
 	//Declare overlap begin function
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -46,13 +49,13 @@ protected:
 		UParticleSystemComponent* FrozenFX;
 	UPROPERTY(VisibleAnywhere, Category = "ParticleEffect")
 		UParticleSystemComponent* Waterfall;
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-		UCapsuleComponent* HandcapsuleComp;
+
 
 	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
 
 private:
 	bool m_IsFirstTimeTouch = true;
 	bool m_IsSecondTimeTouch = false;
+	bool m_Isattached = false;
 
 };

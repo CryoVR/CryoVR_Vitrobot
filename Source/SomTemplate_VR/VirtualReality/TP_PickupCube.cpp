@@ -25,7 +25,7 @@ ATP_PickupCube::ATP_PickupCube()
 	PickupMesh->SetRelativeScale3D(FVector(1.0f, 1.0f, 1.0f));
 	PickupMesh->SetSimulatePhysics(false);
 	PickupMesh->SetNotifyRigidBodyCollision(true);
-	PickupMesh->SetGenerateOverlapEvents(true);
+	PickupMesh->SetGenerateOverlapEvents(false);
 	PickupMesh->SetCollisionProfileName("PhysicsActor");
 
 	if (SM_Pickup.Succeeded())

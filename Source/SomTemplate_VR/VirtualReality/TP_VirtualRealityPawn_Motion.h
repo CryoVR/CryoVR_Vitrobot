@@ -72,10 +72,10 @@ public:
 		void SetisFinished(bool i);
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	float Score = 91.0f;
+	float Score = -5.0f;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	int Errors = 3;
+	int Errors = 35;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 		bool isFinished = false;

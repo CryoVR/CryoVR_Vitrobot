@@ -35,6 +35,7 @@ AVB_DewarActor::AVB_DewarActor()
 	if (P_Effect.Succeeded())
 	{
 		FrozenFX = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("FrozenEffect"));
+		FrozenFX->SetGenerateOverlapEvents(false);
 		FrozenFX->SetTemplate(P_Effect.Object);
 		FrozenFX->SetupAttachment(PickupMesh);
 		FrozenFX->SetWorldLocation(FVector(0.0f, 0.0f, 38.0f));
@@ -45,6 +46,7 @@ AVB_DewarActor::AVB_DewarActor()
 	{
 		Waterfall = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("WaterEffect"));
 		Waterfall->SetTemplate(P_Effect1.Object);
+		Waterfall->SetGenerateOverlapEvents(false);
 		Waterfall->SetupAttachment(PickupMesh);
 		Waterfall->SetWorldLocation(FVector(0.0f, 0.0f, 38.0f));
 	}
@@ -61,8 +63,12 @@ AVB_DewarActor::AVB_DewarActor()
 
 void AVB_DewarActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (Cast<AVB_NitrogenTankCapActor>(OtherActor) != nullptr)
-	{
+	if (Cast<AVB_NitrogenTankCapActor>(OtherActor) != nullptr && m_Isattached == false)
+	{	
+		m_Isattached = true;
+		FName DewarSocket = "CapSocket";
+		FAttachmentTransformRules AttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, true);
+		OtherActor->GetRootComponent()->AttachToComponent(GetRootComponent(), AttachmentTransformRules, DewarSocket);
 		FrozenFX->SetActive(false);
 		Waterfall->SetActive(false);
 	}
@@ -72,8 +78,10 @@ void AVB_DewarActor::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, AAc
 {
 	if (Cast<AVB_NitrogenTankCapActor>(OtherActor) != nullptr)
 	{
+		//OtherActor->GetRootComponent()->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
 		FrozenFX->SetActive(true);
 		Waterfall->SetActive(true);
+		m_Isattached = false;
 	}
 }
 
