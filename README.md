@@ -10,7 +10,7 @@ Getting up and running
 Few steps before enjoying the VR experience:
 
 1. Make sure an **HTC Vive** or **Vive Pro** is available and ready on your desktop. (To learn how to set up Vive system or test if your computer is qualified, visit [here](https://support.steampowered.com/steamvr/HTC_Vive/))
-2. Download the newest version of Vitrobot application with the [link](https://www.purdue.edu/cryovr/download2/).
+2. Download the newest version of Vitrobot application with the **[link]**(https://www.purdue.edu/cryovr/download2/).
 3. Extract the downloaded files to any specific folder.
 4. Run the **Vitrobot.exe** in the folder.
 
