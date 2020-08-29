@@ -1,13 +1,12 @@
 CryoVR
 =======================
-
 CryoVR is an open-source VR training application focus on simulating CryoEM instruments.
-
 
 If you have any interest in our project, please visit https://www.purdue.edu/cryovr/ and https://www.youtube.com/channel/UCLz1-9J1nHSp0VK5aCH3ZFw to get more information and resource!
 
+This project is based on SomTemplate_VR
 
-
+Getting up and running
 ---------------------
 Few steps before enjoying the VR experience:
 
@@ -16,21 +15,14 @@ Few steps before enjoying the VR experience:
 3. Extract the downloaded files to any specific folder.
 4. Run the “CryoVR.exe” or “Vitrobot.exe” in the folder.
 
+Contact us
 ---------------------
-
 CryoVR is completely free for academic purposes.
 
 For commercial purposes, please contact:
-
 Dr. Yingjie Victor Chen :    victorchen@purdue.edu    or    Dr. Wen Jiang :    jiang12@purdue.edu
-
 for more information
 
----------------------
-
-
-This project is based on SomTemplate_VR
-
-# License
-
+License
+--------------------
 Part of our efforts will be focused on ensuring long-term sustainable development for CryoVR. We are working with the Purdue Office of Technology Commercialization (OTC) to arrange a proper dual-license for CryoVR. 
