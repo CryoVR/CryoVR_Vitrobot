@@ -30,7 +30,7 @@ for more information.
 
 
 
-# This project is based on SomTemplate_VR
+This project is based on SomTemplate_VR
 # License
 
 Part of our efforts will be focused on ensuring long-term sustainable development for CryoVR. We are working with the Purdue Office of Technology Commercialization (OTC) to arrange a proper dual-license for CryoVR. 
