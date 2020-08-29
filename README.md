@@ -2,7 +2,7 @@ CryoVR
 =======================
 CryoVR is an open-source VR training application focus on simulating CryoEM instruments.
 
-If you have any interest in our project, please visit https://www.purdue.edu/cryovr/ and https://www.youtube.com/channel/UCLz1-9J1nHSp0VK5aCH3ZFw to get more information and resource!
+If you have any interest in our project, please visit **[our website](https://www.purdue.edu/cryovr/)** and **[the video](https://www.youtube.com/channel/UCLz1-9J1nHSp0VK5aCH3ZFw)** to get more information and resource!
 
 
 Getting up and running
