@@ -21,9 +21,9 @@ For commercial purposes, please contact:
 
 Dr. Yingjie Victor Chen :    victorchen@purdue.edu    or    Dr. Wen Jiang :    jiang12@purdue.edu
 
-for more information.
----------------------
+for more information
 
+---------------------
 
 
 This project is based on SomTemplate_VR
