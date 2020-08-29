@@ -19,11 +19,7 @@ CryoVR is completely free for academic purposes.
 
 For commercial purposes, please contact:
 
-Dr. Yingjie Victor Chen :    victorchen@purdue.edu
-
-or
-
-Dr. Wen Jiang :    jiang12@purdue.edu
+Dr. Yingjie Victor Chen :    victorchen@purdue.edu    or    Dr. Wen Jiang :    jiang12@purdue.edu
 
 for more information.
 ---------------------
@@ -31,6 +27,7 @@ for more information.
 
 
 This project is based on SomTemplate_VR
+
 # License
 
 Part of our efforts will be focused on ensuring long-term sustainable development for CryoVR. We are working with the Purdue Office of Technology Commercialization (OTC) to arrange a proper dual-license for CryoVR. 
