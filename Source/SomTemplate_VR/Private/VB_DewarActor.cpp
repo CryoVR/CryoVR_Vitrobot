@@ -103,4 +103,6 @@ void AVB_DewarActor::Tick(float DeltaTime)
 				LSA->SetStatus(2);
 			}
 		}
+
+		
 }
