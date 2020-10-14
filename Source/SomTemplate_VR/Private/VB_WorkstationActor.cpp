@@ -14,12 +14,13 @@
 #include "VB_GridBoxTweezerActor.h"
 #include "VB_VitrobotActor.h"
 #include "VB_LevelScriptActor.h"
+#include "Components/AudioComponent.h"
 #include "VirtualReality/TP_MotionController.h"
 
-AVB_WorkstationActor::AVB_WorkstationActor() 
+AVB_WorkstationActor::AVB_WorkstationActor()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	
+
 	isTipTouched = false;
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Pickup(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation.Workstation'"));
@@ -27,6 +28,9 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P1(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_P1.Workstation_P1'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P2(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_P2.Workstation_P2'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P3(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Grid_Box.Grid_Box'"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_pouring(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/PouringSound"));
+
+
 	if (SM_Pickup.Succeeded())
 	{
 		UStaticMesh* Asset = SM_Pickup.Object;
@@ -72,7 +76,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	if (SM_P2.Succeeded()) {
 		Workstation_P2->SetStaticMesh(SM_P2.Object);
 	}
-	
+
 	Workstation_P3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Workstation_P3"));
 	Workstation_P3->SetupAttachment(PickupMesh);
 	Workstation_P3->SetGenerateOverlapEvents(true);
@@ -89,10 +93,10 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 
 
 	PickupMesh->SetGenerateOverlapEvents(true);
-	
+
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComp"));
 	BoxComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	BoxComp->SetGenerateOverlapEvents(true); 
+	BoxComp->SetGenerateOverlapEvents(true);
 	BoxComp->SetupAttachment(PickupMesh);
 	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnOverlapBegin);
 	BoxComp->SetRelativeLocation(FVector(0.0f, 0.0f, 4.47f));
@@ -115,11 +119,18 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	}
 
 	FrozenFX->SetRelativeLocation(FVector(0.0f, 0.0f, 7.0f));
+
+
+	USoundWave* SoundWave1 = S_pouring.Object;
+	PouringSound = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest1"));
+	PouringSound->SetupAttachment(PickupMesh);
+	PouringSound->SetAutoActivate(false);
+	PouringSound->SetSound(SoundWave1);
 }
 
 void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{	
-	AVB_GridBoxTweezerActor *GBTweezer = Cast<AVB_GridBoxTweezerActor>(OtherActor);
+{
+	AVB_GridBoxTweezerActor* GBTweezer = Cast<AVB_GridBoxTweezerActor>(OtherActor);
 	if (GBTweezer != nullptr && GBTweezer->m_isTweezerFrozen)
 	{
 		Workstation_P3->SetVisibility(false);
@@ -130,6 +141,7 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 	{
 		FrozenFX->SetVisibility(true);
 		Water_Mesh->SetVisibility(true);
+		PouringSound->Play();
 		if (LSA != nullptr)
 		{
 			if (LSA->GetStatus() == 3)
@@ -166,7 +178,7 @@ void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 			//GetWorld()->GetTimerManager().SetTimer(UnusedHandle, this, &AVB_WorkstationActor::setFrozVisible, 5.0f, false);
 			//FrozenFX->SetVisibility(false);
 			isTipTouched = true;
-			
+
 			if (LSA != nullptr)
 			{
 				if (LSA->GetStatus() == 6)
@@ -212,23 +224,23 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	bool m_IsVisable = Water_Mesh->IsVisible();
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-	if ((Water_Mesh->GetComponentLocation().Z - PickupMesh->GetComponentLocation().Z)> 4.84f && m_IsVisable) {
+	if ((Water_Mesh->GetComponentLocation().Z - PickupMesh->GetComponentLocation().Z) > 4.84f && m_IsVisable) {
 		Water_Mesh->AddLocalOffset(FVector(0.0f, 0.0f, -0.000025f));
-		
-	}
-	
-	if(Is_CoolingDown == true)
-	{
-		CoolDownTime ++;
+
 	}
 
-	if(CoolDownTime >= 500)
+	if (Is_CoolingDown == true)
 	{
-		if(LSA->GetStatus() == 3)
+		CoolDownTime++;
+	}
+
+	if (CoolDownTime >= 500)
+	{
+		if (LSA->GetStatus() == 3)
 		{
 			LSA->SetStatus(4);
 		}
-	}	
+	}
 
 	if (Ethane_Progress >= 500)
 	{
@@ -245,9 +257,9 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 	}
 
 
-	
-	
-	if (LSA->GetStatus() >= 2 && LSA->GetStatus() <= 19)
+
+
+	if (LSA->GetStatus() >= 8 && LSA->GetStatus() <= 19)
 	{
 		PickupMesh->SetSimulatePhysics(false);
 	}
@@ -260,7 +272,7 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 		}
 	}
 
-	if(is_OnTable == true)
+	if (is_OnTable == true)
 	{
 		if (LSA->GetStatus() == 36)
 		{
@@ -278,4 +290,3 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 }
 
 
- 

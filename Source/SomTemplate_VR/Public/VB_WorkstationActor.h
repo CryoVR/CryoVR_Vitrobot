@@ -9,8 +9,9 @@
 class UBoxComponent;
 class UCapsuleComponent;
 class UParticleSystemComponent;
+class UAudioComponent;
 /**
- * 
+ *
  */
 UCLASS()
 class SOMTEMPLATE_VR_API AVB_WorkstationActor : public AVB_DynamicActor
@@ -25,10 +26,10 @@ public:
 	AVB_WorkstationActor();
 
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
-	UStaticMeshComponent* Workstation_P3;
+		UStaticMeshComponent* Workstation_P3;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
-	UStaticMeshComponent* Workstation_P2;
+		UStaticMeshComponent* Workstation_P2;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
 		UBoxComponent* BoxComp;
@@ -42,7 +43,7 @@ public:
 
 	//Declare overlap begin function
 	UFUNCTION()
-	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+		void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UFUNCTION()
 		void OnGridBoxOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -54,39 +55,39 @@ public:
 
 	/*UFUNCTION()
 		void OnTipOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);*/
-	
-	UPROPERTY(BlueprintReadWrite, Category = "Components")
-	bool is_OnTable;
-	
-	UPROPERTY(BlueprintReadWrite, Category = "Components")
-	bool is_PutBack;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
-	float Ethane_Progress;
+		bool is_OnTable;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
-	bool Is_EthaneAdding;
+		bool is_PutBack;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
-	bool Is_CoolingDown;
+		float Ethane_Progress;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
-	float CoolDownTime;
+		bool Is_EthaneAdding;
 
-	
-	
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+		bool Is_CoolingDown;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+		float CoolDownTime;
+
+
+
 protected:
-	
+
 
 
 	UPROPERTY(VisibleAnywhere, Category = "Particles")
-	UParticleSystemComponent* FrozenFX;
+		UParticleSystemComponent* FrozenFX;
 
 
 
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UStaticMeshComponent* Water_Mesh;
+		UStaticMeshComponent* Water_Mesh;
 
 	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
 
@@ -104,5 +105,8 @@ private:
 	int Status;
 	FVector DeltaLocation;
 	FVector TempLocation;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* PouringSound;
 
 };

@@ -30,13 +30,13 @@ AVB_TextActor::AVB_TextActor()
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_15(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v14.v14"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_16(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v15.v15"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_17(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v16.v16"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_18(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v17.v17"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_18(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/new_v17.new_v17"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_19(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v18.v18"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_20(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v19.v19"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_21(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v20.v20"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_22(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v21.v21"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_23(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/vFix22.vFix22"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_24(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v24.v24"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_24(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/new_v24.new_v24"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_25(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v25.v25"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_26(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v26.v26"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_27(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v27.v27"));
@@ -358,8 +358,8 @@ void AVB_TextActor::ClearTextLines()
 void AVB_TextActor::Tick(float DeltaTime)
 {
 	//UE_LOG(LogTemp, Log, TEXT("==%d=="), delay);
-	AVB_LevelScriptActor *LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-	ATP_VirtualRealityPawn_Motion *VRP = Cast<ATP_VirtualRealityPawn_Motion>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+	ATP_VirtualRealityPawn_Motion* VRP = Cast<ATP_VirtualRealityPawn_Motion>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	if (CurrentStatus != LSA->GetStatus() && LSA != nullptr)
 	{
 		SSoundSuccess->Play();
@@ -425,7 +425,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	if (LSA->GetStatus() == 3)
 	{
 		if (!m_HasPlayed)
-		{	
+		{
 			SSound4->Stop();
 			delay = 1001;
 			SSound5->Play();
@@ -444,7 +444,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			SetTextLines("Now the workstation is cooled down.", "It's time to add ethane to the workstation.", "The green ethane tank is on the left.");
 			delay++;
 			if (!m_HasPlayed)
-			{	
+			{
 				SSound5->Stop();
 				SSound6->Play();
 				m_HasPlayed = true;
@@ -469,7 +469,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	if (LSA->GetStatus() == 5)
 	{
 		if (!m_HasPlayed)
-		{	
+		{
 			SSound6->Stop();
 			SSoundSuccess->Play();
 			SSound8->Play();
@@ -481,7 +481,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	if (LSA->GetStatus() == 6)
 	{
 		if (!m_HasPlayed)
-		{	
+		{
 			SSound8->Stop();
 			SSoundSuccess->Play();
 			SSound9->Play();
@@ -505,7 +505,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	if (LSA->GetStatus() == 8)
 	{
 		if (!m_HasPlayed)
-		{	
+		{
 			SSound10->Stop();
 			SSoundSuccess->Play();
 			SSound11->Play();
@@ -596,7 +596,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Use the stylus to press the button that says ", " 'START PROCEDURE' on the Vitrobot screen", "to raise the plunger.");
+		SetTextLines("Use the stylus to press the button that says ", " 'START PROCEDURE' on the Vitrobot screen once", "to raise the plunger.");
 	}
 	if (LSA->GetStatus() == 16)
 	{
@@ -681,7 +681,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Use the stylus to press 'CONTINUE'", "on the Vitrobot screen", "to start blotting and plunging!");
+		SetTextLines("Use the stylus to press 'CONTINUE' once", "on the Vitrobot screen", "to start blotting and plunging!");
 	}
 	//if (LSA->GetStatus() == 23)
 	//{
