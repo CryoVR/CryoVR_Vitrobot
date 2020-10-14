@@ -79,6 +79,7 @@ void AVB_EthaneTankActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, A
 			{
 				if (OverlappedComp == secondKnobCollisionComp) {
 					m_isSecondKnobOn = true;
+					Is_Second_Open = true;
 					
 					if (LSA != nullptr)
 					{
