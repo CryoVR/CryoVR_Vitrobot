@@ -69,31 +69,29 @@ USceneComponent * AVB_EthaneTankActor::GetComponentByIndex(int indexComp)
 void AVB_EthaneTankActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
 	ATP_MotionController* MotionController = Cast<ATP_MotionController>(OtherActor);
-	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	if (MotionController != nullptr) {
 		if (Cast<USphereComponent>(OtherComp) == MotionController->GrabShpere) {
 			if (OverlappedComp == shapeComp) {
 				bIsFirstKnobTouched = true;
 			}
-			if (LSA->GetStatus() == 7)
-			{
-				if (OverlappedComp == secondKnobCollisionComp) {
-					m_isSecondKnobOn = true;
-					
-					if (LSA != nullptr)
+			if (OverlappedComp == secondKnobCollisionComp) {
+				m_isSecondKnobOn = !m_isSecondKnobOn;
+				AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+				if (LSA != nullptr)
+				{
+					if (LSA->GetStatus() == 7)
 					{
 						Hissing_Sound->Play();
 						//LSA->SetStatus(8);
 					}
 					
+					if (LSA->GetStatus() == 9)
+					{
+						LSA->SetStatus(10);
+					}
 					
 				}
 			}
-			if (LSA->GetStatus() == 9)
-			{
-				LSA->SetStatus(10);
-			}
-
 		}
 
 		/*if (m_isFirstKnobOn && m_isSecondKnobOn && ethaneTip != nullptr) {
