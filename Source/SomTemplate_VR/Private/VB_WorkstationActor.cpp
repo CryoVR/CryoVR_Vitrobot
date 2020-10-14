@@ -259,7 +259,7 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 
 
 
-	if (LSA->GetStatus() >= 8 && LSA->GetStatus() <= 19)
+	if (LSA->GetStatus() >= 6 && LSA->GetStatus() <= 19)
 	{
 		PickupMesh->SetSimulatePhysics(false);
 	}
