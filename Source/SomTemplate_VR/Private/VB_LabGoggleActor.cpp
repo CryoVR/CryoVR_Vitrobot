@@ -3,7 +3,7 @@
 
 #include "VB_LabGoggleActor.h"
 #include "Public/Engine.h"
-#include "Components/Boxcomponent.h"
+#include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "VB_LevelScriptActor.h"
 #include "VirtualReality/TP_MotionController.h"

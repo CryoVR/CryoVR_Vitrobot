@@ -3,7 +3,7 @@
 //Now it's the test version with the Tick function
 #include "VB_DewarActor.h"
 #include "Public/Engine.h"
-#include "Components/Boxcomponent.h"
+#include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "VB_NitrogenTankCapActor.h"
 #include "VB_LevelScriptActor.h"

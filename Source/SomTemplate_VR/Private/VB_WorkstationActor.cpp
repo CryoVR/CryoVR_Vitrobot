@@ -3,7 +3,7 @@
 
 #include "VB_WorkstationActor.h"
 #include "Public/Engine.h"
-#include "Components/Boxcomponent.h"
+#include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "VB_DewarActor.h"

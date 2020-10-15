@@ -4,7 +4,7 @@
 #include "VB_CleanDewarCapActor.h"
 #include "Public/Engine.h"
 #include "Components/CapsuleComponent.h"
-#include "Components/Scenecomponent.h"
+#include "Components/SceneComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "VB_DewarActor.h"
 #include "TimerManager.h"

@@ -2,9 +2,8 @@
 
 
 #include "VB_GloveActor.h"
-#include "Components/Boxcomponent.h"
+#include "Components/BoxComponent.h"
 #include "Public/Engine.h"
-#include "Components/Boxcomponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "VB_DewarActor.h"

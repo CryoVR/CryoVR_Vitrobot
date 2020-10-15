@@ -2,7 +2,7 @@
 
 
 #include "VB_CleanPipetteActor.h"
-#include "Components/Spherecomponent.h"
+#include "Components/SphereComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Public/Engine.h"
 #include "VB_SampleTubeActor.h"

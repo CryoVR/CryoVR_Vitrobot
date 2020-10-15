@@ -3,7 +3,7 @@
 
 #include "VB_CleanDewarActor.h"
 #include "Public/Engine.h"
-#include "Components/Boxcomponent.h"
+#include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "VB_NitrogenTankCapActor.h"
 #include "VB_LevelScriptActor.h"
