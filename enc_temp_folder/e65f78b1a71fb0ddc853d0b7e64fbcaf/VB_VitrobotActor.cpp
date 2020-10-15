@@ -304,10 +304,6 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 				bIsDoorOn = !bIsDoorOn;
 			}
 		}
-		if (LSA->GetStatus() == 22)
-		{
-			isButtonTouched = true;
-		}
 		
 	}
 }

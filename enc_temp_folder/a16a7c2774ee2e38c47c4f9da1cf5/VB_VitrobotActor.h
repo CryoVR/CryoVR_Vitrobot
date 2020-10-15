@@ -58,9 +58,6 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UAudioComponent* Button_Sound;
 
-	UPROPERTY(BlueprintReadWrite)
-	bool isButtonTouched;
-
 
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
