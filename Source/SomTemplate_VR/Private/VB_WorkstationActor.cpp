@@ -249,7 +249,7 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 		{
 			LSA->SetStatus(8);
 		}
-	}w'w'w
+	}
 
 	if (Is_EthaneAdding == true)
 	{
