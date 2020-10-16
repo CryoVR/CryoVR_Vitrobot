@@ -23,7 +23,7 @@ AVB_TextActor::AVB_TextActor()
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_8(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v7.v7"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_9(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v8.v8"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_10(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v9.v9"));
-	static ConstructorHelpers::FObjectFinder<USoundWave> S_11(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/new_v10.new_v10"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_11(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v10.v10"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_12(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v11.v11"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_13(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v12.v12"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_14(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v13.v13"));
