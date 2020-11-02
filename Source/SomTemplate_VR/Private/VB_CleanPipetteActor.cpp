@@ -35,10 +35,14 @@ AVB_CleanPipetteActor::AVB_CleanPipetteActor()
 
 void AVB_CleanPipetteActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
-	AVB_CleanTableCompActor* CleanTableCompActor = Cast<AVB_CleanTableCompActor>(OtherActor);
+	/*AVB_CleanTableCompActor* CleanTableCompActor = Cast<AVB_CleanTableCompActor>(OtherActor);
 	if (CleanTableCompActor != nullptr) {
 		bIsOnTable = true;
 		
+	}*/
+	if (Cast<ATP_MotionController>(OtherActor)) {
+		UpdateHandGuestureFunc(true, FName("Pipet_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float>{ -3.0f, 1.0f }, Cast<ATP_MotionController>(OtherActor));
+		bIsOnTable = true;
 	}
 }
 
