@@ -38,6 +38,7 @@ public:
 		bool m_isSecondKnobOn;
 
 public:
+	UPROPERTY(BlueprintReadWrite, Category = "Variables")
 	bool m_isFirstKnobOn;
 
 
