@@ -10,10 +10,21 @@
 #include "VB_EthaneTankActor.h"
 #include "VB_LevelScriptActor.h"
 #include "VirtualReality/TP_MotionController.h"
+#include "VB_CleanTableCompActor.h"
+#include "Components/AudioComponent.h"
+#include "Runtime/Engine/Classes/Sound/SoundWave.h"
 
 
 AVB_EthaneTipActor::AVB_EthaneTipActor() 
 {
+	static ConstructorHelpers::FObjectFinder<USoundWave> SSoundWarning(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/tipWarning.tipWarning"));
+
+	USoundWave* SoundWaveWarning = SSoundWarning.Object;
+	SSoundTipWarning = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTestWarning"));
+	SSoundTipWarning->SetupAttachment(PickupMesh);
+	SSoundTipWarning->SetAutoActivate(false);
+	SSoundTipWarning->SetSound(SoundWaveWarning);
+
 	PrimaryActorTick.bCanEverTick = true;
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_EthaneTipMesh(TEXT("StaticMesh'/Game/Models/EthaneTip.EthaneTip'"));
 	static ConstructorHelpers::FObjectFinder<UParticleSystem> PAR_EthaneParticle(TEXT("ParticleSystem'/Game/Particles/EthaneSplash_P.EthaneSplash_P'"));
@@ -53,6 +64,14 @@ AVB_EthaneTipActor::AVB_EthaneTipActor()
 
 void AVB_EthaneTipActor::OnActorBeginOverlap(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
+	AVB_CleanTableCompActor* CleanTableCompActor = Cast<AVB_CleanTableCompActor>(OtherActor);
+	if (CleanTableCompActor != nullptr) {
+		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+		if (LSA->GetStatus() == 8) {
+			bIsOnTable = true;
+		}
+	}
+
 	AVB_EthaneTankActor* ethaneTankRef = Cast<AVB_EthaneTankActor>(OtherActor);
 	if (ethaneTankRef != nullptr) {
 		UPrimitiveComponent* comp = Cast<UPrimitiveComponent>(ethaneTankRef->GetComponentByIndex(3));
@@ -88,6 +107,12 @@ void AVB_EthaneTipActor::Tick(float DeltaTime)
 		{
 			LSA->SetStatus(6);
 		}
+	}
+
+	if (bIsOnTable == true)
+	{
+		SSoundTipWarning->Play();
+		bIsOnTable = false;
 	}
 }
 

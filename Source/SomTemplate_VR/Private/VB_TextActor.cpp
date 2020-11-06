@@ -53,7 +53,7 @@ AVB_TextActor::AVB_TextActor()
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_38(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v35.v35"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_39(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v37.v37"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_40(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v38.v38"));
-
+	
 
 
 

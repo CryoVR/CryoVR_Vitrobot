@@ -12,6 +12,7 @@
 
 class UParticleSystemComponent;
 class UCapsuleComponent;
+class UAudioComponent;
 
 UCLASS()
 class SOMTEMPLATE_VR_API AVB_EthaneTipActor : public AVB_DynamicActor
@@ -33,10 +34,15 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UCapsuleComponent* ethaneTipCapsuleComp;
 
+	
+
 	virtual void Tick(float DeltaTime) override;
 
 protected:
 	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
 
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSoundTipWarning;
 
+	bool bIsOnTable;
 };
