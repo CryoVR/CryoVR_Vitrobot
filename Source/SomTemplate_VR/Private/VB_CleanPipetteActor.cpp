@@ -40,8 +40,10 @@ void AVB_CleanPipetteActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp,
 		bIsOnTable = true;
 		
 	}*/
-	if (Cast<ATP_MotionController>(OtherActor)) {
-		UpdateHandGuestureFunc(true, FName("Pipet_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float>{ -3.0f, 1.0f }, Cast<ATP_MotionController>(OtherActor));
+	AVB_PippetHolderActor* holder = Cast<AVB_PippetHolderActor>(OtherActor);
+	if (holder != nullptr) {
+		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+		GetRootComponent()->AttachToComponent(OtherActor->GetRootComponent(), AttachRules, FName("Holder_Socket_Pippet"));
 		bIsOnTable = true;
 	}
 }
