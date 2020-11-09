@@ -45,4 +45,6 @@ protected:
 		UAudioComponent* SSoundTipWarning;
 
 	bool bIsOnTable;
+
+	bool bPlayflag;
 };

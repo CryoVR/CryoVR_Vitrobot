@@ -19,12 +19,6 @@ AVB_EthaneTipActor::AVB_EthaneTipActor()
 {
 	static ConstructorHelpers::FObjectFinder<USoundWave> SSoundWarning(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/tipWarning.tipWarning"));
 
-	USoundWave* SoundWaveWarning = SSoundWarning.Object;
-	SSoundTipWarning = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTestWarning"));
-	SSoundTipWarning->SetupAttachment(PickupMesh);
-	SSoundTipWarning->SetAutoActivate(false);
-	SSoundTipWarning->SetSound(SoundWaveWarning);
-
 	PrimaryActorTick.bCanEverTick = true;
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_EthaneTipMesh(TEXT("StaticMesh'/Game/Models/EthaneTip.EthaneTip'"));
 	static ConstructorHelpers::FObjectFinder<UParticleSystem> PAR_EthaneParticle(TEXT("ParticleSystem'/Game/Particles/EthaneSplash_P.EthaneSplash_P'"));
@@ -59,6 +53,13 @@ AVB_EthaneTipActor::AVB_EthaneTipActor()
 	}
 	ethaneParticle->SetActive(false);
 	ethaneParticle->SetAutoActivate(true);
+
+	USoundWave* SoundWaveWarning = SSoundWarning.Object;
+	SSoundTipWarning = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTestWarning"));
+	SSoundTipWarning->SetupAttachment(PickupMesh);
+	SSoundTipWarning->SetAutoActivate(false);
+	SSoundTipWarning->SetSound(SoundWaveWarning);
+
 
 }
 
