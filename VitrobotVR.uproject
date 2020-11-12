@@ -1,0 +1,20 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "4.22",
+	"Category": "Template",
+	"Description": "// UE4 VR Template Convert C++ Open Source Project.",
+	"Modules": [
+		{
+			"Name": "SomTemplate_VR",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
+		}
+	],
+	"TargetPlatforms": [
+		"PS4",
+		"WindowsNoEditor"
+	]
+}
