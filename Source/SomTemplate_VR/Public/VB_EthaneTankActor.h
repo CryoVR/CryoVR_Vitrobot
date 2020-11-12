@@ -60,6 +60,10 @@ protected:
 
 	float m_HandInitialKnobDeltaRotator;
 
+	float Delta_FirstpointerRotation;
+
+	float Delta_SecondpointerRotation;
+
 	bool bIsFirstKnobTouched;
 
 	bool bIsFirstKnobHold;

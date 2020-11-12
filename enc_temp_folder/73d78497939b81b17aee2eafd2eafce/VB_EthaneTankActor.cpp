@@ -188,7 +188,7 @@ void AVB_EthaneTankActor::Tick(float DeltaTime)
 
 	//meter off
 	if (!m_isFirstKnobOn) {
-		if (firstPointer->GetComponentRotation().Yaw > -115.8f) {
+		if (firstPointer->GetComponentRotation().Yaw > Delta_FirstpointerRotation) {
 			firstPointer->AddLocalRotation(FRotator(1.5f, 0.0f, 0.0f));
 		}
 		if (secondPointer->GetComponentRotation().Yaw > -158.5f) {
