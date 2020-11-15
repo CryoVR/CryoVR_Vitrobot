@@ -68,7 +68,7 @@ void AVB_EthaneTipActor::OnActorBeginOverlap(UPrimitiveComponent * OverlappedCom
 	AVB_CleanTableCompActor* CleanTableCompActor = Cast<AVB_CleanTableCompActor>(OtherActor);
 	if (CleanTableCompActor != nullptr) {
 		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-		if (LSA->GetStatus() == 8) {
+		if (LSA->GetStatus() == 6 || LSA->GetStatus() == 7) {
 			bIsOnTable = true;
 		}
 	}
