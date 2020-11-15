@@ -144,6 +144,10 @@ void AVB_EthaneTankActor::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	
 	//check first knob
+	if (Delta_FirstpointerRotation > -115.8f || Delta_FirstpointerRotation < 40.0f)
+	{
+		Delta_FirstpointerRotation = -93.54f - (0.742f * firstKnob->GetComponentRotation().Yaw);
+	}
 	if (bIsFirstKnobTouched && bIsFirstKnobHold) {
 			float newSub = handObjRef->GetComponentRotation().Yaw - m_HandInitialKnobDeltaRotator;
 			newSub = FMath::Clamp(newSub, -50.0f, 30.0f);
@@ -176,7 +180,7 @@ void AVB_EthaneTankActor::Tick(float DeltaTime)
 
 	//meter on
 	if (m_isFirstKnobOn) {
-		if (firstPointer->GetComponentRotation().Yaw < 40.0f) {
+		if (firstPointer->GetComponentRotation().Yaw < Delta_FirstpointerRotation) {
 			firstPointer->AddLocalRotation(FRotator(-1.5f, 0.0f, 0.0f));
 			secondPointer->AddLocalRotation(FRotator(-1.5f, 0.0f, 0.0f));
 		}
