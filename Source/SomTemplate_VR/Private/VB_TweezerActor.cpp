@@ -17,6 +17,10 @@
 // Sets default values
 AVB_TweezerActor::AVB_TweezerActor()
 {	
+	bp_isTweezerGrab = false;
+	m_isGridAttached = false;
+	Entered = false;
+
 	PrimaryActorTick.bCanEverTick = true;
 	capsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComp"));
 	capsuleComp->SetGenerateOverlapEvents(true);
@@ -66,7 +70,7 @@ void AVB_TweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AAct
 {	
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	AVB_PetridishActor* petridishActor = Cast<AVB_PetridishActor>(OtherActor);
-	if (petridishActor != nullptr && petridishActor->getState()) {
+	if (petridishActor != nullptr) {
 		if (petridishActor->GetGrid() == OtherComp->GetAttachParent()) {
 			petridishActor->GetGrid()->SetVisibility(false);
 			tweezer_grid->SetVisibility(true);
@@ -107,8 +111,11 @@ void AVB_TweezerActor::OnTweezerBeginOverlap(UPrimitiveComponent * OverlappedCom
 	}
 	AVB_VitrobotActor* VitrobotActor = Cast<AVB_VitrobotActor>(OtherActor);
 	if (VitrobotActor != nullptr) {
-		if (m_isGridAttached) {
+		/*
+		UPrimitiveComponent* comp = Cast<UPrimitiveComponent>(VitrobotActor->Plunger_Collider);
+		if (comp != nullptr && comp == OtherComp) {
 			FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+			PickupMesh->SetSimulatePhysics(false);
 			GetRootComponent()->AttachToComponent(VitrobotActor->Plunger, AttachRules, FName("Plunger_Socket_T"));
 			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 			if (LSA != nullptr)
@@ -119,6 +126,31 @@ void AVB_TweezerActor::OnTweezerBeginOverlap(UPrimitiveComponent * OverlappedCom
 				}
 			}
 		}
+		*/
+		
+		
+		/*
+		if (bp_isTweezerGrab || m_isGridAttached) {
+			FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, true);
+			PickupMesh->SetSimulatePhysics(false);
+			GetRootComponent()->AttachToComponent(OtherActor->GetRootComponent(), AttachRules, FName("Plunger_Socket_T"));
+			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+			if (LSA != nullptr)
+			{
+				if (LSA->GetStatus() == 14)
+				{
+					LSA->SetStatus(15);
+				}
+			}
+		}
+		*/
+		
+		
+		
+		
+		
+		
+		
 	}
 }
 
@@ -126,8 +158,14 @@ void AVB_TweezerActor::Tick(float DeltaTime)
 {
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 
-	if (m_isGrab == true)
+	if (bp_isTweezerGrab || m_isGrab)
 	{
+		Entered = true;
+		if (LSA->GetStatus() == 12)
+		{
+			LSA->SetStatus(13);
+		}
+
 		if (LSA->GetStatus() == 24)
 		{
 			LSA->SetStatus(25);

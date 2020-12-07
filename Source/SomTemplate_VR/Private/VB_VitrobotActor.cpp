@@ -16,6 +16,7 @@
 #include "VB_WorkstationActor.h"
 #include "VB_PenActor.h"
 #include "VB_TextActor.h"
+#include "VB_TweezerActor.h"
 #include "VB_LevelScriptActor.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
@@ -23,6 +24,7 @@
 
 AVB_VitrobotActor::AVB_VitrobotActor() {
 	PrimaryActorTick.bCanEverTick = true;
+	bIsButtonOn = false;
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_MainMesh(TEXT("StaticMesh'/Game/Test_Geometry/New_Vitrobot/vitrobot_seperate_polySurface3.vitrobot_seperate_polySurface3'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_WorkstationHolder(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Workstation_Holder.Workstation_Holder'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_InnerHolder(TEXT("StaticMesh'/Game/Test_Geometry/Test_Textures/Holder.Holder'"));
@@ -55,7 +57,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	WorkstationHolder->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	WorkstationHolder->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	WorkstationHolder->SetVisibility(true);
-	WorkstationHolder->SetRelativeLocation(FVector(3.73f, 0.0f, 8.33f));
+	WorkstationHolder->SetRelativeLocation(FVector(3.73f, 0.0f, 9.43f));
 	if (SM_WorkstationHolder.Succeeded()) {
 		WorkstationHolder->SetStaticMesh(SM_WorkstationHolder.Object);
 	}
@@ -284,6 +286,9 @@ void AVB_VitrobotActor::MoveWorkstationHolder(float F)
 
 }
 
+
+
+
 //Generate the overlap function for bottom cover and workstation holder
 void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
@@ -366,13 +371,13 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 			bIsHolderGoingUp = true;
 			bIsButtonOn = false;
 		}
-		else if (WorkstationHolder->GetComponentLocation().Z > 145.5f)
+		else if (WorkstationHolder->GetComponentLocation().Z > 147.0f)
 		{
 			bIsHolderGoingUp = false;
 			bIsButtonOn = false;
 			if (LSA != nullptr)
 			{
-				if (LSA->GetStatus() == 22)
+				if (LSA->GetStatus() == 21)
 				{
 					LSA->SetStatus(23);
 					m_IsMachineOn = true;
@@ -394,7 +399,7 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 	{
 		Holder_Sound->Play();
 	}
-	else if (bIsButtonOn && WorkstationHolder->GetComponentLocation().Z > 145.0f)
+	else if (bIsButtonOn && WorkstationHolder->GetComponentLocation().Z > 147.0f)
 	{
 		Holder_Sound->Stop();
 	}

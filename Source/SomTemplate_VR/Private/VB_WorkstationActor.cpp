@@ -80,9 +80,9 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	Workstation_P3->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	Workstation_P3->OnComponentBeginOverlap.AddDynamic(this, &AVB_WorkstationActor::OnGridBoxOverlapBegin);
 	Workstation_P3->SetVisibility(true);
-	Workstation_P3->SetRelativeLocation(FVector(-3.3521385f, 2.5355682f, 4.9615173f));
+	Workstation_P3->SetRelativeLocation(FVector(-3.3521385f, 2.5355682f, 5.2615173f));
 	Workstation_P3->SetRelativeRotation(FRotator(0.0f, 0.0f, 180.0f));
-	Workstation_P3->SetRelativeScale3D(FVector(1.4f, 1.4f, 0.7f));
+	Workstation_P3->SetRelativeScale3D(FVector(1.4f, 1.4f, 1.4f));
 	if (SM_P3.Succeeded()) {
 		Workstation_P3->SetStaticMesh(SM_P3.Object);
 	}

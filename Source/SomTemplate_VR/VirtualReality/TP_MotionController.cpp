@@ -43,8 +43,8 @@ ATP_MotionController::ATP_MotionController()
 	//=============// HandMesh->SetAnimInstanceClass(AnimBP_HandAnimation.Object->GeneratedClass);
 	
 	// SomWorks :D // Animation Blueprint // cast "UClass" and Asset path is Different Why? -> Because UAnimBlueprint Class will crash a packaged game. so use postfix "_C", animation blueprint cast to UClass.
-	//static ConstructorHelpers::FObjectFinder<UClass> AnimBP_HandAnimation(TEXT("Class'/Game/VirtualReality/Mannequin/Animations/AnimBP_SomRightHand.AnimBP_SomRightHand_C'"));
-	static ConstructorHelpers::FObjectFinder<UClass> AnimBP_HandAnimation(TEXT("Class'/Game/VirtualReality/Mannequin/Animations/RightHand_AnimBP.RightHand_AnimBP_C'"));
+	static ConstructorHelpers::FObjectFinder<UClass> AnimBP_HandAnimation(TEXT("Class'/Game/VirtualReality/Mannequin/Animations/AnimBP_SomRightHand.AnimBP_SomRightHand_C'"));
+	//static ConstructorHelpers::FObjectFinder<UClass> AnimBP_HandAnimation(TEXT("Class'/Game/VirtualReality/Mannequin/Animations/RightHand_AnimBP.RightHand_AnimBP_C'"));
 	//Class'/Game/VirtualReality/Mannequin/Animations/RightHand_AnimBP.RightHand_AnimBP_C'
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SK_Hand(TEXT("SkeletalMesh'/Game/VirtualReality/VR_Hands/Meshes/StylizedManHand_Right.StylizedManHand_Right'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Sphere(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
@@ -89,15 +89,20 @@ ATP_MotionController::ATP_MotionController()
 	HandMesh->SetRelativeScale3D(m_HandScale * FVector(1.0f, 1.0f, 1.0f));
 	HandMesh->SetCollisionProfileName(TEXT("NoCollision"));
 	HandMesh->CastShadow = false;
+
 	if (SK_Hand.Succeeded())
 	{
+
 		HandMesh->SetSkeletalMesh(SK_Hand.Object);
 		HandMesh->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+		/*
 		if (AnimBP_HandAnimation.Succeeded())
 		{
 			HandMesh->SetAnimInstanceClass(AnimBP_HandAnimation.Object);
 		}
+	*/
 	}
+
 	//Initialize default hand gesture input and hand gesture
 	HandGestureInput = { 2.0f, 1.0f };
 	HandGesturetoAnimationBP = { 0.0f, 1.0f };

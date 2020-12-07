@@ -30,6 +30,9 @@ public:
 	
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(BlueprintReadWrite, Category = "Variables")
+		bool bp_PipetteGrab;
+
 protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")

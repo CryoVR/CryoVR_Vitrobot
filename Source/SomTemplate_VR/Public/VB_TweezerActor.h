@@ -28,6 +28,12 @@ public:
 
 	bool m_isGridAttached;
 
+	UPROPERTY(BlueprintReadWrite, Category = "Variables")
+		bool bp_isTweezerGrab;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Variables")
+		bool Entered;
+
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UStaticMeshComponent* tweezer_grid;
 

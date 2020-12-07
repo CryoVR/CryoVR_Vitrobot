@@ -34,7 +34,7 @@ protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	UStaticMeshComponent* GridDewarCap;
 
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UBoxComponent* GridDewarCap_Collider;
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")

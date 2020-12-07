@@ -31,7 +31,7 @@ public:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	UStaticMeshComponent* Door;
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UBoxComponent* Plunger_Collider;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
@@ -67,7 +67,6 @@ public:
 
 	UFUNCTION()
 	void TouchScreen(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-
 
 
 
@@ -108,7 +107,7 @@ protected:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	UStaticMeshComponent* Bottom_Cover;
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UBoxComponent* WorkstationHolder_Collider;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")

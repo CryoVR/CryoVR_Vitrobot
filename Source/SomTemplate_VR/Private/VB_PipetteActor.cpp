@@ -19,6 +19,7 @@ class UPrimitiveComponent;
 AVB_PipetteActor::AVB_PipetteActor()
 {	
 	PrimaryActorTick.bCanEverTick = true;
+	bp_PipetteGrab = false;
 	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
 	SphereComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_PipetteActor::OnOverlapBegin);
@@ -57,15 +58,15 @@ AVB_PipetteActor::AVB_PipetteActor()
 void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {	
 
-	UMaterialInstanceDynamic* DynamicMaterial = UMaterialInstanceDynamic::Create(PickupMesh->GetMaterial(0), this);
-	UMaterialInstanceDynamic* DynamicMaterial_1 = UMaterialInstanceDynamic::Create(PickupMesh->GetMaterial(0), this);
-	DynamicMaterial->SetVectorParameterValue("BodyColor", FLinearColor::Blue);
+	//UMaterialInstanceDynamic* DynamicMaterial = UMaterialInstanceDynamic::Create(PickupMesh->GetMaterial(0), this);
+	//UMaterialInstanceDynamic* DynamicMaterial_1 = UMaterialInstanceDynamic::Create(PickupMesh->GetMaterial(0), this);
+	//DynamicMaterial->SetVectorParameterValue("BodyColor", FLinearColor::Blue);
 
 	//When overlaps with the sample tube & tweezer
 	if (Cast<AVB_SampleTubeActor>(OtherActor) != nullptr)
 	{
-	   	if (DynamicMaterial != nullptr) 
-		{	
+	   	//if (DynamicMaterial != nullptr) 
+		//{	
 			PickupMesh->SetMaterial(4, OffMaterial);
 			//PickupMesh->SetRenderCustomDepth(true);
 			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
@@ -76,7 +77,7 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 					LSA->SetStatus(18);
 				}
 			}
-		}
+		//}
 	}
 
 	if (Cast<AVB_TweezerActor>(OtherActor))
@@ -87,7 +88,7 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 			if (LSA != nullptr)
 			{
-				if (LSA->GetStatus() == 19)
+				if (LSA->GetStatus() == 18)
 				{
 					LSA->SetStatus(20);
 				}
