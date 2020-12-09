@@ -53,6 +53,7 @@ AVB_TextActor::AVB_TextActor()
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_38(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v35.v35"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_39(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v37.v37"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_40(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v38.v38"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_41(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v40.v40"));
 	
 
 
@@ -862,12 +863,12 @@ void AVB_TextActor::Tick(float DeltaTime)
 	}
 	if (LSA->GetStatus() == 38)
 	{
-	/*	if (!m_HasPlayed)
+		if (!m_HasPlayed)
 		{
 			SSoundSuccess->Play();
-			SSound40->Play();
+			SSound41->Play();
 			m_HasPlayed = true;
-		}*/
+		}
 		ClearTextLines();
 		SetTextLines("Now let's clean the lab", "Put the highlighted device back into the wheeled cart", "");
 	}
