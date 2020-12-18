@@ -22,9 +22,9 @@ AVB_GridBoxTweezerActor::AVB_GridBoxTweezerActor()
 	capsuleComp->SetGenerateOverlapEvents(true);
 	capsuleComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	capsuleComp->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
-	capsuleComp->SetCapsuleSize(0.2f, 0.2f);
+	capsuleComp->SetCapsuleSize(0.4f, 0.4f);
 	capsuleComp->SetRelativeLocation(FVector(0.0f, 0.0f, -10.0f));
-	capsuleComp->SetRelativeScale3D(FVector(1.0f, 1.0f, 1.0f));
+	capsuleComp->SetRelativeScale3D(FVector(2.0f, 2.0f, 2.0f));
 	capsuleComp->SetupAttachment(PickupMesh);
 	capsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_GridBoxTweezerActor::OnOverlapBegin);
 

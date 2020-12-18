@@ -152,7 +152,7 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Plunger_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Plunger_Collider"));
 	Plunger_Collider->SetupAttachment(Plunger);
 	Plunger_Collider->SetRelativeLocation(FVector(0.0f, 0.0f, -32.33f));
-	Cast<UBoxComponent>(Plunger_Collider)->SetBoxExtent(FVector(0.8f, 0.8f, 0.8f));
+	Cast<UBoxComponent>(Plunger_Collider)->SetBoxExtent(FVector(0.2f, 0.2f, 0.2f));
 	
 	//LED Screen
 	Screen = CreateAbstractDefaultSubobject<UStaticMeshComponent>(TEXT("Screen"));

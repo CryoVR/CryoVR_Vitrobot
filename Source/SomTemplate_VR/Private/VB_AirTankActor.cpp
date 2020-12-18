@@ -27,7 +27,7 @@ AVB_AirTankActor::AVB_AirTankActor() {
 	//First Knob Mesh
 	firstKnob = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("FirstKnobComp"));
 	firstKnob->SetGenerateOverlapEvents(false);
-	firstKnob->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+	firstKnob->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	firstKnob->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Block);
 	firstKnob->SetupAttachment(meshComp);
 	firstKnob->SetRelativeLocation(FVector(0.0f, 0.0f, 46.0f));

@@ -26,9 +26,9 @@ public:
 
 protected:
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(BlueprintReadwrite, Category = "Components")
 		UCapsuleComponent* CapsuleComp;
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(BlueprintReadwrite, Category = "Components")
 		UCapsuleComponent* CapsuleBodyComp;
 
 	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;

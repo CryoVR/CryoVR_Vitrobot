@@ -28,10 +28,10 @@ public:
 
 protected:
 
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UPROPERTY(BlueprintReadwrite, Category = "Components")
 		UCapsuleComponent* capsuleComp;
 
-	UPROPERTY(VisibleAnywhere, Category = "Particles")
+	UPROPERTY(BlueprintReadwrite, Category = "Particles")
 		UParticleSystemComponent* P_Frozen;
 
 	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;

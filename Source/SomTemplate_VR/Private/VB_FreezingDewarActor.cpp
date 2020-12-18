@@ -18,9 +18,9 @@ AVB_FreezingDewarActor::AVB_FreezingDewarActor()
 	capsuleComp->SetGenerateOverlapEvents(true);
 	capsuleComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	capsuleComp->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
-	capsuleComp->SetCapsuleSize(22.0f, 44.0f);
+	capsuleComp->SetCapsuleSize(2.0f, 3.0f);
 	capsuleComp->SetRelativeLocation(FVector(0.0f, 0.0f, 39.90f));
-	capsuleComp->SetRelativeScale3D(FVector(0.5f, 0.5f, 0.25f));
+	capsuleComp->SetRelativeScale3D(FVector(0.2f, 0.2f, 0.15f));
 	capsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_FreezingDewarActor::OnDewarOverlapBegin);
 
 	if (SM_FDewar.Succeeded()) 

@@ -40,7 +40,7 @@ public:
 
 protected:
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(BlueprintReadwrite, Category = "Components")
 		UCapsuleComponent* capsuleComp;
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UCapsuleComponent* tweezerMainCapsuleComp;
