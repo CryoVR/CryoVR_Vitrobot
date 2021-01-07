@@ -129,14 +129,15 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 }
 
 void AVB_WorkstationActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
+{	
+	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	AVB_GridBoxTweezerActor* GBTweezer = Cast<AVB_GridBoxTweezerActor>(OtherActor);
-	if (GBTweezer != nullptr && GBTweezer->m_isTweezerFrozen)
+	if (GBTweezer != nullptr && GBTweezer->m_isTweezerFrozen && LSA->GetStatus() > 15)
 	{
 		Workstation_P3->SetVisibility(false);
 	}
 
-	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+	
 	if (Cast<AVB_DewarActor>(OtherActor) != nullptr)
 	{
 		FrozenFX->SetVisibility(true);

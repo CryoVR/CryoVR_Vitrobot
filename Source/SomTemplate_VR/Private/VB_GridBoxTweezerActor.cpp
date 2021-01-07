@@ -86,7 +86,7 @@ void AVB_GridBoxTweezerActor::OnPointerOverlapBegin(UPrimitiveComponent * Overla
 		UpdateHandGuestureFunc(true, FName("GridBoxTweezer_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.0f, 0.5f}, Cast<ATP_MotionController>(OtherActor));
 	}
 
-	if (WorkstationActor != nullptr && m_isTweezerFrozen)
+	if (WorkstationActor != nullptr && m_isTweezerFrozen && LSA->GetStatus()> 25)
 	{
 		tweezer_grid->SetVisibility(true);
 		m_isTweezerGridShow = true;
