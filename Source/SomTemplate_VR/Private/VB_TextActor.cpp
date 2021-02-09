@@ -872,4 +872,62 @@ void AVB_TextActor::Tick(float DeltaTime)
 		ClearTextLines();
 		SetTextLines("Now let's clean the lab", "Put the highlighted device back into the wheeled cart", "");
 	}
+	if (LSA->GetStatus() == 39)
+	{
+		if (!m_HasPlayed)
+		{
+			SSoundSuccess->Play();
+			//SSound41->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Attach humidifier to Vitrobot, sticker facing forwards", "Not the humidifier has been filled with 60 mL milliQ water via tube on the bottom", "");
+	}
+	if (LSA->GetStatus() == 40)
+	{
+		if (!m_HasPlayed)
+		{
+			SSoundSuccess->Play();
+			//SSound41->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Turn on the Vitrobot via switch on the back right of machine", "And adjust setting as needed", "");
+	}
+	if (LSA->GetStatus() == 41)
+	{
+		if (!m_HasPlayed)
+		{
+			SSoundSuccess->Play();
+			//SSound41->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Place brass ethane cup, gridbox holder,", " and spider inside of the circular foam base", "");
+	}
+	if (LSA->GetStatus() == 42)
+	{
+		if (!m_HasPlayed)
+		{
+			SSoundSuccess->Play();
+			//SSound41->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Invert and dump humidifier at least 3 times to clear reservoir", "", "");
+	}
+	if (LSA->GetStatus() == 43)
+	{
+		if (!m_HasPlayed)
+		{
+			SSoundSuccess->Play();
+			//SSound41->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Attach blot papers to blotting pads. ", "Note in reality you need to Advance through the freezing cycle 1 time (without tweezers)", "  to home blotting pads.  This is essential for consistency.");
+
+	}
+
+
 }
