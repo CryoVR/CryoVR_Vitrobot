@@ -54,6 +54,16 @@ AVB_TextActor::AVB_TextActor()
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_39(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v37.v37"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_40(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v38.v38"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_41(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v40.v40"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_42(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v41.v41"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_43(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v42.v42"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_44(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v43.v43"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_45(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v44.v44"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_46(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v45.v45"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_47(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v46.v46"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_48(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v47.v47"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_49(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v48.v48"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_50(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v49.v49"));
+	//static ConstructorHelpers::FObjectFinder<USoundWave> S_51(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v50.v50"));
 	
 
 
@@ -339,6 +349,66 @@ AVB_TextActor::AVB_TextActor()
 	SSound40->SetupAttachment(TextComp1);
 	SSound40->SetAutoActivate(false);
 	SSound40->SetSound(SoundWave40);
+
+	USoundWave* SoundWave41 = S_41.Object;
+	SSound41 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest41"));
+	SSound41->SetupAttachment(TextComp1);
+	SSound41->SetAutoActivate(false);
+	SSound41->SetSound(SoundWave41);
+
+	USoundWave* SoundWave42 = S_42.Object;
+	SSound42 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest42"));
+	SSound42->SetupAttachment(TextComp1);
+	SSound42->SetAutoActivate(false);
+	SSound42->SetSound(SoundWave42);
+
+	USoundWave* SoundWave43 = S_43.Object;
+	SSound43 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest43"));
+	SSound43->SetupAttachment(TextComp1);
+	SSound43->SetAutoActivate(false);
+	SSound43->SetSound(SoundWave43);
+
+	USoundWave* SoundWave44 = S_44.Object;
+	SSound44 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest44"));
+	SSound44->SetupAttachment(TextComp1);
+	SSound44->SetAutoActivate(false);
+	SSound44->SetSound(SoundWave44);
+
+	USoundWave* SoundWave45 = S_45.Object;
+	SSound45 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest45"));
+	SSound45->SetupAttachment(TextComp1);
+	SSound45->SetAutoActivate(false);
+	SSound45->SetSound(SoundWave45);
+
+	USoundWave* SoundWave46 = S_46.Object;
+	SSound46 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest46"));
+	SSound46->SetupAttachment(TextComp1);
+	SSound46->SetAutoActivate(false);
+	SSound46->SetSound(SoundWave46);
+
+	USoundWave* SoundWave47 = S_47.Object;
+	SSound47 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest47"));
+	SSound47->SetupAttachment(TextComp1);
+	SSound47->SetAutoActivate(false);
+	SSound47->SetSound(SoundWave47);
+
+	USoundWave* SoundWave48 = S_48.Object;
+	SSound48 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest48"));
+	SSound48->SetupAttachment(TextComp1);
+	SSound48->SetAutoActivate(false);
+	SSound48->SetSound(SoundWave48);
+
+	USoundWave* SoundWave49 = S_49.Object;
+	SSound49 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest49"));
+	SSound49->SetupAttachment(TextComp1);
+	SSound49->SetAutoActivate(false);
+	SSound49->SetSound(SoundWave49);
+
+	USoundWave* SoundWave50 = S_50.Object;
+	SSound50 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest50"));
+	SSound50->SetupAttachment(TextComp1);
+	SSound50->SetAutoActivate(false);
+	SSound50->SetSound(SoundWave50);
 }
 
 
@@ -877,7 +947,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 		if (!m_HasPlayed)
 		{
 			SSoundSuccess->Play();
-			//SSound41->Play();
+			SSound42->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -888,7 +958,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 		if (!m_HasPlayed)
 		{
 			SSoundSuccess->Play();
-			//SSound41->Play();
+			SSound43->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -899,7 +969,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 		if (!m_HasPlayed)
 		{
 			SSoundSuccess->Play();
-			//SSound41->Play();
+			SSound44->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -910,24 +980,83 @@ void AVB_TextActor::Tick(float DeltaTime)
 		if (!m_HasPlayed)
 		{
 			SSoundSuccess->Play();
-			//SSound41->Play();
+			SSound45->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Invert and dump humidifier at least 3 times to clear reservoir", "", "");
+		SetTextLines("When ethane has formed slurry,", " remove the spider with pliers", "");
 	}
 	if (LSA->GetStatus() == 43)
 	{
 		if (!m_HasPlayed)
 		{
 			SSoundSuccess->Play();
-			//SSound41->Play();
+			SSound46->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
 		SetTextLines("Attach blot papers to blotting pads. ", "Note in reality you need to Advance through the freezing cycle 1 time (without tweezers)", "  to home blotting pads.  This is essential for consistency.");
+		
+	}
+	if (LSA->GetStatus() == 44)
+	{
+		if (!m_HasPlayed)
+		{
+			SSoundSuccess->Play();
+			SSound47->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("remove and empty the humidifier", "Invert and dump humidifier at least 3 times to clear reservoir", "");
+
+	}
+	if (LSA->GetStatus() == 45)
+	{
+		if (!m_HasPlayed)
+		{
+			SSoundSuccess->Play();
+			SSound48->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Place the humidifier upside-down in a Styrofoam container for storage", "", "");
+	}
+
+	if (LSA->GetStatus() == 46)
+	{
+		if (!m_HasPlayed)
+		{
+			SSoundSuccess->Play();
+			SSound49->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Tap the Exit button the Vitrobot screen ", "Wait for the Vitribot to shut down", "the screen will go completely blank and black");
+
+	}
+	if (LSA->GetStatus() == 47)
+	{
+		if (!m_HasPlayed)
+		{
+			SSoundSuccess->Play();
+			SSound50->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Flip off the power switch on the back of the Vitrobot", "to shut it down", "");
 
 	}
 
+	if (LSA->GetStatus() == 48)
+	{
+		if (!m_HasPlayed)
+		{
+			SSoundSuccess->Play();
+			//SSound50->Play();
+			m_HasPlayed = true;
+		}
+		ClearTextLines();
+		SetTextLines("Pick up the grid box with pliers", "and put it in the workstation", "");
 
+	}
 }

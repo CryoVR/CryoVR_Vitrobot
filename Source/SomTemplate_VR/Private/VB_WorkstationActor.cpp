@@ -277,7 +277,7 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 	{
 		if (LSA->GetStatus() == 36)
 		{
-			LSA->SetStatus(1);
+			LSA->SetStatus(41);
 		}
 	}
 

@@ -172,7 +172,7 @@ void AVB_EthaneTankActor::Tick(float DeltaTime)
 				{
 					if (LSA->GetStatus() == 10)
 					{
-						LSA->SetStatus(11);
+						LSA->SetStatus(42);
 					}
 				}
 			}

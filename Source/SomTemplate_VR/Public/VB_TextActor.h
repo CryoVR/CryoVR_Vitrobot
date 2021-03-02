@@ -137,6 +137,25 @@ private:
 		UAudioComponent* SSound40;
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UAudioComponent* SSound41;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound42;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound43;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound44;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound45;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound46;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound47;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound48;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound49;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound50;
+
 
 
 	int delay = 0;
