@@ -31,7 +31,7 @@ AVB_WorkstationActor::AVB_WorkstationActor()
 	{
 		UStaticMesh* Asset = SM_Pickup.Object;
 		PickupMesh->SetStaticMesh(Asset);
-		PickupMesh->SetSimulatePhysics(false);
+		//PickupMesh->SetSimulatePhysics(false);
 	}
 
 	Workstation_P0 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Workstation_P0"));
@@ -249,7 +249,7 @@ void AVB_WorkstationActor::Tick(float DeltaTime)
 	
 	if (LSA->GetStatus() >= 2 && LSA->GetStatus() <= 19)
 	{
-		PickupMesh->SetSimulatePhysics(false);
+		//PickupMesh->SetSimulatePhysics(false);
 	}
 
 	if (m_isGrab == true)

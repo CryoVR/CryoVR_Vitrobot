@@ -24,7 +24,7 @@ public:
 	//Set as default
 	AVB_WorkstationActor();
 
-	UPROPERTY(BlueprintReadWrite, Category = "Components")
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UStaticMeshComponent* Workstation_P3;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Components")

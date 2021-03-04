@@ -24,7 +24,7 @@ public:
 	//Set as default
 	AVB_DewarActor();
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 		UBoxComponent* BoxCompCap;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")

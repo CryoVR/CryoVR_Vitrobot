@@ -16,7 +16,7 @@ AVB_DewarActor::AVB_DewarActor()
 	PrimaryActorTick.bCanEverTick = true;
 	BoxCompCap = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCompCap"));
 	BoxCompCap->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	BoxCompCap->OnComponentBeginOverlap.AddDynamic(this, &AVB_DewarActor::OnOverlapBegin);
+	//BoxCompCap->OnComponentBeginOverlap.AddDynamic(this, &AVB_DewarActor::OnOverlapBegin);
 	BoxCompCap->OnComponentEndOverlap.AddDynamic(this, &AVB_DewarActor::OnOverlapEnd);
 	BoxCompCap->SetRelativeLocation(FVector(0.0f, 0.0f, 37.05f));
 	BoxCompCap->SetRelativeScale3D(FVector(0.1f, 0.1f, 0.04f));
@@ -68,8 +68,8 @@ void AVB_DewarActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, c
 	{	
 		m_Isattached = true;
 		FName DewarSocket = "CapSocket";
-		FAttachmentTransformRules AttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, true);
-		OtherActor->GetRootComponent()->AttachToComponent(GetRootComponent(), AttachmentTransformRules, DewarSocket);
+		//FAttachmentTransformRules AttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, true);
+		//OtherActor->GetRootComponent()->AttachToComponent(GetRootComponent(), AttachmentTransformRules, DewarSocket);
 		FrozenFX->SetActive(false);
 		Waterfall->SetActive(false);
 	}

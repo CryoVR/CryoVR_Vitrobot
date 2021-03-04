@@ -28,7 +28,7 @@ AVB_NitrogenTankCapActor::AVB_NitrogenTankCapActor()
 		PickupMesh->SetStaticMesh(Asset);
 		PickupMesh->SetSimulatePhysics(true);
 		CapsuleComp->SetupAttachment(PickupMesh);
-		CapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_NitrogenTankCapActor::OnOverlapBegin);
+		//CapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_NitrogenTankCapActor::OnOverlapBegin);
 
 	}
 }
@@ -37,18 +37,18 @@ AVB_NitrogenTankCapActor::AVB_NitrogenTankCapActor()
 
 void AVB_NitrogenTankCapActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	//if (Cast<AVB_DewarActor>(OtherActor) != nullptr)
-	//{
-	//	//FName DewarSocket = "CapSocket";
-	//	//FAttachmentTransformRules AttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, true);
-	//	//GetRootComponent()->AttachToComponent(OtherActor->GetRootComponent(), AttachmentTransformRules, DewarSocket);
-	//	//PickupMesh->SetSimulatePhysics(false);
-	//}
+	if (Cast<AVB_DewarActor>(OtherActor) != nullptr)
+	{
+		FName DewarSocket = "CapSocket";
+		FAttachmentTransformRules AttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, true);
+		GetRootComponent()->AttachToComponent(OtherActor->GetRootComponent(), AttachmentTransformRules, DewarSocket);
+		PickupMesh->SetSimulatePhysics(false);
+	}
 
-	//if (Cast<ATP_MotionController>(OtherActor)) {
-	//	UpdateHandGuestureFunc(true, FName("TankCap_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.33f, 0.8f}, Cast<ATP_MotionController>(OtherActor));
+	if (Cast<ATP_MotionController>(OtherActor)) {
+		UpdateHandGuestureFunc(true, FName("TankCap_Socket"), EAttachmentRule::SnapToTarget, FVector(1.0f), TArray<float> {0.33f, 0.8f}, Cast<ATP_MotionController>(OtherActor));
 		
-	//}
+	}
 }
 
 void AVB_NitrogenTankCapActor::Tick(float DeltaTime)
