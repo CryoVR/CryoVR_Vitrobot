@@ -866,7 +866,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 		if (!m_HasPlayed)
 		{
 			SSoundSuccess->Play();
-			SSound41->Play();
+			//SSound41->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
