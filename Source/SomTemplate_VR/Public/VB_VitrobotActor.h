@@ -31,7 +31,10 @@ public:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	UStaticMeshComponent* Door;
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+	UBoxComponent* Door_Collider;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UBoxComponent* Plunger_Collider;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
@@ -44,18 +47,21 @@ public:
 	UBoxComponent* Pen_Collider;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
+	UBoxComponent* Humi_Collider;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UBoxComponent* PowerButton_Collider;
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UAudioComponent* PlungerSound;
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UAudioComponent* Holder_Sound;
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UAudioComponent* Blotter_Sound;
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UAudioComponent* Button_Sound;
 
 	UPROPERTY(BlueprintReadWrite)
@@ -72,6 +78,51 @@ public:
 	void TouchScreen(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+		UStaticMeshComponent* Screen;
+
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+		UStaticMeshComponent* InnerHolder;
+
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+		UStaticMeshComponent* InnerHolder_LeftU;
+
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+		UStaticMeshComponent* InnerHolder_RightU;
+
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+		UStaticMeshComponent* InnerHolder_LeftD;
+
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
+		UStaticMeshComponent* InnerHolder_RightD;
+
+	//UPROPERTY(VisibleAnyWhere, Category = "Components")
+	//UStaticMeshComponent* Door;
+
+	/*UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UStaticMeshComponent* LEDCover;*/
+
+
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+		UStaticMeshComponent* Bottom_Cover;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+		UBoxComponent* WorkstationHolder_Collider;
+
+
+
+
+
+	UPROPERTY(EditAnywhere, Category = "Components")
+		class UMaterial* MainMaterial;
+
+	UPROPERTY(EditAnywhere, Category = "Components")
+		class UMaterial* OptionMaterial;
+
+	UMaterialInstanceDynamic* DynamicMaterialInst;
+
+	UPROPERTY(EditAnywhere)
+		AActor* ACT;
 
 
 	UFUNCTION()
@@ -82,53 +133,7 @@ public:
 
 
 protected:
-	
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UStaticMeshComponent* Screen;
 
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
-	UStaticMeshComponent* InnerHolder;
-
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
-	UStaticMeshComponent* InnerHolder_LeftU;
-
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
-	UStaticMeshComponent* InnerHolder_RightU;
-
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
-	UStaticMeshComponent* InnerHolder_LeftD;
-
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
-	UStaticMeshComponent* InnerHolder_RightD;
-	
-	//UPROPERTY(VisibleAnyWhere, Category = "Components")
-	//UStaticMeshComponent* Door;
-	
-	/*UPROPERTY(VisibleAnyWhere, Category = "Components")
-	UStaticMeshComponent* LEDCover;*/
-	
-
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
-	UStaticMeshComponent* Bottom_Cover;
-
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UBoxComponent* WorkstationHolder_Collider;
-
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UBoxComponent* Door_Collider;
-
-
-
-	UPROPERTY(EditAnywhere, Category = "Components")
-	class UMaterial* MainMaterial;
-
-	UPROPERTY(EditAnywhere, Category = "Components")
-	class UMaterial* OptionMaterial;
-
-	UMaterialInstanceDynamic* DynamicMaterialInst;
-
-	UPROPERTY(EditAnywhere)
-	AActor* ACT;
 
 	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
 

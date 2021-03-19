@@ -171,6 +171,26 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	PowerButton_Collider->SetHiddenInGame(true);
 	PowerButton_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::TurnOnMachine);
 
+	//Test button on the LED screen
+	TestButton_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("TestButton_Collider"));
+	TestButton_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+	TestButton_Collider->SetupAttachment(Screen);
+	TestButton_Collider->SetRelativeLocation(FVector(31.9503384f, 11.4523125f, 0.0f));
+	TestButton_Collider->SetRelativeRotation(FRotator(-90.0f, 0.0f, 0.0f));
+	Cast<UBoxComponent>(TestButton_Collider)->SetBoxExtent(FVector(3.0f, 3.0f, 3.0f));
+	TestButton_Collider->SetHiddenInGame(true);
+	TestButton_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::OnOverlapBegin);
+	bIsHolderTouchingBottom = true;
+
+
+	Humi_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Humi_Collider"));
+	Humi_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+	Humi_Collider->SetupAttachment(meshComp);
+	Humi_Collider->SetRelativeLocation(FVector(-4.0f, 0.0f, 35.0f));
+	Humi_Collider->SetRelativeRotation(FRotator(-90.0f, 0.0f, 0.0f));
+	Cast<UBoxComponent>(Humi_Collider)->SetBoxExtent(FVector(3.0f, 3.0f, 3.0f));
+	PowerButton_Collider->SetHiddenInGame(true);
+
 	Pen_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Pen_Collider"));
 	Pen_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	Pen_Collider->SetupAttachment(meshComp);
@@ -178,17 +198,6 @@ AVB_VitrobotActor::AVB_VitrobotActor() {
 	Pen_Collider->SetRelativeRotation(FRotator(-90.0f, 0.0f, 0.0f));
 	Cast<UBoxComponent>(Pen_Collider)->SetBoxExtent(FVector(3.0f, 3.0f, 3.0f));
 	PowerButton_Collider->SetHiddenInGame(true);
-
-	//Test button on the LED screen
-	TestButton_Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("TestButton_Collider"));
-	TestButton_Collider->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
-	TestButton_Collider->SetupAttachment(Screen);
-	TestButton_Collider->SetRelativeLocation(FVector(31.9503384f, 5.0256658f, 0.0f));
-	TestButton_Collider->SetRelativeRotation(FRotator(-90.0f, 0.0f, 0.0f));
-	Cast<UBoxComponent>(TestButton_Collider)->SetBoxExtent(FVector(3.0f, 3.0f, 3.0f));
-	TestButton_Collider->SetHiddenInGame(true);
-	TestButton_Collider->OnComponentBeginOverlap.AddDynamic(this, &AVB_VitrobotActor::OnOverlapBegin);
-	bIsHolderTouchingBottom = true;
 
 	//Bottom Cover
 	Bottom_Cover = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Bottom_Cover"));
@@ -249,7 +258,7 @@ void AVB_VitrobotActor::TurnOnMachine(class UPrimitiveComponent* OverlappedComp,
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	if (Cast<AVB_PenActor>(OtherActor))
 	{	
-		if (LSA->GetStatus() <= 15 && bIsButtonOn == false)
+		if (LSA->GetStatus() == 15 && bIsButtonOn == false)
 		{
 			m_IsMachineOn = true;
 			Button_Sound->Play();
@@ -291,7 +300,7 @@ void AVB_VitrobotActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp
 	if (Cast<AVB_PenActor>(OtherActor) != nullptr)	
 	{		
 		AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
-		if (LSA->GetStatus() <= 22 && m_IsMachineOn == false)
+		if (LSA->GetStatus() == 22 && m_IsMachineOn == false)
 		{
 			Button_Sound->Play();
 			//Set the Button ON/OFF
@@ -357,6 +366,14 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 	//UE_LOG(LogTemp, Log, TEXT("==%d=="), Counter);
 	float PlungerPosition = Plunger->GetComponentLocation().Z;
+	if (LSA->GetStatus() == 43 && Door->GetComponentRotation().Yaw <= 120.0f)
+	{
+		Door->AddRelativeRotation(FRotator(0.0f, 1.0f, 0.0f));
+	}
+	if (LSA->GetStatus() != 43 && Door->GetComponentRotation().Yaw >= 0.0f)
+	{
+		Door->AddRelativeRotation(FRotator(0.0f, -1.0f, 0.0f));
+	}
 	if(PlungerPosition > 209.0f)
 	{
 		Counter++;
@@ -408,14 +425,14 @@ void AVB_VitrobotActor::Tick(float DeltaTime)
 
 	if (Counter >= 180 && Counter <= 240)
 	{
-		InnerHolder_LeftU->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.33f));
+		InnerHolder_LeftU->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.33f));
 		InnerHolder_LeftD->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.083f));
 		InnerHolder_RightU->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.33f));
 		InnerHolder_RightD->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.083f));
 	}
 	else if (Counter >= 600 && Counter <= 660)
 	{
-		InnerHolder_LeftU->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.33f));
+		InnerHolder_LeftU->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.33f));
 		InnerHolder_LeftD->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.083f));
 		InnerHolder_RightU->AddRelativeRotation(FRotator(0.0f, 0.0f, -0.33f));
 		InnerHolder_RightD->AddRelativeRotation(FRotator(0.0f, 0.0f, 0.083f));

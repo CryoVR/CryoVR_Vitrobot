@@ -74,7 +74,8 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Components")
 		float CoolDownTime;
 
-
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
+		UStaticMeshComponent* Water_Mesh;
 
 protected:
 
@@ -86,8 +87,7 @@ protected:
 
 
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-		UStaticMeshComponent* Water_Mesh;
+
 
 	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
 

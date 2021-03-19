@@ -155,6 +155,8 @@ private:
 		UAudioComponent* SSound49;
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UAudioComponent* SSound50;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UAudioComponent* SSound51;
 
 
 

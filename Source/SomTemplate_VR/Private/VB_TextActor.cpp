@@ -63,7 +63,7 @@ AVB_TextActor::AVB_TextActor()
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_48(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v47.v47"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_49(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v48.v48"));
 	static ConstructorHelpers::FObjectFinder<USoundWave> S_50(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v49.v49"));
-	//static ConstructorHelpers::FObjectFinder<USoundWave> S_51(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v50.v50"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> S_51(TEXT("/Game/Test_Geometry/Test_Textures/Sounds/v50.v50"));
 	
 
 
@@ -409,6 +409,12 @@ AVB_TextActor::AVB_TextActor()
 	SSound50->SetupAttachment(TextComp1);
 	SSound50->SetAutoActivate(false);
 	SSound50->SetSound(SoundWave50);
+
+	USoundWave* SoundWave51 = S_51.Object;
+	SSound51 = CreateAbstractDefaultSubobject<UAudioComponent>(TEXT("AudioTest51"));
+	SSound51->SetupAttachment(TextComp1);
+	SSound51->SetAutoActivate(false);
+	SSound51->SetSound(SoundWave51);
 }
 
 
@@ -474,7 +480,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			SSound39->Stop();
+			SSound44->Stop();
 			SSoundSuccess->Play();
 			SSound3->Play();
 			m_HasPlayed = true;
@@ -613,7 +619,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
-			SSound13->Stop();
+			SSound46->Stop();
 			SSoundSuccess->Play();
 			SSound14->Play();
 			m_HasPlayed = true;
@@ -913,6 +919,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound43->Stop();
 			SSoundSuccess->Play();
 			SSound39->Play();
 			m_HasPlayed = true;
@@ -936,7 +943,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 		if (!m_HasPlayed)
 		{
 			SSoundSuccess->Play();
-			//SSound41->Play();
+			SSound41->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
@@ -957,6 +964,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound42->Stop();
 			SSoundSuccess->Play();
 			SSound43->Play();
 			m_HasPlayed = true;
@@ -967,7 +975,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	if (LSA->GetStatus() == 41)
 	{
 		if (!m_HasPlayed)
-		{
+		{	
+			SSound39->Stop();
 			SSoundSuccess->Play();
 			SSound44->Play();
 			m_HasPlayed = true;
@@ -978,7 +987,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	if (LSA->GetStatus() == 42)
 	{
 		if (!m_HasPlayed)
-		{
+		{	
+			SSound13->Stop();
 			SSoundSuccess->Play();
 			SSound45->Play();
 			m_HasPlayed = true;
@@ -989,7 +999,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	if (LSA->GetStatus() == 43)
 	{
 		if (!m_HasPlayed)
-		{
+		{	
+			SSound51->Stop();
 			SSoundSuccess->Play();
 			SSound46->Play();
 			m_HasPlayed = true;
@@ -1014,6 +1025,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 	{
 		if (!m_HasPlayed)
 		{
+			SSound47->Stop();
 			SSoundSuccess->Play();
 			SSound48->Play();
 			m_HasPlayed = true;
@@ -1025,7 +1037,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	if (LSA->GetStatus() == 46)
 	{
 		if (!m_HasPlayed)
-		{
+		{	
+			SSound48->Stop();
 			SSoundSuccess->Play();
 			SSound49->Play();
 			m_HasPlayed = true;
@@ -1037,7 +1050,8 @@ void AVB_TextActor::Tick(float DeltaTime)
 	if (LSA->GetStatus() == 47)
 	{
 		if (!m_HasPlayed)
-		{
+		{	
+			SSound49->Stop();
 			SSoundSuccess->Play();
 			SSound50->Play();
 			m_HasPlayed = true;
@@ -1050,13 +1064,17 @@ void AVB_TextActor::Tick(float DeltaTime)
 	if (LSA->GetStatus() == 48)
 	{
 		if (!m_HasPlayed)
-		{
+		{	
+			SSound45->Stop();
 			SSoundSuccess->Play();
-			//SSound50->Play();
+			SSound51->Play();
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
 		SetTextLines("Pick up the grid box with pliers", "and put it in the workstation", "");
 
+	}
+	if (LSA->GetStatus() == 999)
+	{
 	}
 }
