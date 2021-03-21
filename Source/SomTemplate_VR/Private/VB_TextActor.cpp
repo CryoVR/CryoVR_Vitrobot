@@ -1044,7 +1044,7 @@ void AVB_TextActor::Tick(float DeltaTime)
 			m_HasPlayed = true;
 		}
 		ClearTextLines();
-		SetTextLines("Tap the Exit button the Vitrobot screen ", "Wait for the Vitribot to shut down", "the screen will go completely blank and black");
+		SetTextLines("Use the stylus to tap the 'Exit' button the Vitrobot screen ", "Wait for the Vitrobot to shut down", "the screen will go completely blank and black");
 
 	}
 	if (LSA->GetStatus() == 47)
