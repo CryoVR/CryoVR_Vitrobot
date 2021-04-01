@@ -32,7 +32,7 @@ ATP_VirtualRealityPawn_Motion::ATP_VirtualRealityPawn_Motion()
 
 	FadeOutDuration = 0.1f;
 	FadeInDuration = 0.2f;
-	bIsTeleporting = false;
+	bIsTeleporting = true;
 	TeleportFadeColor = FColor::Black;
 	ThumbDeadzone = 0.7f;
 	bRightStickDown = false;
@@ -260,7 +260,8 @@ void ATP_VirtualRealityPawn_Motion::ExecuteTeleportation(ATP_MotionController* M
 
 void ATP_VirtualRealityPawn_Motion::TeleportActor(ATP_MotionController* MotionController)
 {
-	MotionController->DisableTeleporter();
+	//MotionController->DisableTeleporter();
+
 
 	FVector DestLocation;
 	FRotator DestRotation;
