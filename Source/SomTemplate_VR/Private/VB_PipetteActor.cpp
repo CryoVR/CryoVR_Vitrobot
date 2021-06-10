@@ -72,9 +72,9 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 			if (LSA != nullptr)
 			{
-				if (LSA->GetStatus() == 17)
+				if (LSA->GetStatus() == 22)
 				{
-					LSA->SetStatus(18);
+					LSA->SetStatus(23);
 				}
 			}
 		//}
@@ -88,9 +88,9 @@ void AVB_PipetteActor::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 			if (LSA != nullptr)
 			{
-				if (LSA->GetStatus() == 18)
+				if (LSA->GetStatus() == 23)
 				{
-					LSA->SetStatus(20);
+					LSA->SetStatus(24);
 				}
 			}
 		}	

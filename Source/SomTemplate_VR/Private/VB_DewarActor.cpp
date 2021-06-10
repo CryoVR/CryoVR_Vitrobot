@@ -16,6 +16,7 @@ AVB_DewarActor::AVB_DewarActor()
 	PrimaryActorTick.bCanEverTick = true;
 	BoxCompCap = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCompCap"));
 	BoxCompCap->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	BoxCompCap->SetGenerateOverlapEvents(true);
 	//BoxCompCap->OnComponentBeginOverlap.AddDynamic(this, &AVB_DewarActor::OnOverlapBegin);
 	BoxCompCap->OnComponentEndOverlap.AddDynamic(this, &AVB_DewarActor::OnOverlapEnd);
 	BoxCompCap->SetRelativeLocation(FVector(0.0f, 0.0f, 37.05f));
@@ -95,6 +96,8 @@ void AVB_DewarActor::OnHandOverlapBegin(UPrimitiveComponent * OverlappedComp, AA
 	}
 }
 
+
+/*
 void AVB_DewarActor::Tick(float DeltaTime)
 {
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
@@ -109,3 +112,5 @@ void AVB_DewarActor::Tick(float DeltaTime)
 
 		
 }
+*/
+

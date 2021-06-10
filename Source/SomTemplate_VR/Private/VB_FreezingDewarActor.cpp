@@ -61,9 +61,9 @@ void AVB_FreezingDewarActor::OnDewarOverlapBegin(UPrimitiveComponent * Overlappe
 	if (DewarActor != nullptr)
 	{
 		P_Frozen->SetVisibility(true);
-		if (LSA->GetStatus() == 26)
+		if (LSA->GetStatus() == 29)
 		{
-			LSA->SetStatus(27);
+			LSA->SetStatus(30);
 		}
 	}
 }

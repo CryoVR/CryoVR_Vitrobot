@@ -40,7 +40,7 @@ AVB_EthaneTipActor::AVB_EthaneTipActor()
 	ethaneTipCapsuleComp->SetCapsuleSize(0.4f, 5.0f);
 	ethaneTipCapsuleComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.3f));
 	ethaneTipCapsuleComp->SetupAttachment(PickupMesh);
-	ethaneTipCapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTipActor::OnActorBeginOverlap);
+	//ethaneTipCapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &AVB_EthaneTipActor::OnActorBeginOverlap);
 
 	ethaneParticle = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("EthaneParticle"));
 	ethaneParticle->SetupAttachment(PickupMesh);
@@ -80,6 +80,7 @@ void AVB_EthaneTipActor::OnActorBeginOverlap(UPrimitiveComponent * OverlappedCom
 	}
 }
 
+/*
 void AVB_EthaneTipActor::Tick(float DeltaTime)
 {
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
@@ -92,6 +93,8 @@ void AVB_EthaneTipActor::Tick(float DeltaTime)
 		}
 	}
 }
+*/
+
 
 //void AVB_EthaneTipActor::OnTipBeginOverlap(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 //{

@@ -20,7 +20,7 @@
 
 
 AVB_EthaneTankActor::AVB_EthaneTankActor() {
-	PrimaryActorTick.bCanEverTick = true;
+	//PrimaryActorTick.bCanEverTick = true;
 
 	bIsFirstKnobTouched = false;
 	bIsFirstKnobHold = false;
@@ -139,6 +139,8 @@ void AVB_EthaneTankActor::Drop_Implementation()
 
 }
 
+
+/*
 void AVB_EthaneTankActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -202,6 +204,8 @@ void AVB_EthaneTankActor::Tick(float DeltaTime)
 		//UE_LOG(LogTemp, Log, TEXT("=======================Tipdown!!!!!==========================="));
 	}
 }
+
+*/
 
 
 

@@ -27,7 +27,7 @@ public:
 	UPROPERTY(VisibleAnyWhere, Category = "Particles")
 	UParticleSystemComponent* ethaneParticle;
 
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UCapsuleComponent* ethaneTipCollisionComp;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
@@ -36,7 +36,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Variables")
 		bool bp_isGrab;
 
-	virtual void Tick(float DeltaTime) override;
+	//virtual void Tick(float DeltaTime) override;
 
 protected:
 	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;

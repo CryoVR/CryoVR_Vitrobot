@@ -20,6 +20,7 @@ AVB_TweezerActor::AVB_TweezerActor()
 	bp_isTweezerGrab = false;
 	m_isGridAttached = false;
 	Entered = false;
+	step = 0;
 
 	PrimaryActorTick.bCanEverTick = true;
 	capsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComp"));
@@ -62,7 +63,7 @@ AVB_TweezerActor::AVB_TweezerActor()
 	}
 	
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+	//PrimaryActorTick.bCanEverTick = false;
 
 }
 
@@ -77,9 +78,9 @@ void AVB_TweezerActor::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AAct
 			AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
 			if (LSA != nullptr)
 			{
-				if (LSA->GetStatus() == 13)
+				if (LSA->GetStatus() == 18)
 				{
-					LSA->SetStatus(14);
+					LSA->SetStatus(19);
 				}
 			}
 			if (!m_isGridAttached) {
@@ -104,7 +105,7 @@ void AVB_TweezerActor::OnTweezerBeginOverlap(UPrimitiveComponent * OverlappedCom
 			if (LSA->GetStatus() == 24)
 			{	
 				
-				LSA->SetStatus(25);
+				//LSA->SetStatus(25);
 			}
 
 		}
@@ -154,9 +155,13 @@ void AVB_TweezerActor::OnTweezerBeginOverlap(UPrimitiveComponent * OverlappedCom
 	}
 }
 
+
+/*
 void AVB_TweezerActor::Tick(float DeltaTime)
 {
 	AVB_LevelScriptActor* LSA = Cast<AVB_LevelScriptActor>(GetWorld()->GetLevelScriptActor());
+
+	step = LSA->GetStatus();
 
 	if (bp_isTweezerGrab || m_isGrab)
 	{
@@ -168,7 +173,7 @@ void AVB_TweezerActor::Tick(float DeltaTime)
 
 		if (LSA->GetStatus() == 24)
 		{
-			LSA->SetStatus(25);
+			//LSA->SetStatus(25);
 		}
 	}
 
@@ -177,3 +182,5 @@ void AVB_TweezerActor::Tick(float DeltaTime)
 		tweezer_grid->SetVisibility(false);
 	}
 }
+
+*/

@@ -47,8 +47,8 @@ AVB_AirTankActor::AVB_AirTankActor() {
 	//Second Knob
 	secondKnob = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SecondKnobMesh"));
 	secondKnob->SetGenerateOverlapEvents(false);
-	secondKnob->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	secondKnob->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+	secondKnob->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	secondKnob->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Block);
 	secondKnob->SetupAttachment(meshComp);
 	secondKnob->SetRelativeLocationAndRotation(FVector(-25.21f, -1.248f, 41.682f), FRotator(0.0f, 0.0f, -120.0f));
 	if (SM_SecondKnobMesh.Succeeded()) {

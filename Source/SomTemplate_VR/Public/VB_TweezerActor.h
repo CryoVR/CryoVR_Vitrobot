@@ -32,12 +32,15 @@ public:
 		bool bp_isTweezerGrab;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Variables")
+		int step;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Variables")
 		bool Entered;
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 		UStaticMeshComponent* tweezer_grid;
 
-	virtual void Tick(float DeltaTime) override;
+	//virtual void Tick(float DeltaTime) override;
 
 protected:
 	

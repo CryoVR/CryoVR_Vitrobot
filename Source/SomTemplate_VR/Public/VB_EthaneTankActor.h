@@ -53,7 +53,7 @@ protected:
 
 	AVB_EthaneTipActor* ethaneTip;
 
-	UPROPERTY(VisibleAnyWhere, Category = "Components")
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UCapsuleComponent* ethaneTipPosCollisionComp;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
@@ -73,7 +73,7 @@ protected:
 
 
 
-	virtual void Tick(float DeltaTime) override;
+	//virtual void Tick(float DeltaTime) override;
 
 	class ALevelScriptActor* GetLevelScriptActor(class ULevel* OwnerLevel = NULL) const;
 
