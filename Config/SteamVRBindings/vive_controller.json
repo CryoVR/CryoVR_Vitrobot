@@ -52,6 +52,66 @@
 					}
 				},
 				{
+					"mode": "dpad",
+					"path": "/user/hand/left/input/trackpad",
+					"parameters":
+					{
+						"sub_mode": "click"
+					},
+					"inputs":
+					{
+						"north":
+						{
+							"output": "/actions/main/in/Scrollup_L"
+						}
+					}
+				},
+				{
+					"mode": "dpad",
+					"path": "/user/hand/right/input/trackpad",
+					"parameters":
+					{
+						"sub_mode": "click"
+					},
+					"inputs":
+					{
+						"north":
+						{
+							"output": "/actions/main/in/Scrollup_R"
+						}
+					}
+				},
+				{
+					"mode": "dpad",
+					"path": "/user/hand/left/input/trackpad",
+					"parameters":
+					{
+						"sub_mode": "click"
+					},
+					"inputs":
+					{
+						"south":
+						{
+							"output": "/actions/main/in/Scrolldown_L"
+						}
+					}
+				},
+				{
+					"mode": "dpad",
+					"path": "/user/hand/right/input/trackpad",
+					"parameters":
+					{
+						"sub_mode": "click"
+					},
+					"inputs":
+					{
+						"south":
+						{
+							"output": "/actions/main/in/Scrolldown_R"
+						}
+					}
+				},
+				{
 					"mode": "trackpad",
 					"path": "/user/hand/left/input/trackpad",
 					"inputs":

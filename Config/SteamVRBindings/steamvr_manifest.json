@@ -168,6 +168,22 @@
 			"type": "boolean"
 		},
 		{
+			"name": "/actions/main/in/Scrollup_L",
+			"type": "boolean"
+		},
+		{
+			"name": "/actions/main/in/Scrollup_R",
+			"type": "boolean"
+		},
+		{
+			"name": "/actions/main/in/Scrolldown_L",
+			"type": "boolean"
+		},
+		{
+			"name": "/actions/main/in/Scrolldown_R",
+			"type": "boolean"
+		},
+		{
 			"name": "/actions/main/in/TeleportDirectionUp axis",
 			"type": "vector1"
 		},
@@ -445,6 +461,10 @@
 			"/actions/main/in/GrabLeft": "GrabLeft",
 			"/actions/main/in/GrabRight": "GrabRight",
 			"/actions/main/in/ThumbLeft": "ThumbLeft",
+			"/actions/main/in/Scrollup_L": "Scrollup_L",
+			"/actions/main/in/Scrollup_R": "Scrollup_R",
+			"/actions/main/in/Scrolldown_L": "Scrolldown_L",
+			"/actions/main/in/Scrolldown_R": "Scrolldown_R",
 			"/actions/main/in/TeleportDirectionUp axis": "TeleportDirectionUp",
 			"/actions/main/in/TeleportDirectionRight axis": "TeleportDirectionRight",
 			"/actions/main/in/MotionControllerThumbLeft_Y axis": "MotionControllerThumbLeft_Y",
