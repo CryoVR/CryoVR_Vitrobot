@@ -50,6 +50,66 @@
 							"output": "/actions/main/in/ThumbLeft"
 						}
 					}
+				},
+				{
+					"mode": "dpad",
+					"path": "/user/hand/left/input/joystick",
+					"parameters":
+					{
+						"sub_mode": "touch"
+					},
+					"inputs":
+					{
+						"north":
+						{
+							"output": "/actions/main/in/Scrollup_L"
+						}
+					}
+				},
+				{
+					"mode": "dpad",
+					"path": "/user/hand/right/input/joystick",
+					"parameters":
+					{
+						"sub_mode": "touch"
+					},
+					"inputs":
+					{
+						"north":
+						{
+							"output": "/actions/main/in/Scrollup_R"
+						}
+					}
+				},
+				{
+					"mode": "dpad",
+					"path": "/user/hand/left/input/joystick",
+					"parameters":
+					{
+						"sub_mode": "touch"
+					},
+					"inputs":
+					{
+						"south":
+						{
+							"output": "/actions/main/in/Scrolldown_L"
+						}
+					}
+				},
+				{
+					"mode": "dpad",
+					"path": "/user/hand/right/input/joystick",
+					"parameters":
+					{
+						"sub_mode": "touch"
+					},
+					"inputs":
+					{
+						"south":
+						{
+							"output": "/actions/main/in/Scrolldown_R"
+						}
+					}
 				}
 			],
 			"poses": [
