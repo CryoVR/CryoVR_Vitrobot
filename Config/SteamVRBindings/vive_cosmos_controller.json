@@ -110,6 +110,28 @@
 							"output": "/actions/main/in/Scrolldown_R"
 						}
 					}
+				},
+				{
+					"mode": "button",
+					"path": "/user/hand/right/input/a",
+					"inputs":
+					{
+						"click":
+						{
+							"output": "/actions/main/in/Show&Hide"
+						}
+					}
+				},
+				{
+					"mode": "button",
+					"path": "/user/hand/left/input/x",
+					"inputs":
+					{
+						"click":
+						{
+							"output": "/actions/main/in/Show&Hide"
+						}
+					}
 				}
 			],
 			"poses": [

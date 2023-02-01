@@ -184,6 +184,10 @@
 			"type": "boolean"
 		},
 		{
+			"name": "/actions/main/in/Show&Hide",
+			"type": "boolean"
+		},
+		{
 			"name": "/actions/main/in/TeleportDirectionUp axis",
 			"type": "vector1"
 		},
@@ -465,6 +469,7 @@
 			"/actions/main/in/Scrollup_R": "Scrollup_R",
 			"/actions/main/in/Scrolldown_L": "Scrolldown_L",
 			"/actions/main/in/Scrolldown_R": "Scrolldown_R",
+			"/actions/main/in/Show&Hide": "Show&Hide",
 			"/actions/main/in/TeleportDirectionUp axis": "TeleportDirectionUp",
 			"/actions/main/in/TeleportDirectionRight axis": "TeleportDirectionRight",
 			"/actions/main/in/MotionControllerThumbLeft_Y axis": "MotionControllerThumbLeft_Y",
