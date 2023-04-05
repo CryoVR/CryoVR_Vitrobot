@@ -5,7 +5,7 @@
 			"app_key": "application.generated.ue.tfs_vitrobot-15973114.ue4editor.exe",
 			"launch_type": "url",
 			"url": "steam://launch/",
-			"action_manifest_path": "D:/CryoVR/CryoVR_Vitrobot/Config/SteamVRBindings/steamvr_manifest.json",
+			"action_manifest_path": "E:/Vitrobot_SOP/Config/SteamVRBindings/steamvr_manifest.json",
 			"strings":
 			{
 				"en_us":
